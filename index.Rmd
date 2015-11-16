@@ -1,0 +1,10 @@
+---
+title: "Introduction to R"
+author: Paul Harrison
+date: November 17, 2015
+output: html_document
+---
+
+# Introduction to R
+
+These are the course notes for the "Introduction to R" given by the Monash Bioinformatics Platform on the 30th of November 2015.
