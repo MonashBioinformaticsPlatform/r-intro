@@ -24,7 +24,7 @@ The expression `read.csv(...)` is a [function call](reference.html#function-call
 `read.csv` has two [arguments](reference.html#argument): the name of the file we want to read, and which column contains the row names.
 The filename needs to be a character string (or [string](reference.html#string) for short), so we put it in quotes. Assigning the second argument, `row.names`, to be `1` indicates that the data file has row names, and which column number they are stored in.
 
-> ## Tip {.callout}
+> ### Tip {.callout}
 >
 > `read.csv` actually has many more arguments that you may find useful when
 > importing your own data in the future. You can learn more about these
@@ -32,7 +32,7 @@ The filename needs to be a character string (or [string](reference.html#string) 
 
 The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s).
 For example, in this case if we provided the name of a different file to the argument `file`, `read.csv` would read it instead.
-We'll learn more of the details about functions and their arguments in the next lesson.
+We'll learn more of the details about functions and their arguments shortly.
 
 
 ```{r, results="hide"}
@@ -62,7 +62,16 @@ class(mat)
 
 Much better.
 
-
+> ### Tip {.callout}
+>
+> Matrices can also be created de novo in various ways.
+>
+> `matrix` converts a vector into a matrix with a specified number of rows and columns.
+>
+> `rbind` stacks several vectors as rows one top of each other to form a matrix. Or it can stack smaller matrices on top of each other to form a larger matrix.
+>
+> `cbind` similarly stacks several vectors as columns next to each other to form a matrix. Or it can stack smaller matrices next to each other to form a larger matrix.
+>
 
 
 ### Manipulating Data
@@ -153,11 +162,11 @@ sd(mat[, 3])
 
 What if we need the maximum particle size for all resins, or the average for each operator? As the diagram below shows, we want to perform the operation across a margin of the matrix:
 
-<img src="fig/r-operations-across-axes.svg" alt="Operations Across Axes" />
+![Operations Across Axes](fig/r-operations-across-axes.png)
 
 To support this, we can use the `apply` function.
 
-> ## Tip {.callout}
+> ### Tip {.callout}
 >
 > To learn about a function in R, e.g. `apply`, we can read its help
 > documention by running `help(apply)` or `?apply`.
@@ -179,7 +188,7 @@ avg_operator <- apply(mat, 2, mean)
 Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`.
 We'll learn why this is so in the next lesson.
 
-> ## Tip {.callout}
+> ### Tip {.callout}
 >
 > Some common operations have more efficient alternatives. For example, you
 > can calculate the row-wise or column-wise means with `rowMeans` and
@@ -207,7 +216,7 @@ We'll learn why this is so in the next lesson.
 > 1.  Use a slice of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
 
 
-> ## Challenge - Subsetting data 2 {.challenge}
+> ### Challenge - Subsetting data 2 {.challenge}
 >
 > Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3.
 > To do this you would extract the relevant slice from the data frame and calculate the maximum value.
@@ -252,7 +261,7 @@ result$p.value
 This means we can write software that uses the various results from t-test, for example performing a whole series of t-tests and reporting the significant results.
 
 
-### Plotting
+## Plotting
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
 Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.

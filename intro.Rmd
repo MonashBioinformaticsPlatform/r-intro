@@ -6,6 +6,6 @@ title: "Introduction to R"
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
 
-R is both a programming language and interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
+R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).

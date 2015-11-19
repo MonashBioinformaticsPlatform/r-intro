@@ -30,13 +30,13 @@
 <p><code>read.csv</code> has two <a href="reference.html#argument">arguments</a>: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string (or <a href="reference.html#string">string</a> for short), so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h2 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h2>
+<h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p><code>read.csv</code> actually has many more arguments that you may find useful when importing your own data in the future. You can learn more about these options in this supplementary <a href="01-supp-read-write-csv.html">lesson</a>.</p>
 </div>
 </aside>
-<p>The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s). For example, in this case if we provided the name of a different file to the argument <code>file</code>, <code>read.csv</code> would read it instead. We’ll learn more of the details about functions and their arguments in the next lesson.</p>
+<p>The utility of a function is that it will perform its given action on whatever value is passed to the named argument(s). For example, in this case if we provided the name of a different file to the argument <code>file</code>, <code>read.csv</code> would read it instead. We’ll learn more of the details about functions and their arguments shortly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat</code></pre></div>
 <pre><code>##        Alice   Bob  Carl
@@ -64,6 +64,17 @@
 <span class="kw">class</span>(mat)</code></pre></div>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 <p>Much better.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
+<p>Matrices can also be created de novo in various ways.</p>
+<p><code>matrix</code> converts a vector into a matrix with a specified number of rows and columns.</p>
+<p><code>rbind</code> stacks several vectors as rows one top of each other to form a matrix. Or it can stack smaller matrices on top of each other to form a larger matrix.</p>
+<p><code>cbind</code> similarly stacks several vectors as columns next to each other to form a matrix. Or it can stack smaller matrices next to each other to form a larger matrix.</p>
+</div>
+</aside>
 <h3 id="manipulating-data">Manipulating Data</h3>
 <p>We can see the dimensions, or <a href="reference.html#shape-(of-an-array)">shape</a>, of the matrix with the functions <code>nrow</code> and <code>ncol</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(mat)</code></pre></div>
@@ -135,11 +146,11 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <span class="kw">sd</span>(mat[, <span class="dv">3</span>])</code></pre></div>
 <pre><code>## [1] 2.49453</code></pre>
 <p>What if we need the maximum particle size for all resins, or the average for each operator? As the diagram below shows, we want to perform the operation across a margin of the matrix:</p>
-<p><img src="fig/r-operations-across-axes.svg" alt="Operations Across Axes" /></p>
+<p><img src="fig/r-operations-across-axes.png" alt="Operations Across Axes" /></p>
 <p>To support this, we can use the <code>apply</code> function.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h2 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h2>
+<h3 id="tip-2"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>To learn about a function in R, e.g. <code>apply</code>, we can read its help documention by running <code>help(apply)</code> or <code>?apply</code>.</p>
@@ -153,7 +164,7 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <p>Since the second argument to <code>apply</code> is <code>MARGIN</code>, the above command is equivalent to <code>apply(dat, MARGIN = 2, mean)</code>. We’ll learn why this is so in the next lesson.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h2 id="tip-2"><span class="glyphicon glyphicon-pushpin"></span>Tip</h2>
+<h3 id="tip-3"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>Some common operations have more efficient alternatives. For example, you can calculate the row-wise or column-wise means with <code>rowMeans</code> and <code>colMeans</code>, respectively.</p>
@@ -181,7 +192,7 @@ animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
 </section>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h2 id="challenge---subsetting-data-2"><span class="glyphicon glyphicon-pencil"></span>Challenge - Subsetting data 2</h2>
+<h3 id="challenge---subsetting-data-2"><span class="glyphicon glyphicon-pencil"></span>Challenge - Subsetting data 2</h3>
 </div>
 <div class="panel-body">
 <p>Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the data frame and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
@@ -242,27 +253,18 @@ animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result$p.value</code></pre></div>
 <pre><code>## [1] 0.2007814</code></pre>
 <p>This means we can write software that uses the various results from t-test, for example performing a whole series of t-tests and reporting the significant results.</p>
-<h3 id="plotting">Plotting</h3>
+<h2 id="plotting">Plotting</h2>
 <p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
 <p>Let’s take a look at the average inflammation over time. Recall that we already calculated these values above using <code>apply(mat, 2, mean)</code> and saved them in the variable <code>avg_operator</code>. Plotting the values is done with the function <code>plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_operator)</code></pre></div>
-<div class="figure">
-<img src="fig/matrices-plot-avg-operator-1.png" alt="plot of chunk plot-avg-operator" />
-<p class="caption">plot of chunk plot-avg-operator</p>
-</div>
+<p><img src="fig/matrices-plot-avg-operator-1.png" alt="plot of chunk plot-avg-operator" /></p>
 <p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per operator across all resins. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators. Let’s have a look at two other statistics: the maximum and minimum inflammation per operator.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_operator &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">2</span>, max)
 <span class="kw">plot</span>(max_operator)</code></pre></div>
-<div class="figure">
-<img src="fig/matrices-plot-max-operator-1.png" alt="plot of chunk plot-max-operator" />
-<p class="caption">plot of chunk plot-max-operator</p>
-</div>
+<p><img src="fig/matrices-plot-max-operator-1.png" alt="plot of chunk plot-max-operator" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">min_operator &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
 <span class="kw">plot</span>(min_operator)</code></pre></div>
-<div class="figure">
-<img src="fig/matrices-plot-min-operator-1.png" alt="plot of chunk plot-min-operator" />
-<p class="caption">plot of chunk plot-min-operator</p>
-</div>
+<p><img src="fig/matrices-plot-min-operator-1.png" alt="plot of chunk plot-min-operator" /></p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h2 id="challenge---plotting-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Plotting data</h2>

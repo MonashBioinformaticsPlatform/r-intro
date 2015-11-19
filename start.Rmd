@@ -8,9 +8,22 @@ knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/start-")
 
 # Starting out in R
 
-We will be working in RStudio.
+Working with R is primarily text-based. The basic mode of use for R is that the user types in a command in the R language and presses enter, and then R computes and displays the result.
 
-Open RStudio, click on the "Console" pane, type `1+1` and press enter. R displays the result of the calculation.
+We will be working in [RStudio](https://www.rstudio.com/). This surrounds the *console*, where one enters commands and views the results, with various conveniences. In addition to the console, RStudio provides panels containing:
+
+* A *text editor*, where R commands can be recorded for future reference.
+* A history of commands that have been typed on the console.
+* A list of *variables*, which contain values that R has been told to save from previous commands.
+* A file manager.
+* Help on the functions available in R.
+* A panel to show plots (graphs).
+
+Open RStudio, click on the "Console" pane, type `1+1` and press enter. R displays the result of the calculation. In this document, we will be showing such an interaction with R as shown below.
+
+```{r}
+1+1
+```
 
 `*` has higher precedence than `+`.  We can use brackets if necessary `( )`. Try `1+2*3` and `(1+2)*3`.
 
@@ -46,7 +59,7 @@ We can do arithmetic with the variable:
 2.2 * weight_kg
 ```
 
-> ## Tip {.callout}
+> ### Tip {.callout}
 >
 > We can add comments to our code using the `#` character. It is useful to
 > document our code in this way so that others (and us the next time we
@@ -109,7 +122,47 @@ Access elements of a vector with `[ ]`, for example `myvec[1]`.
 
 We will also encounter character strings, for example `"hello"`. R also has something called "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment). R likes turning character vectors into factors, which is usually fine.
 
-R has various functions, such as `sum( )`. We can get help on a function with, eg `?sum`. Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from "libraries" (also known as "packages").
+## Functions
+
+R has various functions, such as `sum( )`. We can get help on a function with, eg `?sum`.
+
+```
+?sum
+```
+
+```
+sum( c(1,2,3) )
+```
+
+Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from "libraries" (also known as "packages").
+
+Functions take some number of *arguments*. Lets look at the function `rep`, which means "repeat", and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.
+
+```{r}
+rep(42, 10)
+```
+
+As with many functions in R, which is obsessed with vectors, the thing to be repeated can be a vector with multiple elements.
+
+```{r}
+rep(c(1,2,3), 10)
+```
+
+So far we have used *positional* arguments, where R determines which argument is which by the order in which they are given. We can also give arguments by *name*. For example, the above is equivalent to
+
+```{r}
+rep(c(1,2,3), times=10)
+rep(x=c(1,2,3), 10)
+rep(x=c(1,2,3), times=10)
+```
+
+Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, `rep` can also take an argument `each=`. It's typical for a function to be invoked with some number of positional arguments, which are always given, plus more rarely used arguments, typically given by name.
+
+```{r}
+rep(c(1,2,3), each=3)
+rep(c(1,2,3), each=3, times=5)
+```
+
 
 
 ## Lists

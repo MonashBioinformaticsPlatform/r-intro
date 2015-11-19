@@ -20,9 +20,28 @@ ncol(diabetes)
 nrow(diabetes)
 ```
 
-This data is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence.
+> ### Tip {.callout}
+>
+> A data frame can also be created de novo from some column vectors with `data.frame`. For example
+>
+> ```{r}
+> data.frame(foo=c(10,20,30), bar=c("a","b","c"))
+> ```
+>
 
-The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.
+> ### Tip {.callout}
+>
+> A data frame can have both column names (`colnames`) and rownames (`rownames`). However, the modern convention is for a data frame to use column names but not row names. Typically a data frame contains a collection of items (rows), each having various properties (columns). If an item has an identifier such as a unique name, this would be given as just another column.
+>
+
+## Indexing data frames
+
+As with a matrix, a data frame can be accessed by row and column with `[,]`.
+
+Internally, a data frame is a list of column vectors. We can use the `$` syntax we saw with lists to access columns by name.
+
+
+The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.
 
 ```{r}
 diabetes$diabetic <- diabetes$glyhb > 7.0
@@ -118,7 +137,7 @@ mean(diabetes$glyhb, na.rm=TRUE)
 
 ## Summarizing data frames
 
-We were able to summarize the different dimensions (rows or columns) of a matrix with `apply`. In a data frame instead of summarizing along different dimensions, we summarize with respect to different factor columns.
+We were able to summarize the dimensions (rows or columns) of a matrix with `apply`. In a data frame instead of summarizing along different dimensions, we can summarize with respect to different factor columns.
 
 We already saw how to count different levels in a factor with `table`.
 
@@ -128,9 +147,15 @@ We can use summary functions such as `mean` with a function called `tapply`, whi
 tapply(diabetes$glyhb, diabetes$frame, mean)
 ```
 
+We obtain NAs because our data contains NAs. We need to tell `mean` to ignore these. Additional arguments to `tapply` are passed to the function given, here `mean`, so we can tell `mean` to ignore NA with
+
 ```{r}
 tapply(diabetes$glyhb, diabetes$frame, mean, na.rm=TRUE)
 ```
+
+The result is a vector, with names from the classifying factor.
+
+We can summarize over several factors, in which case they must be given as a list. Two factors produces a matrix. More factors would produce a higher dimensional *array*.
 
 ```{r}
 tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)
@@ -139,13 +164,11 @@ tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)
 
 ## Melting a matrix into a data frame
 
-You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same actual data.
+You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same data.
 
 Modern R usage emphasizes use of data frames over matrices, as data frames are the more flexible representation. Everything we can represent with a matrix we can represent with a data frame, but not vice versa.
 
-`tapply` took us from a data frame to a matrix.
-
-We can go the other way, from a matrix to a data frame, with the `melt` function in the package `reshape2`.
+`tapply` took us from a data frame to a matrix. We can go the other way, from a matrix to a data frame, with the `melt` function in the package `reshape2`.
 
 ```{r}
 library(reshape2)

@@ -42,8 +42,31 @@
 <pre><code>## [1] 8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
 <pre><code>## [1] 354</code></pre>
-<p>This data is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence.</p>
-<p>The column <code>glyhb</code> is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
+<p>A data frame can also be created de novo from some column vectors with <code>data.frame</code>. For example</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.frame</span>(<span class="dt">foo=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>), <span class="dt">bar=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>))</code></pre></div>
+<pre><code>##   foo bar
+## 1  10   a
+## 2  20   b
+## 3  30   c</code></pre>
+</div>
+</aside>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
+<p>A data frame can have both column names (<code>colnames</code>) and rownames (<code>rownames</code>). However, the modern convention is for a data frame to use column names but not row names. Typically a data frame contains a collection of items (rows), each having various properties (columns). If an item has an identifier such as a unique name, this would be given as just another column.</p>
+</div>
+</aside>
+<h2 id="indexing-data-frames">Indexing data frames</h2>
+<p>As with a matrix, a data frame can be accessed by row and column with <code>[,]</code>.</p>
+<p>Internally, a data frame is a list of column vectors. We can use the <code>$</code> syntax we saw with lists to access columns by name.</p>
+<p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$diabetic &lt;-<span class="st"> </span>diabetes$glyhb &gt;<span class="st"> </span><span class="fl">7.0</span>
 
 <span class="kw">head</span>(diabetes)</code></pre></div>
@@ -83,13 +106,13 @@
 <h3 id="plotting-factors">Plotting factors</h3>
 <p>If we <code>plot</code> factors, we can see that R uses the order of levels in the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$gender, diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-7-2.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-8-2.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic) )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-7-3.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-8-3.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic), diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-7-4.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-8-4.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <h3 id="summarizing-factors">Summarizing factors</h3>
 <p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$frame)</code></pre></div>
@@ -101,7 +124,7 @@
 ##         small medium large
 ##   FALSE    87    126    69
 ##   TRUE      7     24    19</code></pre>
-<p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chiseq.test</code>) can be used to show that two factors are not independnt.</p>
+<p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chiseq.test</code>) can be used to show that two factors are not independent.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fisher.test</span>( <span class="kw">table</span>(diabetes$diabetic, diabetes$frame) )</code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
@@ -114,7 +137,7 @@
 <h3 id="challenge---gender-and-diabetes"><span class="glyphicon glyphicon-pencil"></span>Challenge - gender and diabetes</h3>
 </div>
 <div class="panel-body">
-<p>Do you think there is any association between gender and whether a person is diabetic shown by this data set?</p>
+<p>Do you think any association between gender and whether a person is diabetic is shown by this data set?</p>
 <p>Why?</p>
 </div>
 </section>
@@ -146,25 +169,27 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes$glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
 <h2 id="summarizing-data-frames">Summarizing data frames</h2>
-<p>We were able to summarize the different dimensions (rows or columns) of a matrix with <code>apply</code>. In a data frame instead of summarizing along different dimensions, we summarize with respect to different factor columns.</p>
+<p>We were able to summarize the dimensions (rows or columns) of a matrix with <code>apply</code>. In a data frame instead of summarizing along different dimensions, we can summarize with respect to different factor columns.</p>
 <p>We already saw how to count different levels in a factor with <code>table</code>.</p>
 <p>We can use summary functions such as <code>mean</code> with a function called <code>tapply</code>, which works similarly to <code>apply</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, diabetes$frame, mean)</code></pre></div>
 <pre><code>##  small medium  large 
 ##     NA     NA     NA</code></pre>
+<p>We obtain NAs because our data contains NAs. We need to tell <code>mean</code> to ignore these. Additional arguments to <code>tapply</code> are passed to the function given, here <code>mean</code>, so we can tell <code>mean</code> to ignore NA with</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, diabetes$frame, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##    small   medium    large 
 ## 4.971064 5.721333 6.035795</code></pre>
+<p>The result is a vector, with names from the classifying factor.</p>
+<p>We can summarize over several factors, in which case they must be given as a list. Two factors produces a matrix. More factors would produce a higher dimensional <em>array</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, <span class="kw">list</span>(diabetes$frame, diabetes$gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>##          female     male
 ## small  5.042308 4.811379
 ## medium 5.490106 6.109464
 ## large  6.196286 5.929811</code></pre>
 <h2 id="melting-a-matrix-into-a-data-frame">Melting a matrix into a data frame</h2>
-<p>You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same actual data.</p>
+<p>You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same data.</p>
 <p>Modern R usage emphasizes use of data frames over matrices, as data frames are the more flexible representation. Everything we can represent with a matrix we can represent with a data frame, but not vice versa.</p>
-<p><code>tapply</code> took us from a data frame to a matrix.</p>
-<p>We can go the other way, from a matrix to a data frame with the <code>melt</code> function in the package <code>reshape2</code>.</p>
+<p><code>tapply</code> took us from a data frame to a matrix. We can go the other way, from a matrix to a data frame, with the <code>melt</code> function in the package <code>reshape2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
 
 averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes$glyhb, <span class="kw">list</span>(diabetes$frame, diabetes$gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
