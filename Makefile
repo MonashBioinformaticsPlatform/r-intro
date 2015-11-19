@@ -9,7 +9,7 @@
 # PDF introduction is from intro.Rmd
 #
 
-SECTIONS=start matrices data_frames ggplot next
+SECTIONS=start matrices data_frames for_loops ggplot next
 
 # SVG->PNG conversion
 SVGS=$(wildcard fig/*.svg)
@@ -18,7 +18,7 @@ PNGS=$(patsubst %.svg,%.png,$(SVGS))
 all : index.html $(addsuffix .html,$(SECTIONS)) intro-r.pdf $(PNGS)
 
 intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
-	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 1 \
+	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 \
 		-Vlinks-as-notes=1 \
 		-Vdocumentclass=report \
 		-Vpapersize:a4paper \
@@ -30,7 +30,7 @@ intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 	Rscript -e 'knitr::knit("$<")'
 
 %.html : %.md
-	pandoc -s -t html \
+	pandoc -s -t html -fmarkdown-implicit_figures \
 	    --smart \
         --template=_layouts/page \
 		--filter=tools/filters/blockquote2div.py \

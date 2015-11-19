@@ -7,3 +7,157 @@ knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/dataframes-")
 ```
 
 # Working with data in a data frame
+
+As we saw earlier, `read.csv` loads tabular data from a CSV file into a data frame.
+
+```{r}
+diabetes <- read.csv("data/diabetes.csv")
+
+class(diabetes)
+head(diabetes)
+colnames(diabetes)
+ncol(diabetes)
+nrow(diabetes)
+```
+
+This data is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence.
+
+The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.
+
+```{r}
+diabetes$diabetic <- diabetes$glyhb > 7.0
+
+head(diabetes)
+```
+
+
+## Factors
+
+When R loads a CSV file, it tries to give appropriate types to the columns.
+Lets examine what types R has given our data.
+
+```{r}
+str(diabetes)
+```
+
+We might have expected the text columns to be the "character" data type, but they are instead "factor"s.
+
+```{r}
+head( diabetes$frame )
+```
+
+R uses factor data type to store a vector of *categorical* data. The different possible categories are called *levels*.
+
+Factors can be created from character vectors with `factor`. We sometimes care what order the levels are in, since this can affect how data is plotted or tabulated by various functions. If there is some sort of baseline level, such as "wildtype strain" or "no treatment", it is usually given first. `factor` has a parameter `levels=` to specify the desired order of levels.
+
+Factors can be converted back to a character vector with `as.character`.
+
+When R loaded our data, it chose levels in alphabetical order. Lets adjust that for the column `diabetes$frame`.
+
+```{r}
+diabetes$frame <- factor(diabetes$frame, levels=c("small","medium","large"))
+
+head( diabetes$frame )
+```
+
+### Plotting factors
+
+If we `plot` factors, we can see that R uses the order of levels in the plot.
+
+```{r}
+plot( diabetes$frame )
+plot( diabetes$gender, diabetes$frame )
+plot( factor(diabetes$diabetic) )
+plot( factor(diabetes$diabetic), diabetes$frame )
+```
+
+### Summarizing factors
+
+The `table` function gives us the actual numbers behind the graphical summaries we just plotted.
+
+```{r}
+table(diabetes$frame)
+table(diabetes$diabetic, diabetes$frame)
+```
+
+Fisher's Exact Test (`fisher.test`) or a chi-squared test (`chiseq.test`) can be used to show that two factors are not independent.
+
+```{r}
+fisher.test( table(diabetes$diabetic, diabetes$frame) )
+```
+
+> ### Challenge - gender and diabetes {.challenge}
+>
+> Do you think any association between gender and whether a person is diabetic is shown by this data set?
+>
+> Why?
+>
+
+## Missing data
+
+`summary` gives an overview of a data frame.
+
+```{r}
+summary(diabetes)
+```
+
+We see that some columns contain `NA`s. `NA` is R's way of indicating missing data. Missing data is important in statistics, so R is very careful with its treatment of this. If we try to calculate with an `NA` the result will be `NA`.
+
+```{r}
+1 + NA
+
+mean(diabetes$glyhb)
+```
+
+Many summary functions, such as `mean`, have a flag to say ignore `NA` values.
+
+```{r}
+mean(diabetes$glyhb, na.rm=TRUE)
+```
+
+
+## Summarizing data frames
+
+We were able to summarize the different dimensions (rows or columns) of a matrix with `apply`. In a data frame instead of summarizing along different dimensions, we summarize with respect to different factor columns.
+
+We already saw how to count different levels in a factor with `table`.
+
+We can use summary functions such as `mean` with a function called `tapply`, which works similarly to `apply`.
+
+```{r}
+tapply(diabetes$glyhb, diabetes$frame, mean)
+```
+
+```{r}
+tapply(diabetes$glyhb, diabetes$frame, mean, na.rm=TRUE)
+```
+
+```{r}
+tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)
+```
+
+
+## Melting a matrix into a data frame
+
+You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same actual data.
+
+Modern R usage emphasizes use of data frames over matrices, as data frames are the more flexible representation. Everything we can represent with a matrix we can represent with a data frame, but not vice versa.
+
+`tapply` took us from a data frame to a matrix.
+
+We can go the other way, from a matrix to a data frame, with the `melt` function in the package `reshape2`.
+
+```{r}
+library(reshape2)
+
+averages <- tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)
+melt(averages)
+
+counts <- table(diabetes$frame, diabetes$gender)
+melt(counts)
+```
+
+Note: The `aggregate` function effectively combines these two steps for you. See also the `ddply` function in package `plyr`, and the `dplyr` package. There are many variations on the basic idea behind `apply`!
+
+
+## Merging two data frames

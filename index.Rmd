@@ -17,11 +17,11 @@ We will be covering:
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
-## Material
+## Course material
 
 [intro-r.pdf](intro-r.pdf) - These notes as a pdf.
 
-## Sections
+## Topics
 
 [Starting out in R](start.html)
 
@@ -29,9 +29,9 @@ Some of this material is derived from work that is Copyright © [Software Carpen
 
 [Working with data in a data frame](data_frames.html)
 
-For loops
+[For loops](for_loops.html)
 
-### Extension
+### Extension topics
 
 [Plotting with ggplot2](ggplot.html)
 

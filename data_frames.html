@@ -22,6 +22,171 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 <h1 id="working-with-data-in-a-data-frame">Working with data in a data frame</h1>
+<p>As we saw earlier, <code>read.csv</code> loads tabular data from a CSV file into a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/diabetes.csv&quot;</span>)
+
+<span class="kw">class</span>(diabetes)</code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes)</code></pre></div>
+<pre><code>##   subject glyhb   location age gender height weight  frame
+## 1   S1002  4.64 Buckingham  58 female     61    256  large
+## 2   S1003  4.63 Buckingham  67   male     67    119  large
+## 3   S1005  7.72 Buckingham  64   male     68    183 medium
+## 4   S1008  4.81 Buckingham  34   male     71    190  large
+## 5   S1011  4.84 Buckingham  30   male     69    191 medium
+## 6   S1015  3.94 Buckingham  37   male     59    170 medium</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(diabetes)</code></pre></div>
+<pre><code>## [1] &quot;subject&quot;  &quot;glyhb&quot;    &quot;location&quot; &quot;age&quot;      &quot;gender&quot;   &quot;height&quot;  
+## [7] &quot;weight&quot;   &quot;frame&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(diabetes)</code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
+<pre><code>## [1] 354</code></pre>
+<p>This data is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence.</p>
+<p>The column <code>glyhb</code> is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$diabetic &lt;-<span class="st"> </span>diabetes$glyhb &gt;<span class="st"> </span><span class="fl">7.0</span>
+
+<span class="kw">head</span>(diabetes)</code></pre></div>
+<pre><code>##   subject glyhb   location age gender height weight  frame diabetic
+## 1   S1002  4.64 Buckingham  58 female     61    256  large    FALSE
+## 2   S1003  4.63 Buckingham  67   male     67    119  large    FALSE
+## 3   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE
+## 4   S1008  4.81 Buckingham  34   male     71    190  large    FALSE
+## 5   S1011  4.84 Buckingham  30   male     69    191 medium    FALSE
+## 6   S1015  3.94 Buckingham  37   male     59    170 medium    FALSE</code></pre>
+<h2 id="factors">Factors</h2>
+<p>When R loads a CSV file, it tries to give appropriate types to the columns. Lets examine what types R has given our data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diabetes)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    354 obs. of  9 variables:
+##  $ subject : Factor w/ 354 levels &quot;S10000&quot;,&quot;S10001&quot;,..: 4 6 7 8 9 10 11 12 13 14 ...
+##  $ glyhb   : num  4.64 4.63 7.72 4.81 4.84 ...
+##  $ location: Factor w/ 2 levels &quot;Buckingham&quot;,&quot;Louisa&quot;: 1 1 1 1 1 1 1 1 2 2 ...
+##  $ age     : int  58 67 64 34 30 37 45 55 60 38 ...
+##  $ gender  : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 1 2 2 2 2 2 2 1 1 1 ...
+##  $ height  : int  61 67 68 71 69 59 69 63 65 58 ...
+##  $ weight  : int  256 119 183 190 191 170 166 202 156 195 ...
+##  $ frame   : Factor w/ 3 levels &quot;large&quot;,&quot;medium&quot;,..: 1 1 2 1 2 2 1 3 2 2 ...
+##  $ diabetic: logi  FALSE FALSE TRUE FALSE FALSE FALSE ...</code></pre>
+<p>We might have expected the text columns to be the “character” data type, but they are instead “factor”s.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>( diabetes$frame )</code></pre></div>
+<pre><code>## [1] large  large  medium large  medium medium
+## Levels: large medium small</code></pre>
+<p>R uses factor data type to store a vector of <em>categorical</em> data. The different possible categories are called <em>levels</em>.</p>
+<p>Factors can be created from character vectors with <code>factor</code>. We sometimes care what order the levels are in, since this can affect how data is plotted or tabulated by various functions. If there is some sort of baseline level, such as “wildtype strain” or “no treatment”, it is usually given first. <code>factor</code> has a parameter <code>levels=</code> to specify the desired order of levels.</p>
+<p>Factors can be converted back to a character vector with <code>as.character</code>.</p>
+<p>When R loaded our data, it chose levels in alphabetical order. Lets adjust that for the column <code>diabetes$frame</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$frame &lt;-<span class="st"> </span><span class="kw">factor</span>(diabetes$frame, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;large&quot;</span>))
+
+<span class="kw">head</span>( diabetes$frame )</code></pre></div>
+<pre><code>## [1] large  large  medium large  medium medium
+## Levels: small medium large</code></pre>
+<h3 id="plotting-factors">Plotting factors</h3>
+<p>If we <code>plot</code> factors, we can see that R uses the order of levels in the plot.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame )</code></pre></div>
+<p><img src="fig/dataframes-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$gender, diabetes$frame )</code></pre></div>
+<p><img src="fig/dataframes-unnamed-chunk-7-2.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic) )</code></pre></div>
+<p><img src="fig/dataframes-unnamed-chunk-7-3.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic), diabetes$frame )</code></pre></div>
+<p><img src="fig/dataframes-unnamed-chunk-7-4.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<h3 id="summarizing-factors">Summarizing factors</h3>
+<p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$frame)</code></pre></div>
+<pre><code>## 
+##  small medium  large 
+##     96    155     91</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$diabetic, diabetes$frame)</code></pre></div>
+<pre><code>##        
+##         small medium large
+##   FALSE    87    126    69
+##   TRUE      7     24    19</code></pre>
+<p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chiseq.test</code>) can be used to show that two factors are not independnt.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fisher.test</span>( <span class="kw">table</span>(diabetes$diabetic, diabetes$frame) )</code></pre></div>
+<pre><code>## 
+##  Fisher&#39;s Exact Test for Count Data
+## 
+## data:  table(diabetes$diabetic, diabetes$frame)
+## p-value = 0.02069
+## alternative hypothesis: two.sided</code></pre>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---gender-and-diabetes"><span class="glyphicon glyphicon-pencil"></span>Challenge - gender and diabetes</h3>
+</div>
+<div class="panel-body">
+<p>Do you think there is any association between gender and whether a person is diabetic shown by this data set?</p>
+<p>Why?</p>
+</div>
+</section>
+<h2 id="missing-data">Missing data</h2>
+<p><code>summary</code> gives an overview of a data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(diabetes)</code></pre></div>
+<pre><code>##     subject        glyhb              location        age       
+##  S10000 :  1   Min.   : 2.680   Buckingham:178   Min.   :19.00  
+##  S10001 :  1   1st Qu.: 4.385   Louisa    :176   1st Qu.:35.00  
+##  S10016 :  1   Median : 4.840                    Median :45.00  
+##  S1002  :  1   Mean   : 5.580                    Mean   :46.91  
+##  S10020 :  1   3rd Qu.: 5.565                    3rd Qu.:60.00  
+##  S1003  :  1   Max.   :16.110                    Max.   :92.00  
+##  (Other):348   NA&#39;s   :11                                       
+##     gender        height          weight         frame      diabetic      
+##  female:206   Min.   :52.00   Min.   : 99.0   small : 96   Mode :logical  
+##  male  :148   1st Qu.:63.00   1st Qu.:150.0   medium:155   FALSE:291      
+##               Median :66.00   Median :171.0   large : 91   TRUE :52       
+##               Mean   :65.93   Mean   :176.2   NA&#39;s  : 12   NA&#39;s :11       
+##               3rd Qu.:69.00   3rd Qu.:198.0                               
+##               Max.   :76.00   Max.   :325.0                               
+##               NA&#39;s   :5       NA&#39;s   :1</code></pre>
+<p>We see that some columns contain <code>NA</code>s. <code>NA</code> is R’s way of indicating missing data. Missing data is important in statistics, so R is very careful with its treatment of this. If we try to calculate with an <code>NA</code> the result will be <code>NA</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> +<span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes$glyhb)</code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>Many summary functions, such as <code>mean</code>, have a flag to say ignore <code>NA</code> values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes$glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 5.580292</code></pre>
+<h2 id="summarizing-data-frames">Summarizing data frames</h2>
+<p>We were able to summarize the different dimensions (rows or columns) of a matrix with <code>apply</code>. In a data frame instead of summarizing along different dimensions, we summarize with respect to different factor columns.</p>
+<p>We already saw how to count different levels in a factor with <code>table</code>.</p>
+<p>We can use summary functions such as <code>mean</code> with a function called <code>tapply</code>, which works similarly to <code>apply</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, diabetes$frame, mean)</code></pre></div>
+<pre><code>##  small medium  large 
+##     NA     NA     NA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, diabetes$frame, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##    small   medium    large 
+## 4.971064 5.721333 6.035795</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes$glyhb, <span class="kw">list</span>(diabetes$frame, diabetes$gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>##          female     male
+## small  5.042308 4.811379
+## medium 5.490106 6.109464
+## large  6.196286 5.929811</code></pre>
+<h2 id="melting-a-matrix-into-a-data-frame">Melting a matrix into a data frame</h2>
+<p>You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same actual data.</p>
+<p>Modern R usage emphasizes use of data frames over matrices, as data frames are the more flexible representation. Everything we can represent with a matrix we can represent with a data frame, but not vice versa.</p>
+<p><code>tapply</code> took us from a data frame to a matrix.</p>
+<p>We can go the other way, from a matrix to a data frame with the <code>melt</code> function in the package <code>reshape2</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
+
+averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes$glyhb, <span class="kw">list</span>(diabetes$frame, diabetes$gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
+<span class="kw">melt</span>(averages)</code></pre></div>
+<pre><code>##     Var1   Var2    value
+## 1  small female 5.042308
+## 2 medium female 5.490106
+## 3  large female 6.196286
+## 4  small   male 4.811379
+## 5 medium   male 6.109464
+## 6  large   male 5.929811</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">counts &lt;-<span class="st"> </span><span class="kw">table</span>(diabetes$frame, diabetes$gender)
+<span class="kw">melt</span>(counts)</code></pre></div>
+<pre><code>##     Var1   Var2 value
+## 1  small female    66
+## 2 medium female    96
+## 3  large female    37
+## 4  small   male    30
+## 5 medium   male    59
+## 6  large   male    54</code></pre>
+<p>Note: The <code>aggregate</code> function effectively combines these two steps for you. See also the <code>ddply</code> function in package <code>plyr</code>, and the <code>dplyr</code> package. There are many variations on the basic idea behind <code>apply</code>!</p>
+<h2 id="merging-two-data-frames">Merging two data frames</h2>
         </div>
       </div>
       </article>

@@ -2,7 +2,7 @@
 title: "Introduction to R"
 ---
 
-## Introduction
+# Introduction
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
 
