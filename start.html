@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Starting out in R</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+<h1 id="starting-out-in-r">Starting out in R</h1>
+<p>We will be working in RStudio.</p>
+<p>Open RStudio, click on the “Console” pane, type <code>1+1</code> and press enter. R displays the result of the calculation.</p>
+<p><code>*</code> has higher precedence than <code>+</code>. We can use brackets if necessary <code>( )</code>. Try <code>1+2*3</code> and <code>(1+2)*3</code>.</p>
+<p>Spaces can be used to make code easier to read.</p>
+<p>We can compare with <code>== &lt; &gt; &lt;= &gt;=</code>. This produces a “logical” value, <code>TRUE</code> or <code>FALSE</code>. Note the double equals, <code>==</code>, for equality comparison.</p>
+<p>There are also character strings such as <code>&quot;string&quot;</code>.</p>
+<h2 id="variables">Variables</h2>
+<p>A variable is a name for a value, such as <code>x</code>, <code>current_temperature</code>, or <code>subject_id</code>. We can create a new variable by assigning a value to it using <code>&lt;-</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="dv">55</span></code></pre></div>
+<p>RStudio helpfully shows us the variable in the “Environment” pane. We can also print it by typing the name of the variable and hitting <code>Enter</code> (or <code>return</code>). In general, R will print to the console any object returned by a function or operation <em>unless</em> we assign it to a variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg</code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<p>Examples of valid variables names: <code>hello</code>, <code>hello_there</code>, <code>hello.there</code>, <code>value1</code>. Spaces aren’t ok <em>inside</em> variable names. Dots (<code>.</code>) are ok, unlike in many other languages.</p>
+<p>We can do arithmetic with the variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># weight in pounds:</span>
+<span class="fl">2.2</span> *<span class="st"> </span>weight_kg</code></pre></div>
+<pre><code>## [1] 121</code></pre>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h2>
+</div>
+<div class="panel-body">
+<p>We can add comments to our code using the <code>#</code> character. It is useful to document our code in this way so that others (and us the next time we read it) have an easier time following what the code is doing.</p>
+</div>
+</aside>
+<p>We can also change an object’s value by assigning it a new value:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="fl">57.5</span>
+<span class="co"># weight in kilograms is now</span>
+weight_kg</code></pre></div>
+<pre><code>## [1] 57.5</code></pre>
+<p>If we imagine the variable as a sticky note with a name written on it, assignment is like putting the sticky note on a particular value:</p>
+<div class="figure">
+<img src="fig/python-sticky-note-variables-01.png" alt="Variables as Sticky Notes" />
+<p class="caption">Variables as Sticky Notes</p>
+</div>
+<p>This means that assigning a value to one object does not change the values of other variables. For example, let’s store the subject’s weight in pounds in a variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_lb &lt;-<span class="st"> </span><span class="fl">2.2</span> *<span class="st"> </span>weight_kg
+<span class="co"># weight in kg...</span>
+weight_kg</code></pre></div>
+<pre><code>## [1] 57.5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ...and in pounds</span>
+weight_lb</code></pre></div>
+<pre><code>## [1] 126.5</code></pre>
+<div class="figure">
+<img src="fig/python-sticky-note-variables-02.png" alt="Creating Another Variable" />
+<p class="caption">Creating Another Variable</p>
+</div>
+<p>and then change <code>weight_kg</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="fl">100.0</span>
+<span class="co"># weight in kg now...</span>
+weight_kg</code></pre></div>
+<pre><code>## [1] 100</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># ...and weight in pounds still</span>
+weight_lb</code></pre></div>
+<pre><code>## [1] 126.5</code></pre>
+<div class="figure">
+<img src="fig/python-sticky-note-variables-03.png" alt="Updating a Variable" />
+<p class="caption">Updating a Variable</p>
+</div>
+<p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
+<h2 id="vectors">Vectors</h2>
+<p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R, values are just vectors of length one. R is obsesssed with vectors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
+myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>## [1] 2 3 4</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec +<span class="st"> </span>myvec</code></pre></div>
+<pre><code>## [1] 2 4 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">10</span>, myvec)</code></pre></div>
+<pre><code>## [1] 10  1  2  3</code></pre>
+<p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code>.</p>
+<p>We will also encounter character strings, for example <code>&quot;hello&quot;</code>. R also has something called “factors”, which are categorical vectors, and behave very much like character vectors (think the factors in an experiment). R likes turning character vectors into factors, which is usually fine.</p>
+<p>R has various functions, such as <code>sum( )</code>. We can get help on a function with, eg <code>?sum</code>. Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from “libraries” (also known as “packages”).</p>
+<h2 id="lists">Lists</h2>
+<p>Vectors contain all the same kind of thing. Try <code>c(42, &quot;hello&quot;)</code>. Lists can contain different kinds of thing.</p>
+<p>We generally gives the things in a list names. Try <code>list(num=42, greeting=&quot;hello&quot;)</code>. To access named elements we use <code>$</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">num=</span><span class="dv">42</span>, <span class="dt">greeting=</span><span class="st">&quot;Hello, world&quot;</span>)
+mylist$greeting</code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<p>I’m skipping a lot of details here.</p>
+<p>This terminology is peculiar to R. Other languages make the same distinction they may use different words for vectors and lists.</p>
+<p>If you’re not sure what sort of object you are dealing with you can use <code>class</code>, or for more detailed information <code>str</code> (structure).</p>
+        </div>
+      </div>
+      </article>
+      
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <!--
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    -->
+  </body>
+</html>

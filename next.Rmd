@@ -1,0 +1,31 @@
+---
+title: "Next steps"
+---
+
+# Next steps
+
+We can barely touch the surface of what R has to offer today. If you want to take your skills to the next level, here are some topics to investigate:
+
+Programming:
+
+* Writing functions.
+
+Tidying and summarizing data:
+
+* dplyr, plyr, and tidyr packages by Hadley Wickham.
+* magrittr's `%>%` operator for chaining together data frame manipulations.
+
+Data visualization:
+
+* ggplot2 for general plotting.
+
+Statistics:
+
+* Many statistical tests are built in to R.
+* Linear models and the linear model formula syntax `~`.
+  * Many statistical techniques take linear models as their starting point, including `edgeR` which we will be using to test for differential gene expression.
+  * Many R function repurpose the `~` formula syntax for other ways of relating response and explanatory variables.
+
+RNA-Seq:
+
+* This will be covered in the Thursday class.

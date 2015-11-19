@@ -1,0 +1,92 @@
+---
+title: ggplot2
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/ggplot-")
+```
+
+# Plotting with ggplot2
+
+Let's return to our matrix example.
+
+```{r, results="hide"}
+dat <- read.csv(file="data/pvc.csv", row.names=1)
+mat <- as.matrix(dat)
+```
+
+Instead of storing this data in a matrix, we could store each measurement in a row of a data frame. We can convert to this "long" form with the `melt` function in the library `reshape2`.
+
+```{r}
+library(reshape2)
+long <- melt(mat)
+head(long)
+colnames(long) <- c("resin","operator","value")
+head(long)
+````
+
+This long form is often the best form for exploration and statistical testing of data.
+
+We already saw some of R's built in plotting facilities with the function `plot`. A more recent and much more powerful plotting library is `ggplot2`. This implements ideas from a book called "The Grammar of Graphics". The syntax is a little strange, but there are plenty of examples in the [online documentation](http://docs.ggplot2.org/current/).
+
+If `ggplot2` isn't already installed, we need to install it.
+
+```{r, eval=FALSE}
+install.packages("ggplot2")
+```
+
+```{r}
+library(ggplot2)
+```
+
+A simple example:
+
+```{r}
+ggplot(long, aes(x=operator, y=value)) + geom_point()
+```
+
+The call to `ggplot` sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.
+
+```{r}
+ggplot(long, aes(x=operator, y=value)) + geom_boxplot() + geom_point()
+
+ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
+    geom_line() + theme_bw()
+
+ggplot(long, aes(x=operator, y=value)) +
+    facet_wrap(~ resin) + geom_point() + theme_bw()
+```
+
+ggplots can be save as we talked about above, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are writing a function you might need to explcitly `print( )` the plot.
+
+```{r, eval=FALSE}
+# Plot created but not shown.
+p <- ggplot(long, aes(x=operator, y=value)) + geom_point()
+
+# Only when we try to look at the value p is it shown
+p
+
+# Alternatively, we can explicitly print it
+print(p)
+
+# To save to a file
+png("test.png")
+print(p)
+dev.off()
+```
+
+See also the function `ggsave`.
+
+This long form is also ideal for statistical testing. Here is a one-way ANOVA.
+
+```{r}
+oneway.test(value ~ resin, data=long)
+```
+
+A two-way ANOVA analysis would be better here. This is *well* beyond the scope of this course, but could be achived with something like:
+
+```{r}
+null <- lm(value ~ operator, data=long)
+alt <- lm(value ~ resin + operator, data=long)
+anova(null, alt)
+```

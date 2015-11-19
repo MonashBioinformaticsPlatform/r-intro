@@ -2,37 +2,10 @@
 title: "Introduction to R"
 ---
 
-# Introduction to R
+## Introduction
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
 
 R is both a programming language and interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
 
-We will be covering:
-
-* working with R data types
-* summarizing data in matrices and data frames
-* plotting
-* for-loops for repetitive tasks
-
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
-
-## Material
-
-[intro-r.pdf](intro-r.pdf) - These notes as a pdf.
-
-## Sections
-
-[Starting out in R](start.html)
-
-[Working with data in a matrix](matrices.html)
-
-[Working with data in a data frame](data_frames.html)
-
-For loops
-
-### Extension
-
-[Plotting with ggplot2](ggplot.html)
-
-[Next steps](next.html)

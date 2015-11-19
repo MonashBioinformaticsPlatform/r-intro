@@ -1,0 +1,9 @@
+---
+title: Working with data in a data frame
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/dataframes-")
+```
+
+# Working with data in a data frame

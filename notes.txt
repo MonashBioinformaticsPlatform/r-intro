@@ -1,0 +1,39 @@
+
+Data sets
+
+faraway: diabetes
+$frame as example of reordering a factor
+
+
+Functions to cover:
+
+rep as an example of named arguments
+
+c
+
+read.csv
+
+mean
+min
+max
+sum
+
+factor
+- ordering of levels
+
+apply
+table
+tapply / melt
+some sort of casting function == tapply identity
+
+merge
+
+plot
+- plots produced by numeric and factor parameters
+
+hist
+density
+boxplot
+
+
+Indexing:
