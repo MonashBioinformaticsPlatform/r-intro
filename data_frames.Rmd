@@ -3,7 +3,9 @@ title: Working with data in a data frame
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/dataframes-")
+knitr::opts_chunk$set(
+    fig.width=4, fig.height=4,
+    fig.path = "fig/dataframes-")
 ```
 
 # Working with data in a data frame
@@ -92,7 +94,7 @@ plot( factor(diabetes$diabetic), diabetes$frame )
 
 ### Summarizing factors
 
-The `table` function gives us the actual numbers behind the graphical summaries we just plotted.
+The `table` function gives us the actual numbers behind the graphical summaries we just plotted (a "contingency table").
 
 ```{r}
 table(diabetes$frame)
@@ -180,7 +182,73 @@ counts <- table(diabetes$frame, diabetes$gender)
 melt(counts)
 ```
 
-Note: The `aggregate` function effectively combines these two steps for you. See also the `ddply` function in package `plyr`, and the `dplyr` package. There are many variations on the basic idea behind `apply`!
+> ### Tip {.callout}
+>
+> The `aggregate` function effectively combines these two steps for you. See also the `ddply` function in package `plyr`, and the `dplyr` package. There are many variations on the basic idea behind `apply`!
+>
 
 
 ## Merging two data frames
+
+One often wishes to merge data from two different sources. We want a new data frame with columns from both of the input data frames. This is also called a `join` operation.
+
+Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.
+
+```{r}
+cholesterol <- read.csv("data/chol.csv")
+head(chol)
+```
+
+Great! We'll just add this new column of data to our data frame.
+
+```{r}
+diabetes2 <- diabetes
+diabetes2$chol <- cholesterol$chol
+```
+
+Oh. The two data frames don't have exactly the same set of subjects. We should also have checked that they were even in the same order before blithely combining them. R has shown an error this time, but there are many ways to mess up like this that would not show an error. How embarassing.
+
+```{r}
+nrow(diabetes)
+nrow(cholesterol)
+length( intersect(diabetes$subject, cholesterol$subject) )
+```
+
+### Inner join using the `merge` function
+
+We will have to do the best we can with the subjects that are present in both data frames (an "inner join"). The `merge` function lets us merge the data frames.
+
+```{r}
+diabetes2 <- merge(diabetes, cholesterol, by="subject")
+
+nrow(diabetes2)
+head(diabetes2)
+
+plot(diabetes2$chol, diabetes2$glyhb)
+```
+
+Note that the result is in a different order to the input. However, it contains the correct rows.
+
+### Left join using the `merge` function
+
+`merge` has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify `all.x=TRUE`. This is a "left join".
+
+```{r}
+diabetes3 <- merge(diabetes, cholesterol, by="subject", all.x=TRUE)
+
+nrow(diabetes3)
+head(diabetes3)
+```
+
+The missing data from the second data frame is indicated by NAs.
+
+> ### Tip {.callout}
+>
+> Besides `merge`, there are various ways to join two data frames in R.
+>
+> * In the simplest case, if the data frames are the same length and in the same order, `cbind` ("column bind") can be used to put them next to each other in one larger data frame.
+>
+> * The `match` function can be used to determine how a second data frame needs to be shuffled in order to match the first one. Its result can be used as a row index for the second data frame.
+>
+> * The `dplyr` package offers various join functions: `left_join`, `inner_join`,  `outer_join`, etc. One advantage of these functions is that they preserve the order of the first data frame.
+>

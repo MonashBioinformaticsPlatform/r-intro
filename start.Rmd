@@ -19,7 +19,7 @@ We will be working in [RStudio](https://www.rstudio.com/). This surrounds the *c
 * Help on the functions available in R.
 * A panel to show plots (graphs).
 
-Open RStudio, click on the "Console" pane, type `1+1` and press enter. R displays the result of the calculation. In this document, we will be showing such an interaction with R as shown below.
+Open RStudio, click on the "Console" pane, type `1+1` and press enter. R displays the result of the calculation. In this document, we will be showing such an interaction with R as below.
 
 ```{r}
 1+1

@@ -22,10 +22,36 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 <h1 id="plotting-with-ggplot2">Plotting with ggplot2</h1>
-<p>Let’s return to our matrix example.</p>
+<p>We already saw some of R’s built in plotting facilities with the function <code>plot</code>. A more recent and much more powerful plotting library is <code>ggplot2</code>. This implements ideas from a book called “The Grammar of Graphics”. The syntax is a little strange, but there are plenty of examples in the <a href="http://docs.ggplot2.org/current/">online documentation</a>.</p>
+<p>If <code>ggplot2</code> isn’t already installed, we need to install it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
+<p>We then need to load it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## Loading required package: methods</code></pre>
+<p>Producing a plot with ggplot2, we must give three things:</p>
+<ol style="list-style-type: decimal">
+<li>A data frame containing our data.</li>
+<li>How the columns of the data frame can be translated into positions, colors, sizes, and shapes of graphical elements (“aesthetics”).</li>
+<li>The actual graphical elements to display (“geometric objects”).</li>
+</ol>
+<h2 id="using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</h2>
+<p>Let’s load up our diabetes data frame again.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/diabetes.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age)) +
+<span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
+<p>The call to <code>ggplot</code> sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.</p>
+<p>Further aesthetics can be added.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age, <span class="dt">size=</span>weight, <span class="dt">color=</span>gender)) +
+<span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
+<h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
+<p>Let’s return to our first matrix example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
 mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</code></pre></div>
-<p>Instead of storing this data in a matrix, we could store each measurement in a row of a data frame. We can convert to this “long” form with the <code>melt</code> function in the library <code>reshape2</code>.</p>
+<p>ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this “long” form with the <code>melt</code> function in the library <code>reshape2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
 long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 <span class="kw">head</span>(long)</code></pre></div>
@@ -45,37 +71,19 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 ## 4 Resin4    Alice 29.70
 ## 5 Resin5    Alice 31.85
 ## 6 Resin6    Alice 30.20</code></pre>
-<p>This long form is often the best form for exploration and statistical testing of data.</p>
-<p>We already saw some of R’s built in plotting facilities with the function <code>plot</code>. A more recent and much more powerful plotting library is <code>ggplot2</code>. This implements ideas from a book called “The Grammar of Graphics”. The syntax is a little strange, but there are plenty of examples in the <a href="http://docs.ggplot2.org/current/">online documentation</a>.</p>
-<p>If <code>ggplot2</code> isn’t already installed, we need to install it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## Loading required package: methods</code></pre>
-<p>A simple example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<div class="figure">
-<img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" />
-<p class="caption">plot of chunk unnamed-chunk-6</p>
-</div>
-<p>The call to <code>ggplot</code> sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.</p>
+<p><img src="fig/ggplot-unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+<p>Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<div class="figure">
-<img src="fig/ggplot-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" />
-<p class="caption">plot of chunk unnamed-chunk-7</p>
-</div>
+<p><img src="fig/ggplot-unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) +
 <span class="st">    </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<div class="figure">
-<img src="fig/ggplot-unnamed-chunk-7-2.png" alt="plot of chunk unnamed-chunk-7" />
-<p class="caption">plot of chunk unnamed-chunk-7</p>
-</div>
+<p><img src="fig/ggplot-unnamed-chunk-10-2.png" alt="plot of chunk unnamed-chunk-10" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +
 <span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>resin) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<div class="figure">
-<img src="fig/ggplot-unnamed-chunk-7-3.png" alt="plot of chunk unnamed-chunk-7" />
-<p class="caption">plot of chunk unnamed-chunk-7</p>
-</div>
-<p>ggplots can be save as we talked about above, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are writing a function you might need to explcitly <code>print( )</code> the plot.</p>
+<p><img src="fig/ggplot-unnamed-chunk-10-3.png" alt="plot of chunk unnamed-chunk-10" /></p>
+<h2 id="saving-ggplots">Saving ggplots</h2>
+<p>ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot created but not shown.</span>
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()
 
@@ -90,31 +98,13 @@ p
 <span class="kw">print</span>(p)
 <span class="kw">dev.off</span>()</code></pre></div>
 <p>See also the function <code>ggsave</code>.</p>
-<p>This long form is also ideal for statistical testing. Here is a one-way ANOVA.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">oneway.test</span>(value ~<span class="st"> </span>resin, <span class="dt">data=</span>long)</code></pre></div>
-<pre><code>## 
-##  One-way analysis of means (not assuming equal variances)
-## 
-## data:  value and resin
-## F = 26.605, num df = 7.0000, denom df = 6.5368, p-value =
-## 0.0002445</code></pre>
-<p>A two-way ANOVA analysis would be better here. This is <em>well</em> beyond the scope of this course, but could be achived with something like:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">null &lt;-<span class="st"> </span><span class="kw">lm</span>(value ~<span class="st"> </span>operator, <span class="dt">data=</span>long)
-alt &lt;-<span class="st"> </span><span class="kw">lm</span>(value ~<span class="st"> </span>resin +<span class="st"> </span>operator, <span class="dt">data=</span>long)
-<span class="kw">anova</span>(null, alt)</code></pre></div>
-<pre><code>## Analysis of Variance Table
-## 
-## Model 1: value ~ operator
-## Model 2: value ~ resin + operator
-##   Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
-## 1     21 149.141                                  
-## 2     14   7.168  7    141.97 39.615 3.599e-08 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
         </div>
       </div>
       </article>
       
+      <div style="float: right; padding-top: 3em;">
+      <a href="index.html">Home</a>
+      </div>
     </div>
     <!-- Javascript placed at the end of the document so the pages load faster -->
     <!--

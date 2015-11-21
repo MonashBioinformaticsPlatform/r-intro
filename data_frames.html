@@ -114,7 +114,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic), diabetes$frame )</code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-8-4.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <h3 id="summarizing-factors">Summarizing factors</h3>
-<p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted.</p>
+<p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted (a “contingency table”).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$frame)</code></pre></div>
 <pre><code>## 
 ##  small medium  large 
@@ -210,12 +210,85 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes$g
 ## 4  small   male    30
 ## 5 medium   male    59
 ## 6  large   male    54</code></pre>
-<p>Note: The <code>aggregate</code> function effectively combines these two steps for you. See also the <code>ddply</code> function in package <code>plyr</code>, and the <code>dplyr</code> package. There are many variations on the basic idea behind <code>apply</code>!</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip-2"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
+<p>The <code>aggregate</code> function effectively combines these two steps for you. See also the <code>ddply</code> function in package <code>plyr</code>, and the <code>dplyr</code> package. There are many variations on the basic idea behind <code>apply</code>!</p>
+</div>
+</aside>
 <h2 id="merging-two-data-frames">Merging two data frames</h2>
+<p>One often wishes to merge data from two different sources. We want a new data frame with columns from both of the input data frames. This is also called a <code>join</code> operation.</p>
+<p>Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/chol.csv&quot;</span>)
+<span class="kw">head</span>(chol)</code></pre></div>
+<pre><code>##                     
+## 1 function (x, ...) 
+## 2 UseMethod(&quot;chol&quot;)</code></pre>
+<p>Great! We’ll just add this new column of data to our data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span>diabetes
+diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
+<pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, &quot;chol&quot;, value = c(203L, 165L, 228L, : replacement has 362 rows, data has 354</code></pre>
+<p>Oh. The two data frames don’t have exactly the same set of subjects. We should also have checked that they were even in the same order before blithely combining them. R has shown an error this time, but there are many ways to mess up like this that would not show an error. How embarassing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
+<pre><code>## [1] 354</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(cholesterol)</code></pre></div>
+<pre><code>## [1] 362</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>( <span class="kw">intersect</span>(diabetes$subject, cholesterol$subject) )</code></pre></div>
+<pre><code>## [1] 320</code></pre>
+<h3 id="inner-join-using-the-merge-function">Inner join using the <code>merge</code> function</h3>
+<p>We will have to do the best we can with the subjects that are present in both data frames (an “inner join”). The <code>merge</code> function lets us merge the data frames.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>)
+
+<span class="kw">nrow</span>(diabetes2)</code></pre></div>
+<pre><code>## [1] 320</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes2)</code></pre></div>
+<pre><code>##   subject glyhb   location age gender height weight  frame diabetic chol
+## 1  S10001  4.01 Buckingham  21 female     65    169  large    FALSE  132
+## 2  S10016  6.39 Buckingham  71 female     63    244  large    FALSE  228
+## 3   S1002  4.64 Buckingham  58 female     61    256  large    FALSE  228
+## 4  S10020  7.53 Buckingham  64   male     71    225  large     TRUE  181
+## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
+## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2$chol, diabetes2$glyhb)</code></pre></div>
+<p><img src="fig/dataframes-unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" /></p>
+<p>Note that the result is in a different order to the input. However, it contains the correct rows.</p>
+<h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
+<p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes3 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>, <span class="dt">all.x=</span><span class="ot">TRUE</span>)
+
+<span class="kw">nrow</span>(diabetes3)</code></pre></div>
+<pre><code>## [1] 354</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes3)</code></pre></div>
+<pre><code>##   subject glyhb   location age gender height weight frame diabetic chol
+## 1  S10000  4.83 Buckingham  23   male     76    164 small    FALSE   NA
+## 2  S10001  4.01 Buckingham  21 female     65    169 large    FALSE  132
+## 3  S10016  6.39 Buckingham  71 female     63    244 large    FALSE  228
+## 4   S1002  4.64 Buckingham  58 female     61    256 large    FALSE  228
+## 5  S10020  7.53 Buckingham  64   male     71    225 large     TRUE  181
+## 6   S1003  4.63 Buckingham  67   male     67    119 large    FALSE   NA</code></pre>
+<p>The missing data from the second data frame is indicated by NAs.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip-3"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
+<p>Besides <code>merge</code>, there are various ways to join two data frames in R.</p>
+<ul>
+<li><p>In the simplest case, if the data frames are the same length and in the same order, <code>cbind</code> (“column bind”) can be used to put them next to each other in one larger data frame.</p></li>
+<li><p>The <code>match</code> function can be used to determine how a second data frame needs to be shuffled in order to match the first one. Its result can be used as a row index for the second data frame.</p></li>
+<li><p>The <code>dplyr</code> package offers various join functions: <code>left_join</code>, <code>inner_join</code>, <code>outer_join</code>, etc. One advantage of these functions is that they preserve the order of the first data frame.</p></li>
+</ul>
+</div>
+</aside>
         </div>
       </div>
       </article>
       
+      <div style="float: right; padding-top: 3em;">
+      <a href="index.html">Home</a>
+      </div>
     </div>
     <!-- Javascript placed at the end of the document so the pages load faster -->
     <!--

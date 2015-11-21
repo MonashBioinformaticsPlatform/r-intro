@@ -3,29 +3,10 @@ title: ggplot2
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/ggplot-")
+knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path = "fig/ggplot-")
 ```
 
 # Plotting with ggplot2
-
-Let's return to our matrix example.
-
-```{r, results="hide"}
-dat <- read.csv(file="data/pvc.csv", row.names=1)
-mat <- as.matrix(dat)
-```
-
-Instead of storing this data in a matrix, we could store each measurement in a row of a data frame. We can convert to this "long" form with the `melt` function in the library `reshape2`.
-
-```{r}
-library(reshape2)
-long <- melt(mat)
-head(long)
-colnames(long) <- c("resin","operator","value")
-head(long)
-````
-
-This long form is often the best form for exploration and statistical testing of data.
 
 We already saw some of R's built in plotting facilities with the function `plot`. A more recent and much more powerful plotting library is `ggplot2`. This implements ideas from a book called "The Grammar of Graphics". The syntax is a little strange, but there are plenty of examples in the [online documentation](http://docs.ggplot2.org/current/).
 
@@ -35,17 +16,66 @@ If `ggplot2` isn't already installed, we need to install it.
 install.packages("ggplot2")
 ```
 
+We then need to load it.
+
 ```{r}
 library(ggplot2)
 ```
 
-A simple example:
+Producing a plot with ggplot2, we must give three things:
+
+1. A data frame containing our data.
+2. How the columns of the data frame can be translated into positions, colors, sizes, and shapes of graphical elements ("aesthetics").
+3. The actual graphical elements to display ("geometric objects").
+
+
+## Using ggplot2 with a data frame
+
+Let's load up our diabetes data frame again.
+
+```{r}
+diabetes <- read.csv("data/diabetes.csv")
+```
+
+```{r}
+ggplot(diabetes, aes(y=glyhb, x=age)) +
+    geom_point()
+```
+
+The call to `ggplot` sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.
+
+Further aesthetics can be added.
+
+```{r}
+ggplot(diabetes, aes(y=glyhb, x=age, size=weight, color=gender)) +
+    geom_point()
+```
+
+
+## Using ggplot2 with a matrix
+
+Let's return to our first matrix example.
+
+```{r}
+dat <- read.csv(file="data/pvc.csv", row.names=1)
+mat <- as.matrix(dat)
+```
+
+ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this "long" form with the `melt` function in the library `reshape2`.
+
+```{r}
+library(reshape2)
+long <- melt(mat)
+head(long)
+colnames(long) <- c("resin","operator","value")
+head(long)
+```
 
 ```{r}
 ggplot(long, aes(x=operator, y=value)) + geom_point()
 ```
 
-The call to `ggplot` sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.
+Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.
 
 ```{r}
 ggplot(long, aes(x=operator, y=value)) + geom_boxplot() + geom_point()
@@ -57,7 +87,10 @@ ggplot(long, aes(x=operator, y=value)) +
     facet_wrap(~ resin) + geom_point() + theme_bw()
 ```
 
-ggplots can be save as we talked about above, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are writing a function you might need to explcitly `print( )` the plot.
+
+## Saving ggplots
+
+ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly `print( )` the plot.
 
 ```{r, eval=FALSE}
 # Plot created but not shown.
@@ -76,17 +109,3 @@ dev.off()
 ```
 
 See also the function `ggsave`.
-
-This long form is also ideal for statistical testing. Here is a one-way ANOVA.
-
-```{r}
-oneway.test(value ~ resin, data=long)
-```
-
-A two-way ANOVA analysis would be better here. This is *well* beyond the scope of this course, but could be achived with something like:
-
-```{r}
-null <- lm(value ~ operator, data=long)
-alt <- lm(value ~ resin + operator, data=long)
-anova(null, alt)
-```

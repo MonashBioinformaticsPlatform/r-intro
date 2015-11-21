@@ -29,7 +29,7 @@ intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 %.md : %.Rmd
 	Rscript -e 'knitr::knit("$<")'
 
-%.html : %.md
+%.html : %.md _includes/*.html
 	pandoc -s -t html -fmarkdown-implicit_figures \
 	    --smart \
         --template=_layouts/page \
