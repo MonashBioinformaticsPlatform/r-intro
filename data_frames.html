@@ -47,7 +47,7 @@
 <h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
-<p>A data frame can also be created de novo from some column vectors with <code>data.frame</code>. For example</p>
+<p>A data frame can also be created de novo from vectors, with the <code>data.frame</code> function. For example</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.frame</span>(<span class="dt">foo=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>), <span class="dt">bar=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>))</code></pre></div>
 <pre><code>##   foo bar
 ## 1  10   a
@@ -76,7 +76,7 @@
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(is_over_80)</code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<p><code>&gt;=</code> means greater than or equal to. We can then grab just these rows of the data frame where <code>is_over_80</code> is <code>TRUE</code>.</p>
+<p><code>&gt;=</code> is a comparison operator meaning greater than or equal to. We can then grab just these rows of the data frame where <code>is_over_80</code> is <code>TRUE</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[is_over_80,]</code></pre></div>
 <pre><code>##     subject glyhb   location age gender height weight  frame
 ## 45    S2770  4.98 Buckingham  92 female     62    217  large
@@ -103,7 +103,21 @@ which_over_80</code></pre></div>
 ## 321  S40784 10.07     Louisa  84 female     60    192  small
 ## 323  S40786  6.48     Louisa  80   male     71    212 medium
 ## 324  S40789 11.18     Louisa  80 female     62    162  small</code></pre>
-<p>More complicated conditions can be constructed using <code>&amp;</code> (“logical and”) and <code>|</code> (“logical or”) and <code>!</code> (“not”). For example:</p>
+<p>Comparison operators available are:</p>
+<ul>
+<li><code>x == y</code> “equal to”</li>
+<li><code>x != y</code> “not equal to”</li>
+<li><code>x &lt; y</code> “less than”</li>
+<li><code>x &gt; y</code> “greater than”</li>
+<li><code>x &lt;= y</code> “less than or equal to”</li>
+<li><code>x &gt;= y</code> “greater than or equal to”</li>
+</ul>
+<p>More complicated conditions can be constructed using logical operators:</p>
+<ul>
+<li><code>a &amp; b</code> “and”, true only if both <code>a</code> and <code>b</code> are true.</li>
+<li><code>a | b</code> “or”, true if either <code>a</code> or <code>b</code> or both are true.</li>
+<li><code>! a</code> “not” , true if <code>a</code> is false, and false if <code>a</code> is true.</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80_and_female &lt;-<span class="st"> </span>is_over_80 &amp;<span class="st"> </span>diabetes$gender ==<span class="st"> &quot;female&quot;</span>
 
 is_not_from_buckingham &lt;-<span class="st"> </span>!(diabetes$location ==<span class="st"> &quot;Buckingham&quot;</span>)
@@ -120,6 +134,16 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 ## 4   S1008  4.81 Buckingham  34   male     71    190  large    FALSE
 ## 5   S1011  4.84 Buckingham  30   male     69    191 medium    FALSE
 ## 6   S1015  3.94 Buckingham  37   male     59    170 medium    FALSE</code></pre>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge"><span class="glyphicon glyphicon-pencil"></span>Challenge</h3>
+</div>
+<div class="panel-body">
+<p>Which female subjects from Buckingham are under the age of 25?</p>
+<p>What is their average glyhb?</p>
+<p>Are any of them diabetic?</p>
+</div>
+</section>
 <h2 id="factors">Factors</h2>
 <p>When R loads a CSV file, it tries to give appropriate types to the columns. Lets examine what types R has given our data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diabetes)</code></pre></div>

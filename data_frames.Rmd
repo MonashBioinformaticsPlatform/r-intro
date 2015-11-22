@@ -24,7 +24,7 @@ nrow(diabetes)
 
 > ### Tip {.callout}
 >
-> A data frame can also be created de novo from some column vectors with `data.frame`. For example
+> A data frame can also be created de novo from vectors, with the `data.frame` function. For example
 >
 > ```{r}
 > data.frame(foo=c(10,20,30), bar=c("a","b","c"))
@@ -57,7 +57,7 @@ head(is_over_80)
 sum(is_over_80)
 ```
 
-`>=` means greater than or equal to. We can then grab just these rows of the data frame where `is_over_80` is `TRUE`.
+`>=` is a comparison operator meaning greater than or equal to. We can then grab just these rows of the data frame where `is_over_80` is `TRUE`.
 
 ```{r}
 diabetes[is_over_80,]
@@ -72,7 +72,20 @@ which_over_80
 diabetes[which_over_80,]
 ```
 
-More complicated conditions can be constructed using `&` ("logical and") and `|` ("logical or") and `!` ("not"). For example:
+Comparison operators available are:
+
+* `x == y ` "equal to"
+* `x != y ` "not equal to"
+* `x < y  ` "less than"
+* `x > y  ` "greater than"
+* `x <= y ` "less than or equal to"
+* `x >= y ` "greater than or equal to"
+
+More complicated conditions can be constructed using logical operators:
+
+* `a & b ` "and", true only if both `a` and `b` are true.
+* `a | b ` "or", true if either `a` or `b` or both are true.
+* `! a   ` "not" , true if `a` is false, and false if `a` is true.
 
 ```{r}
 is_over_80_and_female <- is_over_80 & diabetes$gender == "female"
@@ -82,7 +95,6 @@ is_not_from_buckingham <- !(diabetes$location == "Buckingham")
 is_not_from_buckingham <- diabetes$location != "Buckingham"
 ```
 
-
 The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
 
 ```{r}
@@ -90,6 +102,15 @@ diabetes$diabetic <- diabetes$glyhb > 7.0
 
 head(diabetes)
 ```
+
+> ### Challenge {.challenge}
+>
+> Which female subjects from Buckingham are under the age of 25?
+>
+> What is their average glyhb?
+>
+> Are any of them diabetic?
+>
 
 
 ## Factors
