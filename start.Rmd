@@ -8,6 +8,8 @@ knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/start-")
 
 # Starting out in R
 
+R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
+
 Working with R is primarily text-based. The basic mode of use for R is that the user types in a command in the R language and presses enter, and then R computes and displays the result.
 
 We will be working in [RStudio](https://www.rstudio.com/). This surrounds the *console*, where one enters commands and views the results, with various conveniences. In addition to the console, RStudio provides panels containing:
@@ -25,6 +27,8 @@ Open RStudio, click on the "Console" pane, type `1+1` and press enter. R display
 1+1
 ```
 
+`+` is called an operator. R has the operators you would expect for for basic mathematics: `+` `-` `*` `/`. It also has operators that do more obscure things.
+
 `*` has higher precedence than `+`.  We can use brackets if necessary `( )`. Try `1+2*3` and `(1+2)*3`.
 
 Spaces can be used to make code easier to read.
@@ -36,8 +40,7 @@ There are also character strings such as `"string"`.
 
 ## Variables
 
-A variable is a name for a value, such as `x`, `current_temperature`, or `subject_id`.
-We can create a new variable by assigning a value to it using `<-`
+A variable is a name for a value, such as `x`, `current_temperature`, or `subject_id`. We can create a new variable by assigning a value to it using `<-`
 
 ```{r}
 weight_kg <- 55
@@ -109,18 +112,26 @@ This is different from the way spreadsheets work.
 
 ## Vectors
 
+A vector[^vectornote] of numbers is a collection of numbers. We call the individual numbers "elements" of the vector.
+
+[^vectornote] We use the word vector here in the mathematical sense, as used in linear algebra, *not* in any biological sense, and *not* in the geometric sense.
+
 We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R, values are just vectors of length one. R is obsesssed with vectors.
+
 
 ```{r}
 myvec <- c(1,2,3)
 myvec + 1
 myvec + myvec
+length(myvec)
 c(10, myvec)
 ```
 
-Access elements of a vector with `[ ]`, for example `myvec[1]`.
+When we talk about the length of a vector, we are talking about the number of numbers in the vector.
 
-We will also encounter character strings, for example `"hello"`. R also has something called "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment). R likes turning character vectors into factors, which is usually fine.
+Access elements of a vector with `[ ]`, for example `myvec[1]` to get the first element.
+
+We will also encounter vectors of character strings, for example `"hello"` or `c("hello","world")`. Also we will encounter "logical" vectors, which contain `TRUE` and `FALSE` values. R also has "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).
 
 ## Functions
 
@@ -136,13 +147,13 @@ sum( c(1,2,3) )
 
 Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from "libraries" (also known as "packages").
 
-Functions take some number of *arguments*. Lets look at the function `rep`, which means "repeat", and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.
+Functions take some number of *arguments*. Let's look at the function `rep`, which means "repeat", and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.
 
 ```{r}
 rep(42, 10)
 ```
 
-As with many functions in R, which is obsessed with vectors, the thing to be repeated can be a vector with multiple elements.
+As with many functions in R---which is obsessed with vectors---the thing to be repeated can be a vector with multiple elements.
 
 ```{r}
 rep(c(1,2,3), 10)
@@ -156,7 +167,7 @@ rep(x=c(1,2,3), 10)
 rep(x=c(1,2,3), times=10)
 ```
 
-Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, `rep` can also take an argument `each=`. It's typical for a function to be invoked with some number of positional arguments, which are always given, plus more rarely used arguments, typically given by name.
+Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, `rep` can also take an argument `each=`. It's typical for a function to be invoked with some number of positional arguments, which are always given, plus some more rarely used arguments, typically given by name.
 
 ```{r}
 rep(c(1,2,3), each=3)
@@ -176,8 +187,95 @@ mylist <- list(num=42, greeting="Hello, world")
 mylist$greeting
 ```
 
-I'm skipping a lot of details here.
-
-This terminology is peculiar to R. Other languages make the same distinction they may use different words for vectors and lists.
+This terminology is peculiar to R. Other languages make the same distinction but they may use different words for vectors and lists.
 
 If you're not sure what sort of object you are dealing with you can use `class`, or for more detailed information `str` (structure).
+
+
+## Overview of data types
+
+We've seen several data types in this chapter, and will be seeing two more in the following chapters. This section serves as an overview of data types in R and their typical usage.
+
+Each data type has various ways it can be created and various ways it can be accessed. If we have data in the wrong type, there are also functions to  "cast" it to the right type.
+
+This will all make more sense once you have seen these data types in action.
+
+### vector
+
+Vectors contain zero or more elements, *all of the same basic type* ("mode").
+
+Elements can be named (`names`), but often aren't.
+
+Access single elements: `vec[5]`
+
+Take a subset of a vector: `vec[c(1,3,5)]` `vec[c(TRUE,FALSE,TRUE,FALSE,TRUE)]`
+
+Vectors come in several different flavours.
+
+#### numeric vector
+
+Numbers. Internally stored as "floating point" so there is a limit to the number of digits accuracy, but this is usually entirely adequate.
+
+Examples: `42` `1e-3` `c(1,2,0.7)`
+
+Casting: `as.numeric("42")`
+
+#### character vector
+
+Character strings.
+
+Examples: `"hello"` `c("Let","the","computer","do","the","work")`
+
+Casting: `as.character(42)`
+
+#### logical vector
+
+TRUE or FALSE values.
+
+Examples: `TRUE` `FALSE` `T` `F` `c(TRUE,FALSE,TRUE)`
+
+#### factor vector
+
+A categorical vector, where the elements can be one of several different "levels". More on these in the chapter on data frames.
+
+Creation/casting: `factor(c("mutant","wildtype","mutant"), levels=c("wildtype","mutant"))`
+
+### list
+
+Lists contain zero or more elements, of any type. If your data can't be bundled up in any other type, bundle it up in a list.
+
+List elements can and typically do have names (`names`).
+
+Access an element: `mylist[[5]]` `mylist[["elementname"]]` `mylist$elementname`
+
+Creation: `list(a=1, b="two", c=FALSE)`
+
+### matrix
+
+A matrix is a two dimensional tabular data structure in which all the elements are the same type. We will typically be dealing with numeric matrices, but it is also possible to have character or logical matrices, etc.
+
+Matrix rows and columns may have names (`rownames`, `colnames`).
+
+Access an element: `mat[3,5]` `mat["arowname","acolumnname"]`
+
+Get a whole row: `mat[3,]`
+
+Get a whole column: `mat[,5]`
+
+Creation: `matrix( )`
+
+Costing: `as.matrix( )`
+
+### data.frame
+
+A data frame is a two dimensional tabular data structure in which the columns may have different types, but all the elements in each column must have the same type.
+
+Data frame rows and columns may have names (`rownames`, `colnames`). However in typical usage columns are named but rows are not.[^pmatchnote]
+
+[^pmatchnote]: For some reason, data frames use partial matching on row names, which can cause some very puzzling bugs.
+
+Accessing elements, rows and columns is the same as for matrices, but we can also get a whole column using `$`.
+
+Creation: `data.frame(colname1=values1,colname2=values2,...)`
+
+Casting: `as.data.frame( )`

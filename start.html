@@ -22,6 +22,7 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
 <h1 id="starting-out-in-r">Starting out in R</h1>
+<p>R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an <em>interactive environment</em>.</p>
 <p>Working with R is primarily text-based. The basic mode of use for R is that the user types in a command in the R language and presses enter, and then R computes and displays the result.</p>
 <p>We will be working in <a href="https://www.rstudio.com/">RStudio</a>. This surrounds the <em>console</em>, where one enters commands and views the results, with various conveniences. In addition to the console, RStudio provides panels containing:</p>
 <ul>
@@ -35,6 +36,7 @@
 <p>Open RStudio, click on the “Console” pane, type <code>1+1</code> and press enter. R displays the result of the calculation. In this document, we will be showing such an interaction with R as below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1+1</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
+<p><code>+</code> is called an operator. R has the operators you would expect for for basic mathematics: <code>+</code> <code>-</code> <code>*</code> <code>/</code>. It also has operators that do more obscure things.</p>
 <p><code>*</code> has higher precedence than <code>+</code>. We can use brackets if necessary <code>( )</code>. Try <code>1+2*3</code> and <code>(1+2)*3</code>.</p>
 <p>Spaces can be used to make code easier to read.</p>
 <p>We can compare with <code>== &lt; &gt; &lt;= &gt;=</code>. This produces a “logical” value, <code>TRUE</code> or <code>FALSE</code>. Note the double equals, <code>==</code>, for equality comparison.</p>
@@ -85,25 +87,30 @@ weight_lb</code></pre></div>
 <p><img src="fig/python-sticky-note-variables-03.png" alt="Updating a Variable" /></p>
 <p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
 <h2 id="vectors">Vectors</h2>
+<p>A vector[^vectornote] of numbers is a collection of numbers. We call the individual numbers “elements” of the vector.</p>
+<p>[^vectornote] We use the word vector here in the mathematical sense, as used in linear algebra, <em>not</em> in any biological sense, and <em>not</em> in the geometric sense.</p>
 <p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R, values are just vectors of length one. R is obsesssed with vectors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
 myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>## [1] 2 3 4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec +<span class="st"> </span>myvec</code></pre></div>
 <pre><code>## [1] 2 4 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myvec)</code></pre></div>
+<pre><code>## [1] 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">10</span>, myvec)</code></pre></div>
 <pre><code>## [1] 10  1  2  3</code></pre>
-<p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code>.</p>
-<p>We will also encounter character strings, for example <code>&quot;hello&quot;</code>. R also has something called “factors”, which are categorical vectors, and behave very much like character vectors (think the factors in an experiment). R likes turning character vectors into factors, which is usually fine.</p>
+<p>When we talk about the length of a vector, we are talking about the number of numbers in the vector.</p>
+<p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code> to get the first element.</p>
+<p>We will also encounter vectors of character strings, for example <code>&quot;hello&quot;</code> or <code>c(&quot;hello&quot;,&quot;world&quot;)</code>. Also we will encounter “logical” vectors, which contain <code>TRUE</code> and <code>FALSE</code> values. R also has “factors”, which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).</p>
 <h2 id="functions">Functions</h2>
 <p>R has various functions, such as <code>sum( )</code>. We can get help on a function with, eg <code>?sum</code>.</p>
 <pre><code>?sum</code></pre>
 <pre><code>sum( c(1,2,3) )</code></pre>
 <p>Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from “libraries” (also known as “packages”).</p>
-<p>Functions take some number of <em>arguments</em>. Lets look at the function <code>rep</code>, which means “repeat”, and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.</p>
+<p>Functions take some number of <em>arguments</em>. Let’s look at the function <code>rep</code>, which means “repeat”, and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="dv">42</span>, <span class="dv">10</span>)</code></pre></div>
 <pre><code>##  [1] 42 42 42 42 42 42 42 42 42 42</code></pre>
-<p>As with many functions in R, which is obsessed with vectors, the thing to be repeated can be a vector with multiple elements.</p>
+<p>As with many functions in R—which is obsessed with vectors—the thing to be repeated can be a vector with multiple elements.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dv">10</span>)</code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
 <p>So far we have used <em>positional</em> arguments, where R determines which argument is which by the order in which they are given. We can also give arguments by <em>name</em>. For example, the above is equivalent to</p>
@@ -113,7 +120,7 @@ myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">times=</span><span class="dv">10</span>)</code></pre></div>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
-<p>Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, <code>rep</code> can also take an argument <code>each=</code>. It’s typical for a function to be invoked with some number of positional arguments, which are always given, plus more rarely used arguments, typically given by name.</p>
+<p>Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, <code>rep</code> can also take an argument <code>each=</code>. It’s typical for a function to be invoked with some number of positional arguments, which are always given, plus some more rarely used arguments, typically given by name.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">each=</span><span class="dv">3</span>)</code></pre></div>
 <pre><code>## [1] 1 1 1 2 2 2 3 3 3</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">each=</span><span class="dv">3</span>, <span class="dt">times=</span><span class="dv">5</span>)</code></pre></div>
@@ -125,9 +132,57 @@ myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">num=</span><span class="dv">42</span>, <span class="dt">greeting=</span><span class="st">&quot;Hello, world&quot;</span>)
 mylist$greeting</code></pre></div>
 <pre><code>## [1] &quot;Hello, world&quot;</code></pre>
-<p>I’m skipping a lot of details here.</p>
-<p>This terminology is peculiar to R. Other languages make the same distinction they may use different words for vectors and lists.</p>
+<p>This terminology is peculiar to R. Other languages make the same distinction but they may use different words for vectors and lists.</p>
 <p>If you’re not sure what sort of object you are dealing with you can use <code>class</code>, or for more detailed information <code>str</code> (structure).</p>
+<h2 id="overview-of-data-types">Overview of data types</h2>
+<p>We’ve seen several data types in this chapter, and will be seeing two more in the following chapters. This section serves as an overview of data types in R and their typical usage.</p>
+<p>Each data type has various ways it can be created and various ways it can be accessed. If we have data in the wrong type, there are also functions to “cast” it to the right type.</p>
+<p>This will all make more sense once you have seen these data types in action.</p>
+<h3 id="vector">vector</h3>
+<p>Vectors contain zero or more elements, <em>all of the same basic type</em> (“mode”).</p>
+<p>Elements can be named (<code>names</code>), but often aren’t.</p>
+<p>Access single elements: <code>vec[5]</code></p>
+<p>Take a subset of a vector: <code>vec[c(1,3,5)]</code> <code>vec[c(TRUE,FALSE,TRUE,FALSE,TRUE)]</code></p>
+<p>Vectors come in several different flavours.</p>
+<h4 id="numeric-vector">numeric vector</h4>
+<p>Numbers. Internally stored as “floating point” so there is a limit to the number of digits accuracy, but this is usually entirely adequate.</p>
+<p>Examples: <code>42</code> <code>1e-3</code> <code>c(1,2,0.7)</code></p>
+<p>Casting: <code>as.numeric(&quot;42&quot;)</code></p>
+<h4 id="character-vector">character vector</h4>
+<p>Character strings.</p>
+<p>Examples: <code>&quot;hello&quot;</code> <code>c(&quot;Let&quot;,&quot;the&quot;,&quot;computer&quot;,&quot;do&quot;,&quot;the&quot;,&quot;work&quot;)</code></p>
+<p>Casting: <code>as.character(42)</code></p>
+<h4 id="logical-vector">logical vector</h4>
+<p>TRUE or FALSE values.</p>
+<p>Examples: <code>TRUE</code> <code>FALSE</code> <code>T</code> <code>F</code> <code>c(TRUE,FALSE,TRUE)</code></p>
+<h4 id="factor-vector">factor vector</h4>
+<p>A categorical vector, where the elements can be one of several different “levels”. More on these in the chapter on data frames.</p>
+<p>Creation/casting: <code>factor(c(&quot;mutant&quot;,&quot;wildtype&quot;,&quot;mutant&quot;), levels=c(&quot;wildtype&quot;,&quot;mutant&quot;))</code></p>
+<h3 id="list">list</h3>
+<p>Lists contain zero or more elements, of any type. If your data can’t be bundled up in any other type, bundle it up in a list.</p>
+<p>List elements can and typically do have names (<code>names</code>).</p>
+<p>Access an element: <code>mylist[[5]]</code> <code>mylist[[&quot;elementname&quot;]]</code> <code>mylist$elementname</code></p>
+<p>Creation: <code>list(a=1, b=&quot;two&quot;, c=FALSE)</code></p>
+<h3 id="matrix">matrix</h3>
+<p>A matrix is a two dimensional tabular data structure in which all the elements are the same type. We will typically be dealing with numeric matrices, but it is also possible to have character or logical matrices, etc.</p>
+<p>Matrix rows and columns may have names (<code>rownames</code>, <code>colnames</code>).</p>
+<p>Access an element: <code>mat[3,5]</code> <code>mat[&quot;arowname&quot;,&quot;acolumnname&quot;]</code></p>
+<p>Get a whole row: <code>mat[3,]</code></p>
+<p>Get a whole column: <code>mat[,5]</code></p>
+<p>Creation: <code>matrix( )</code></p>
+<p>Costing: <code>as.matrix( )</code></p>
+<h3 id="data.frame">data.frame</h3>
+<p>A data frame is a two dimensional tabular data structure in which the columns may have different types, but all the elements in each column must have the same type.</p>
+<p>Data frame rows and columns may have names (<code>rownames</code>, <code>colnames</code>). However in typical usage columns are named but rows are not.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<p>Accessing elements, rows and columns is the same as for matrices, but we can also get a whole column using <code>$</code>.</p>
+<p>Creation: <code>data.frame(colname1=values1,colname2=values2,...)</code></p>
+<p>Casting: <code>as.data.frame( )</code></p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>For some reason, data frames use partial matching on row names, which can cause some very puzzling bugs.<a href="#fnref1">↩</a></p></li>
+</ol>
+</div>
         </div>
       </div>
       </article>

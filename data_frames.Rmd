@@ -40,10 +40,50 @@ nrow(diabetes)
 
 As with a matrix, a data frame can be accessed by row and column with `[,]`.
 
+One difference is that if we try to get a single row of the data frame, we get back a data frame with one row, rather than a vector. This is because the row may contain data of different types, and a vector can only hold elements of all the same type.
+
 Internally, a data frame is a list of column vectors. We can use the `$` syntax we saw with lists to access columns by name.
 
+## Logical indexing
 
-The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.
+A method of indexing that we haven't discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we give a logical vector which is `TRUE` for the rows we want and `FALSE` otherwise. This can also be used with vectors and matrices.
+
+Suppose we want to look at all the subjects over 80 years of age. We first make a logical vector:
+
+```{r}
+is_over_80 <- diabetes$age >= 80
+
+head(is_over_80)
+sum(is_over_80)
+```
+
+`>=` means greater than or equal to. We can then grab just these rows of the data frame where `is_over_80` is `TRUE`.
+
+```{r}
+diabetes[is_over_80,]
+```
+
+We might also want to know *which* rows our logical vector is `TRUE` for. This is achieved with the `which` function. The result of this can also be used to index the data frame.
+
+```{r}
+which_over_80 <- which(is_over_80)
+which_over_80
+
+diabetes[which_over_80,]
+```
+
+More complicated conditions can be constructed using `&` ("logical and") and `|` ("logical or") and `!` ("not"). For example:
+
+```{r}
+is_over_80_and_female <- is_over_80 & diabetes$gender == "female"
+
+is_not_from_buckingham <- !(diabetes$location == "Buckingham")
+# or
+is_not_from_buckingham <- diabetes$location != "Buckingham"
+```
+
+
+The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
 
 ```{r}
 diabetes$diabetic <- diabetes$glyhb > 7.0

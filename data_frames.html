@@ -65,8 +65,51 @@
 </aside>
 <h2 id="indexing-data-frames">Indexing data frames</h2>
 <p>As with a matrix, a data frame can be accessed by row and column with <code>[,]</code>.</p>
+<p>One difference is that if we try to get a single row of the data frame, we get back a data frame with one row, rather than a vector. This is because the row may contain data of different types, and a vector can only hold elements of all the same type.</p>
 <p>Internally, a data frame is a list of column vectors. We can use the <code>$</code> syntax we saw with lists to access columns by name.</p>
-<p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Lets add this as a column.</p>
+<h2 id="logical-indexing">Logical indexing</h2>
+<p>A method of indexing that we haven’t discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we give a logical vector which is <code>TRUE</code> for the rows we want and <code>FALSE</code> otherwise. This can also be used with vectors and matrices.</p>
+<p>Suppose we want to look at all the subjects over 80 years of age. We first make a logical vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80 &lt;-<span class="st"> </span>diabetes$age &gt;=<span class="st"> </span><span class="dv">80</span>
+
+<span class="kw">head</span>(is_over_80)</code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(is_over_80)</code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<p><code>&gt;=</code> means greater than or equal to. We can then grab just these rows of the data frame where <code>is_over_80</code> is <code>TRUE</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[is_over_80,]</code></pre></div>
+<pre><code>##     subject glyhb   location age gender height weight  frame
+## 45    S2770  4.98 Buckingham  92 female     62    217  large
+## 56    S2794  8.40 Buckingham  91 female     61    127   &lt;NA&gt;
+## 90    S4803  5.71     Louisa  83 female     59    125 medium
+## 130  S13500  5.60     Louisa  82   male     66    163   &lt;NA&gt;
+## 139  S15013  4.57     Louisa  81 female     64    158 medium
+## 193  S15815  4.92 Buckingham  82 female     63    170 medium
+## 321  S40784 10.07     Louisa  84 female     60    192  small
+## 323  S40786  6.48     Louisa  80   male     71    212 medium
+## 324  S40789 11.18     Louisa  80 female     62    162  small</code></pre>
+<p>We might also want to know <em>which</em> rows our logical vector is <code>TRUE</code> for. This is achieved with the <code>which</code> function. The result of this can also be used to index the data frame.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">which_over_80 &lt;-<span class="st"> </span><span class="kw">which</span>(is_over_80)
+which_over_80</code></pre></div>
+<pre><code>## [1]  45  56  90 130 139 193 321 323 324</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[which_over_80,]</code></pre></div>
+<pre><code>##     subject glyhb   location age gender height weight  frame
+## 45    S2770  4.98 Buckingham  92 female     62    217  large
+## 56    S2794  8.40 Buckingham  91 female     61    127   &lt;NA&gt;
+## 90    S4803  5.71     Louisa  83 female     59    125 medium
+## 130  S13500  5.60     Louisa  82   male     66    163   &lt;NA&gt;
+## 139  S15013  4.57     Louisa  81 female     64    158 medium
+## 193  S15815  4.92 Buckingham  82 female     63    170 medium
+## 321  S40784 10.07     Louisa  84 female     60    192  small
+## 323  S40786  6.48     Louisa  80   male     71    212 medium
+## 324  S40789 11.18     Louisa  80 female     62    162  small</code></pre>
+<p>More complicated conditions can be constructed using <code>&amp;</code> (“logical and”) and <code>|</code> (“logical or”) and <code>!</code> (“not”). For example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80_and_female &lt;-<span class="st"> </span>is_over_80 &amp;<span class="st"> </span>diabetes$gender ==<span class="st"> &quot;female&quot;</span>
+
+is_not_from_buckingham &lt;-<span class="st"> </span>!(diabetes$location ==<span class="st"> &quot;Buckingham&quot;</span>)
+<span class="co"># or</span>
+is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span class="st"> &quot;Buckingham&quot;</span></code></pre></div>
+<p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of Glycosylated Haemoglobin. Values greater than 7 are usually taken as a positive diagnosis of diabetes. Let’s add this as a column.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$diabetic &lt;-<span class="st"> </span>diabetes$glyhb &gt;<span class="st"> </span><span class="fl">7.0</span>
 
 <span class="kw">head</span>(diabetes)</code></pre></div>
@@ -106,13 +149,13 @@
 <h3 id="plotting-factors">Plotting factors</h3>
 <p>If we <code>plot</code> factors, we can see that R uses the order of levels in the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$gender, diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-8-2.png" alt="plot of chunk unnamed-chunk-8" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-12-2.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic) )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-8-3.png" alt="plot of chunk unnamed-chunk-8" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-12-3.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic), diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-8-4.png" alt="plot of chunk unnamed-chunk-8" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-12-4.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <h3 id="summarizing-factors">Summarizing factors</h3>
 <p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted (a “contingency table”).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$frame)</code></pre></div>
@@ -252,7 +295,7 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 ## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
 ## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2$chol, diabetes2$glyhb)</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
 <p>Note that the result is in a different order to the input. However, it contains the correct rows.</p>
 <h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
 <p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>

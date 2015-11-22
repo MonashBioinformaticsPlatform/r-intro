@@ -16,7 +16,7 @@ For loops are the way we tell a computer to perform a repetitive task. Under the
 
 If we can't find a ready made function to do what we want, we may need to write our own for loop.
 
-## Preliminary: Blocks of code
+## Preliminary: blocks of code
 
 Suppose we want to print each word in a sentence, and for some reason we want to do this all at once. One way is to use six calls to `print`:
 
