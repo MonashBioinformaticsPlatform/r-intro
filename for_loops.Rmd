@@ -21,7 +21,7 @@ If we can't find a ready made function to do what we want, we may need to write 
 Suppose we want to print each word in a sentence, and for some reason we want to do this all at once. One way is to use six calls to `print`:
 
 ```{r}
-best_practice <- c("Let", "the", "computer", "do", "the", "work")
+sentence <- c("Let", "the", "computer", "do", "the", "work")
 
 {
   print(sentence[1])
@@ -33,7 +33,7 @@ best_practice <- c("Let", "the", "computer", "do", "the", "work")
 }
 ```
 
-R treats that code between the `{` and the `}` as a single "block" of code. It reads it in as a single unit, and then executes each line in turn with no further interaction.
+R treats the code between the `{` and the `}` as a single "block". It reads it in as a single unit, and then executes each line in turn with no further interaction.
 
 ## For loops
 

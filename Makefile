@@ -15,7 +15,7 @@ SECTIONS=start matrices data_frames for_loops ggplot next
 SVGS=$(wildcard fig/*.svg)
 PNGS=$(patsubst %.svg,%.png,$(SVGS))
 
-all : index.html $(addsuffix .html,$(SECTIONS)) intro-r.pdf $(PNGS)
+all : index.html intro-r.zip $(addsuffix .html,$(SECTIONS)) intro-r.pdf $(PNGS)
 
 intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 \
@@ -25,6 +25,9 @@ intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 		-Vgeometry:margin=1in \
 		intro.md $(addsuffix .md,$(SECTIONS)) \
 		-o $@
+
+intro-r.zip : data/intro-r/*.csv
+	( cd data && zip -FSr ../intro-r.zip intro-r )
 
 %.md : %.Rmd
 	Rscript -e 'knitr::knit("$<")'

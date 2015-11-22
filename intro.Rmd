@@ -7,3 +7,7 @@ title: "Introduction to R"
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
+
+Data files we are working with are available from:
+
+http://monashbioinformaticsplatform.github.io/2015-11-30-intro-r/

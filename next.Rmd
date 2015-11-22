@@ -4,27 +4,43 @@ title: "Next steps"
 
 # Next steps
 
-We HAVE barely touchED the surface of what R has to offer today. If you want to take your skills to the next level, here are some topics to investigate:
+We have barely touched the surface of what R has to offer today. If you want to take your skills to the next level, here are some topics to investigate:
 
-### Programming:
+### Programming
 
 * Writing functions.
 * Using if statements.
 
 The [Software Carpentry in R](http://swcarpentry.github.io/r-novice-inflammation/) course introduces R as a programming language.
 
-### Tidying and summarizing data:
+### Tidying and summarizing data
 
 * [plyr](http://plyr.had.co.nz/), [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html),  and [tidyr](http://blog.rstudio.org/2014/07/22/introducing-tidyr/) packages by Hadley Wickham.
 * [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)'s `%>%` operator for chaining together data frame manipulations.
 
-### Statistics:
+These tools play well with `ggplot2`, which we saw in the previous chapter.
+
+### Statistics
 
 * Many statistical tests are built in to R.
-* Linear models and the linear model formula syntax `~`.
+
+* Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically.
     * Many statistical techniques take linear models as their starting point, including `edgeR` which we will be using to test for differential gene expression.
     * Many R function repurpose the `~` formula syntax for other ways of relating response and explanatory variables.
 
-### RNA-Seq:
+See "The R Book" by Michael J. Crawley for general reference.
 
-* This will be covered in the Thursday class.
+The books "Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples.
+
+### Bioinformatics
+
+[Bioconductor](http://bioconductor.org) is a collection of bioinformatics related packages, including the popular `limma` and `edgeR` packages for RNA-Seq analysis developed at the Walter and Eliza Hall Institute.
+
+### Getting help
+
+Stackoverflow-style sites are great for getting help:
+
+* [support.bioconductor.org](https://support.bioconductor.org) for bioconductor related questions.
+* [biostars.org](https://biostars.org) for general bioinformatics questions.
+* [stats.stackexchange.com](http://stats.stackexchange.com) for statistics questions.
+* [stackoverflow.com](http://stackoverflow.com) for general programming questions.

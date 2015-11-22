@@ -14,6 +14,8 @@ Some of this material is derived from work that is Copyright © [Software Carpen
 
 [intro-r.pdf](intro-r.pdf) - These notes as a pdf.
 
+[intro-r.zip](intro-r.zip) - Zip file containing data we are working with.
+
 ## Topics
 
 [Starting out in R](start.html)

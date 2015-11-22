@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 As we saw earlier, `read.csv` loads tabular data from a CSV file into a data frame.
 
 ```{r}
-diabetes <- read.csv("data/diabetes.csv")
+diabetes <- read.csv("data/intro-r/diabetes.csv")
 
 class(diabetes)
 head(diabetes)

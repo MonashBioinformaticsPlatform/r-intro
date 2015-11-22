@@ -25,17 +25,28 @@
 <h2 id="loading-data">Loading data</h2>
 <p>Our example data is quality measurements (particle size) on PVC plastic production, using eight different resin batches, and three different machine operators.</p>
 <p>The data sets are stored in comma-separated values (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open <code>pvc.csv</code> and have a look at what it contains.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
-<p><code>read.csv</code> has two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
+<p>The location of the file is given relative to your “working directory”. You can see the location of your working directory in the title of the console pane in RStudio. It is most likely “~”, indicating your personal home directory.</p>
+<p>The filename means from the current working directory, in the sub-directory “data”, in the sub-directory “intro-r”, the file “pvc.csv”.</p>
+<p>You can check that the file is actually in this location using the “Files” pane in the bottom right corner of RStudio.</p>
+<p>If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the files may be in a different location.</p>
+</div>
+</aside>
+<p><code>read.csv</code> has two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+</div>
+<div class="panel-body">
 <p><code>read.csv</code> actually has many more arguments that you may find useful when importing your own data in the future.</p>
 </div>
 </aside>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat</code></pre></div>
 <pre><code>##        Alice   Bob  Carl
 ## Resin1 36.25 35.40 35.30
@@ -69,7 +80,7 @@
 <p>Much better.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+<h3 id="tip-2"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>Matrices can also be created de novo in various ways.</p>
@@ -159,7 +170,7 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <p>To support this, we can use the <code>apply</code> function.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h3 id="tip-2"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+<h3 id="tip-3"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>To learn about a function in R, e.g. <code>apply</code>, we can read its help documention by running <code>help(apply)</code> or <code>?apply</code>.</p>
@@ -173,7 +184,7 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <p>Since the second argument to <code>apply</code> is <code>MARGIN</code>, the above command is equivalent to <code>apply(dat, MARGIN = 2, mean)</code>. We’ll learn why this is so in the next lesson.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
-<h3 id="tip-3"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
+<h3 id="tip-4"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>Some common operations have more efficient alternatives. For example, you can calculate the row-wise or column-wise means with <code>rowMeans</code> and <code>colMeans</code>, respectively.</p>
