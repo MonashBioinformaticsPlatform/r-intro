@@ -256,8 +256,8 @@ One often wishes to merge data from two different sources. We want a new data fr
 Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.
 
 ```{r}
-cholesterol <- read.csv("data/chol.csv")
-head(chol)
+cholesterol <- read.csv("data/intro-r/chol.csv")
+head(cholesterol)
 ```
 
 Great! We'll just add this new column of data to our data frame.
