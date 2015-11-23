@@ -114,7 +114,7 @@ This is different from the way spreadsheets work.
 
 A vector[^vectornote] of numbers is a collection of numbers. We call the individual numbers "elements" of the vector.
 
-[^vectornote] We use the word vector here in the mathematical sense, as used in linear algebra, *not* in any biological sense, and *not* in the geometric sense.
+[^vectornote]: We use the word vector here in the mathematical sense, as used in linear algebra, *not* in any biological sense, and *not* in the geometric sense.
 
 We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R, values are just vectors of length one. R is obsesssed with vectors.
 
@@ -132,6 +132,13 @@ When we talk about the length of a vector, we are talking about the number of nu
 Access elements of a vector with `[ ]`, for example `myvec[1]` to get the first element.
 
 We will also encounter vectors of character strings, for example `"hello"` or `c("hello","world")`. Also we will encounter "logical" vectors, which contain `TRUE` and `FALSE` values. R also has "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).
+
+> ### Challenge {.challenge}
+>
+> Sometimes the best way to understand R is to try some examples and see what it does.
+>
+> What happens when you try to make a vector containing different types, using `c( )`? Try a few different combinations of types, and try to explain what R is doing.
+>
 
 ## Functions
 
@@ -274,7 +281,7 @@ Data frame rows and columns may have names (`rownames`, `colnames`). However in 
 
 [^pmatchnote]: For some reason, data frames use partial matching on row names, which can cause some very puzzling bugs.
 
-Accessing elements, rows and columns is the same as for matrices, but we can also get a whole column using `$`.
+Accessing elements, rows, and columns is the same as for matrices, but we can also get a whole column using `$`.
 
 Creation: `data.frame(colname1=values1,colname2=values2,...)`
 

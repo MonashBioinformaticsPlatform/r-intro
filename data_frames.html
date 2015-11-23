@@ -235,6 +235,9 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 <p>Many summary functions, such as <code>mean</code>, have a flag to say ignore <code>NA</code> values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes$glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
+<p>There is also an <code>is.na</code> function, allowing us to perform this removal manually using logical indexing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>( diabetes$glyhb[ !<span class="kw">is.na</span>(diabetes$glyhb) ] )</code></pre></div>
+<pre><code>## [1] 5.580292</code></pre>
 <h2 id="summarizing-data-frames">Summarizing data frames</h2>
 <p>We were able to summarize the dimensions (rows or columns) of a matrix with <code>apply</code>. In a data frame instead of summarizing along different dimensions, we can summarize with respect to different factor columns.</p>
 <p>We already saw how to count different levels in a factor with <code>table</code>.</p>
@@ -323,7 +326,7 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 ## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
 ## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2$chol, diabetes2$glyhb)</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-26-1.png" alt="plot of chunk unnamed-chunk-26" /></p>
 <p>Note that the result is in a different order to the input. However, it contains the correct rows.</p>
 <h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
 <p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>

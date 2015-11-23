@@ -197,6 +197,12 @@ Many summary functions, such as `mean`, have a flag to say ignore `NA` values.
 mean(diabetes$glyhb, na.rm=TRUE)
 ```
 
+There is also an `is.na` function, allowing us to perform this removal manually using logical indexing.
+
+```{r}
+mean( diabetes$glyhb[ !is.na(diabetes$glyhb) ] )
+```
+
 
 ## Summarizing data frames
 

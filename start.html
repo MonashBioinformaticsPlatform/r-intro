@@ -87,8 +87,7 @@ weight_lb</code></pre></div>
 <p><img src="fig/python-sticky-note-variables-03.png" alt="Updating a Variable" /></p>
 <p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
 <h2 id="vectors">Vectors</h2>
-<p>A vector[^vectornote] of numbers is a collection of numbers. We call the individual numbers “elements” of the vector.</p>
-<p>[^vectornote] We use the word vector here in the mathematical sense, as used in linear algebra, <em>not</em> in any biological sense, and <em>not</em> in the geometric sense.</p>
+<p>A vector<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> of numbers is a collection of numbers. We call the individual numbers “elements” of the vector.</p>
 <p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R, values are just vectors of length one. R is obsesssed with vectors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)
 myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
@@ -102,6 +101,15 @@ myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <p>When we talk about the length of a vector, we are talking about the number of numbers in the vector.</p>
 <p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code> to get the first element.</p>
 <p>We will also encounter vectors of character strings, for example <code>&quot;hello&quot;</code> or <code>c(&quot;hello&quot;,&quot;world&quot;)</code>. Also we will encounter “logical” vectors, which contain <code>TRUE</code> and <code>FALSE</code> values. R also has “factors”, which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge"><span class="glyphicon glyphicon-pencil"></span>Challenge</h3>
+</div>
+<div class="panel-body">
+<p>Sometimes the best way to understand R is to try some examples and see what it does.</p>
+<p>What happens when you try to make a vector containing different types, using <code>c( )</code>? Try a few different combinations of types, and try to explain what R is doing.</p>
+</div>
+</section>
 <h2 id="functions">Functions</h2>
 <p>R has various functions, such as <code>sum( )</code>. We can get help on a function with, eg <code>?sum</code>.</p>
 <pre><code>?sum</code></pre>
@@ -173,14 +181,15 @@ mylist$greeting</code></pre></div>
 <p>Costing: <code>as.matrix( )</code></p>
 <h3 id="data.frame">data.frame</h3>
 <p>A data frame is a two dimensional tabular data structure in which the columns may have different types, but all the elements in each column must have the same type.</p>
-<p>Data frame rows and columns may have names (<code>rownames</code>, <code>colnames</code>). However in typical usage columns are named but rows are not.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
-<p>Accessing elements, rows and columns is the same as for matrices, but we can also get a whole column using <code>$</code>.</p>
+<p>Data frame rows and columns may have names (<code>rownames</code>, <code>colnames</code>). However in typical usage columns are named but rows are not.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<p>Accessing elements, rows, and columns is the same as for matrices, but we can also get a whole column using <code>$</code>.</p>
 <p>Creation: <code>data.frame(colname1=values1,colname2=values2,...)</code></p>
 <p>Casting: <code>as.data.frame( )</code></p>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>For some reason, data frames use partial matching on row names, which can cause some very puzzling bugs.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>We use the word vector here in the mathematical sense, as used in linear algebra, <em>not</em> in any biological sense, and <em>not</em> in the geometric sense.<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p>For some reason, data frames use partial matching on row names, which can cause some very puzzling bugs.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
         </div>
