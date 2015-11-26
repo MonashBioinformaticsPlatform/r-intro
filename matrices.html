@@ -24,17 +24,17 @@
 <h1 id="working-with-data-in-a-matrix">Working with data in a matrix</h1>
 <h2 id="loading-data">Loading data</h2>
 <p>Our example data is quality measurements (particle size) on PVC plastic production, using eight different resin batches, and three different machine operators.</p>
-<p>The data sets are stored in comma-separated values (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open <code>pvc.csv</code> and have a look at what it contains.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<p>The data set is stored in comma-separated value (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open <code>pvc.csv</code> and have a look at what it contains.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
-<p>The location of the file is given relative to your “working directory”. You can see the location of your working directory in the title of the console pane in RStudio. It is most likely “~”, indicating your personal home directory.</p>
+<p>The location of the file is given relative to your “working directory”. You can see the location of your working directory in the title of the console pane in RStudio. It is most likely “~”, indicating your personal home directory. You can change working directory with <code>setwd</code>.</p>
 <p>The filename “data/intro-r/pvc.csv” means from the current working directory, in the sub-directory “data”, in the sub-directory “intro-r”, the file “pvc.csv”.</p>
 <p>You can check that the file is actually in this location using the “Files” pane in the bottom right corner of RStudio.</p>
-<p>If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the files may be in a different location.</p>
+<p>If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the file may be in a different location.</p>
 </div>
 </aside>
 <p>We have called <code>read.csv</code> with two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in. If we don’t specify <code>row.names</code> the result will not have row names.</p>
@@ -46,7 +46,7 @@
 <p><code>read.csv</code> actually has many more arguments that you may find useful when importing your own data in the future.</p>
 </div>
 </aside>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat</code></pre></div>
 <pre><code>##        Alice   Bob  Carl
 ## Resin1 36.25 35.40 35.30
@@ -85,18 +85,18 @@
 <div class="panel-body">
 <p>Matrices can also be created de novo in various ways.</p>
 <p><code>matrix</code> converts a vector into a matrix with a specified number of rows and columns.</p>
-<p><code>rbind</code> stacks several vectors as rows one top of each other to form a matrix. Or it can stack smaller matrices on top of each other to form a larger matrix.</p>
-<p><code>cbind</code> similarly stacks several vectors as columns next to each other to form a matrix. Or it can stack smaller matrices next to each other to form a larger matrix.</p>
+<p><code>rbind</code> stacks several vectors as rows one on top of another to form a matrix, or it can stack smaller matrices on top of each other to form a larger matrix.</p>
+<p><code>cbind</code> similarly stacks several vectors as columns next to each other to form a matrix, or it can stack smaller matrices next to each other to form a larger matrix.</p>
 </div>
 </aside>
 <h2 id="indexing-matrices">Indexing matrices</h2>
-<p>We can see the dimensions, or “shape”, of the matrix with the functions <code>nrow</code> and <code>ncol</code>:</p>
+<p>We can check the size of the matrix with the functions <code>nrow</code> and <code>ncol</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(mat)</code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(mat)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>This tells us that our matrix, <code>mat</code>, has 8 rows and 3 columns.</p>
-<p>If we want to get a single value from the data frame, we can provide a row and column index in square brackets:</p>
+<p>If we want to get a single value from the matrix, we can provide a row and column index in square brackets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first value in mat</span>
 mat[<span class="dv">1</span>, <span class="dv">1</span>]</code></pre></div>
 <pre><code>## [1] 36.25</code></pre>
@@ -106,11 +106,7 @@ mat[<span class="dv">4</span>, <span class="dv">2</span>]</code></pre></div>
 <p>If our matrix has row names and column names, we can also refer to rows and columns by name.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat[<span class="st">&quot;Resin4&quot;</span>,<span class="st">&quot;Bob&quot;</span>]</code></pre></div>
 <pre><code>## [1] 30.05</code></pre>
-<p>An index like <code>[4, 2]</code> selects a single element of a data frame, but we can select whole sections as well. For example, we can select the first two operators (columns) of values for the first four resins (rows) like this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">4</span></code></pre></div>
-<pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">2</span></code></pre></div>
-<pre><code>## [1] 1 2</code></pre>
+<p>An index like <code>[4, 2]</code> selects a single element of a matrix, but we can select whole sections as well. For example, we can select the first two operators (columns) of values for the first four resins (rows) like this:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat[<span class="dv">1</span>:<span class="dv">4</span>, <span class="dv">1</span>:<span class="dv">2</span>]</code></pre></div>
 <pre><code>##        Alice   Bob
 ## Resin1 36.25 35.40
@@ -118,6 +114,8 @@ mat[<span class="dv">4</span>, <span class="dv">2</span>]</code></pre></div>
 ## Resin3 30.70 29.65
 ## Resin4 29.70 30.05</code></pre>
 <p>The slice <code>1:4</code> means, the numbers from 1 to 4. It’s the same as <code>c(1,2,3,4)</code>, and doesn’t need to be used inside <code>[ ]</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">4</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
 <p>The slice does not need to start at 1, e.g. the line below selects rows 5 through 8:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat[<span class="dv">5</span>:<span class="dv">8</span>, <span class="dv">1</span>:<span class="dv">2</span>]</code></pre></div>
 <pre><code>##        Alice   Bob
@@ -206,7 +204,7 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>If the first four words are selected using the slice <code>phrase[1:4]</code>, how can we obtain the first four words in reverse order?</p></li>
 <li><p>What is <code>phrase[-2]</code>? What is <code>phrase[-5]</code>? Given those answers, explain what <code>phrase[-1:-3]</code> does.</p></li>
-<li><p>Use a slice of <code>phrase</code> to create a new character vector that spells the phrase “I know I don’t”, i.e. <code>c(&quot;I&quot;, &quot;know&quot;, &quot;I&quot;, &quot;don't&quot;)</code>.</p></li>
+<li><p>Use a slice of <code>phrase</code> to create a new character vector that forms the phrase “I know I don’t”, i.e. <code>c(&quot;I&quot;, &quot;know&quot;, &quot;I&quot;, &quot;don't&quot;)</code>.</p></li>
 </ol>
 </div>
 </section>
@@ -215,7 +213,7 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
 <h3 id="challenge---subsetting-data-2"><span class="glyphicon glyphicon-pencil"></span>Challenge - Subsetting data 2</h3>
 </div>
 <div class="panel-body">
-<p>Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the data frame and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
+<p>Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the matrix and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
 <ol style="list-style-type: lower-alpha">
 <li><code>max(dat[5, ])</code></li>
 <li><code>max(dat[2:3, 5])</code></li>
@@ -265,27 +263,27 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
 <p>Can you find a significant difference between any two resins?</p>
 </div>
 </section>
-<p>When we call t.test it returns an object that behaves like a <code>list</code>. Recall that in R a <code>list</code> is a miscellaneous collection of data.</p>
+<p>When we call t.test it returns an object that behaves like a <code>list</code>. Recall that in R a <code>list</code> is a miscellaneous collection of values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="kw">t.test</span>(mat[<span class="dv">1</span>,], mat[<span class="dv">2</span>,], <span class="dt">paired=</span><span class="ot">TRUE</span>)
 <span class="kw">names</span>(result)</code></pre></div>
 <pre><code>## [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
 ## [6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result$p.value</code></pre></div>
 <pre><code>## [1] 0.2007814</code></pre>
-<p>This means we can write software that uses the various results from t-test, for example performing a whole series of t-tests and reporting the significant results.</p>
+<p>This means we can write software that uses the various results from <code>t.test</code>, for example performing a whole series of t tests and reporting the significant results.</p>
 <h2 id="plotting">Plotting</h2>
 <p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
 <p>Let’s take a look at the average particle size per resin. Recall that we already calculated these values above using <code>apply(mat, 1, mean)</code> and saved them in the variable <code>avg_resin</code>. Plotting the values is done with the function <code>plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-22-1.png" alt="plot of chunk unnamed-chunk-22" /></p>
-<p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per operator across all resins. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators.</p>
-<p><code>plot</code> can take many different parameters to modify the appearance of the output. Here is a plot with some different parameters:</p>
+<p><img src="fig/matrices-unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
+<p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per resin across all operators. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 8 resins.</p>
+<p><code>plot</code> can take many different arguments to modify the appearance of the output. Here is a plot with some extra arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin,
     <span class="dt">xlab=</span><span class="st">&quot;Resin&quot;</span>,
     <span class="dt">ylab=</span><span class="st">&quot;Particle size&quot;</span>,
     <span class="dt">main=</span><span class="st">&quot;Average particle size per resin&quot;</span>,
     <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
+<p><img src="fig/matrices-unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
 <p>Let’s have a look at two other statistics: the maximum and minimum particle size per resin. Additional points or lines can be added to a plot with <code>points</code> or <code>lines</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, max)
 min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, min)
@@ -293,7 +291,7 @@ min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span
 <span class="kw">plot</span>(avg_resin, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">40</span>))
 <span class="kw">lines</span>(max_resin)
 <span class="kw">lines</span>(min_resin)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
+<p><img src="fig/matrices-unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
 <p>R doesn’t know to adjust the y limits if we add new data outside the original limits, so we needed to specify <code>ylim</code> manually. This is R’s base graphics system. If there is time today, we will look at a more advanced graphics package called “ggplot2” that handles this kind of issue more intelligently.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -302,7 +300,7 @@ min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span
 <div class="panel-body">
 <p>Create a plot showing the standard deviation for each resin.</p>
 <p>Advanced: Create a plot showing +/- two standard deviations about the mean.</p>
-<p>Extension: Create similar plots for operator. Comment on which dimension is the major source of variation in this data.</p>
+<p>Extension: Create similar plots for operator. Which dimension (resin or operator) is the major source of variation in this data?</p>
 </div>
 </section>
 <h2 id="saving-plots">Saving plots</h2>
@@ -316,7 +314,7 @@ min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>We use matrix here in the mathematical sense, <em>not</em> the biological sense.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>We use matrix here in the mathematical sense, not the biological sense.<a href="#fnref1">↩</a></p></li>
 </ol>
 </div>
         </div>

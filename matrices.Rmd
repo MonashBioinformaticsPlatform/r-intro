@@ -12,21 +12,21 @@ knitr::opts_chunk$set(fig.width=4, fig.height=4, fig.path = "fig/matrices-")
 
 Our example data is quality measurements (particle size) on PVC plastic production, using eight different resin batches, and three different machine operators.
 
-The data sets are stored in comma-separated values (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open `pvc.csv` and have a look at what it contains.
+The data set is stored in comma-separated value (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open `pvc.csv` and have a look at what it contains.
 
 ```{r, results="hide"}
-read.csv(file="data/intro-r/pvc.csv", row.names=1)
+read.csv("data/intro-r/pvc.csv", row.names=1)
 ```
 
 > ### Tip {.callout}
 >
-> The location of the file is given relative to your "working directory". You can see the location of your working directory in the title of the console pane in RStudio. It is most likely "~", indicating your personal home directory.
+> The location of the file is given relative to your "working directory". You can see the location of your working directory in the title of the console pane in RStudio. It is most likely "~", indicating your personal home directory. You can change working directory with `setwd`.
 >
 > The filename "data/intro-r/pvc.csv" means from the current working directory, in the sub-directory "data", in the sub-directory "intro-r", the file "pvc.csv".
 >
 > You can check that the file is actually in this location using the "Files" pane in the bottom right corner of RStudio.
 >
-> If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the files may be in a different location.
+> If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the file may be in a different location.
 >
 
 
@@ -40,7 +40,7 @@ The filename needs to be a character string, so we put it in quotes. Assigning t
 
 
 ```{r, results="hide"}
-dat <- read.csv(file="data/intro-r/pvc.csv", row.names=1)
+dat <- read.csv("data/intro-r/pvc.csv", row.names=1)
 ```
 
 ```{r}
@@ -53,7 +53,7 @@ str(dat)
 
 Actually this data is better thought of as a matrix[^matrixnote]. In a data frame the columns contain different types of data, but in a matrix all the elements are the same type of data. A matrix in R is like a mathematical matrix, containing all the same type of thing (usually numbers).
 
-[^matrixnote]: We use matrix here in the mathematical sense, *not* the biological sense.
+[^matrixnote]: We use matrix here in the mathematical sense, not the biological sense.
 
 R often but not always lets these be used interchangably. It's also helpful when thinking about data to distinguish between a data frame and a matrix. Different operations make sense for data frames and matrices.
 
@@ -75,15 +75,15 @@ Much better.
 >
 > `matrix` converts a vector into a matrix with a specified number of rows and columns.
 >
-> `rbind` stacks several vectors as rows one top of each other to form a matrix. Or it can stack smaller matrices on top of each other to form a larger matrix.
+> `rbind` stacks several vectors as rows one on top of another to form a matrix, or it can stack smaller matrices on top of each other to form a larger matrix.
 >
-> `cbind` similarly stacks several vectors as columns next to each other to form a matrix. Or it can stack smaller matrices next to each other to form a larger matrix.
+> `cbind` similarly stacks several vectors as columns next to each other to form a matrix, or it can stack smaller matrices next to each other to form a larger matrix.
 >
 
 
 ## Indexing matrices
 
-We can see the dimensions, or "shape", of the matrix with the functions `nrow` and `ncol`:
+We can check the size of the matrix with the functions `nrow` and `ncol`:
 
 ```{r}
 nrow(mat)
@@ -92,7 +92,7 @@ ncol(mat)
 
 This tells us that our matrix, `mat`, has `r nrow(mat)` rows and `r ncol(mat)` columns.
 
-If we want to get a single value from the data frame, we can provide a row and column index in square brackets:
+If we want to get a single value from the matrix, we can provide a row and column index in square brackets:
 
 ```{r}
 # first value in mat
@@ -107,16 +107,17 @@ If our matrix has row names and column names, we can also refer to rows and colu
 mat["Resin4","Bob"]
 ```
 
-An index like `[4, 2]` selects a single element of a data frame, but we can select whole sections as well. For example, we can select the first two operators (columns) of values for the first four resins (rows) like this:
+An index like `[4, 2]` selects a single element of a matrix, but we can select whole sections as well. For example, we can select the first two operators (columns) of values for the first four resins (rows) like this:
 
 ```{r}
-1:4
-1:2
-
 mat[1:4, 1:2]
 ```
 
 The slice `1:4` means, the numbers from 1 to 4. It's the same as `c(1,2,3,4)`, and doesn't need to be used inside `[ ]`.
+
+```{r}
+1:4
+```
 
 The slice does not need to start at 1, e.g. the line below selects rows 5 through 8:
 
@@ -229,14 +230,14 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 >    Given those answers,
 >    explain what `phrase[-1:-3]` does.
 >
-> 3.  Use a slice of `phrase` to create a new character vector that spells the phrase "I know I don't", i.e. `c("I", "know", "I", "don't")`.
+> 3.  Use a slice of `phrase` to create a new character vector that forms the phrase "I know I don't", i.e. `c("I", "know", "I", "don't")`.
 >
 
 
 > ### Challenge - Subsetting data 2 {.challenge}
 >
 > Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3.
-> To do this you would extract the relevant slice from the data frame and calculate the maximum value.
+> To do this you would extract the relevant slice from the matrix and calculate the maximum value.
 > Which of the following lines of R code gives the correct answer?
 >
 > (a) `max(dat[5, ])`
@@ -268,7 +269,7 @@ t.test(mat[1,], mat[2,], paired=TRUE)
 >
 
 
-When we call t.test it returns an object that behaves like a `list`. Recall that in R a `list` is a miscellaneous collection of data.
+When we call t.test it returns an object that behaves like a `list`. Recall that in R a `list` is a miscellaneous collection of values.
 
 ```{r}
 result <- t.test(mat[1,], mat[2,], paired=TRUE)
@@ -276,7 +277,7 @@ names(result)
 result$p.value
 ```
 
-This means we can write software that uses the various results from t-test, for example performing a whole series of t-tests and reporting the significant results.
+This means we can write software that uses the various results from `t.test`, for example performing a whole series of t tests and reporting the significant results.
 
 
 ## Plotting
@@ -292,10 +293,10 @@ Plotting the values is done with the function `plot`.
 plot(avg_resin)
 ```
 
-Above, we gave the function `plot` a vector of numbers corresponding to the average per operator across all resins.
-`plot` created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators.
+Above, we gave the function `plot` a vector of numbers corresponding to the average per resin across all operators.
+`plot` created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 8 resins.
 
-`plot` can take many different parameters to modify the appearance of the output. Here is a plot with some different parameters:
+`plot` can take many different arguments to modify the appearance of the output. Here is a plot with some extra arguments:
 
 ```{r}
 plot(avg_resin,
@@ -325,7 +326,7 @@ R doesn't know to adjust the y limits if we add new data outside the original li
 >
 > Advanced: Create a plot showing +/- two standard deviations about the mean.
 >
-> Extension: Create similar plots for operator. Comment on which dimension is the major source of variation in this data.
+> Extension: Create similar plots for operator. Which dimension (resin or operator) is the major source of variation in this data?
 >
 
 

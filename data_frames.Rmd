@@ -48,7 +48,7 @@ Internally, a data frame is a list of column vectors. We can use the `$` syntax 
 
 ## Logical indexing
 
-A method of indexing that we haven't discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we give a logical vector which is `TRUE` for the rows we want and `FALSE` otherwise. This can also be used with vectors and matrices.
+A method of indexing that we haven't discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we can give a logical vector which is `TRUE` for the rows we want and `FALSE` otherwise. This can also be used with vectors and matrices.
 
 Suppose we want to look at all the subjects over 80 years of age. We first make a logical vector:
 
@@ -97,7 +97,7 @@ is_not_from_buckingham <- !(diabetes$location == "Buckingham")
 is_not_from_buckingham <- diabetes$location != "Buckingham"
 ```
 
-The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of percent glycosylated haemoglobin, which gives a information about long term glucose levels in blood. Values greater than 7% are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
+The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of percent glycosylated haemoglobin, which gives information about long term glucose levels in blood. Values greater than 7% are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
 
 ```{r}
 diabetes$diabetic <- diabetes$glyhb > 7.0
@@ -140,15 +140,15 @@ mean(diabetes$glyhb, na.rm=TRUE)
 There is also an `is.na` function, allowing us to perform this removal manually using logical indexing.
 
 ```{r}
-not_na <- !is.na(diabetes$glyhb)
-mean( diabetes$glyhb[ not_na ] )
+not_missing <- !is.na(diabetes$glyhb)
+mean( diabetes$glyhb[not_missing] )
 ```
 
 
 ## Factors
 
 When R loads a CSV file, it tries to give appropriate types to the columns.
-Lets examine what types R has given our data.
+Let's examine what types R has given our data.
 
 ```{r}
 str(diabetes)
@@ -160,9 +160,9 @@ We might have expected the text columns to be the "character" data type, but the
 head( diabetes$frame )
 ```
 
-R uses factor data type to store a vector of *categorical* data. The different possible categories are called *levels*.
+R uses the factor data type to store a vector of *categorical* data. The different possible categories are called "levels".
 
-Factors can be created from character vectors with `factor`. We sometimes care what order the levels are in, since this can affect how data is plotted or tabulated by various functions. If there is some sort of baseline level, such as "wildtype strain" or "no treatment", it is usually given first. `factor` has a parameter `levels=` to specify the desired order of levels.
+Factors can be created from character vectors with `factor`. We sometimes care what order the levels are in, since this can affect how data is plotted or tabulated by various functions. If there is some sort of baseline level, such as "wildtype strain" or "no treatment", it is usually given first. `factor` has an argument `levels=` to specify the desired order of levels.
 
 Factors can be converted back to a character vector with `as.character`.
 
@@ -176,13 +176,15 @@ head( diabetes$frame )
 
 ## Plotting factors
 
-If we `plot` factors, we can see that R uses the order of levels in the plot.
+Some functions in R do different things if you give them different types of argument. `summary` and `plot` are examples of such functions.
+
+If we `plot` factors, shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.
 
 ```{r}
 plot( diabetes$frame )
 ```
 
-When we gave R two factors to plot it produces a "mosaic plot" that helps us see if there is any relationship between the two factors.
+When we give R two factors to plot it produces a "mosaic plot" that helps us see if there is any relationship between the two factors.
 
 ```{r}
 plot( diabetes$gender, diabetes$frame )
@@ -192,8 +194,9 @@ plot( diabetes$gender, diabetes$frame )
 
 ```{r}
 plot( factor(diabetes$diabetic) )
-plot( factor(diabetes$diabetic), diabetes$frame )
+plot( diabetes$frame, factor(diabetes$diabetic) )
 ```
+
 
 ## Summarizing factors
 
@@ -212,9 +215,9 @@ fisher.test( table(diabetes$diabetic, diabetes$frame) )
 
 > ### Challenge - gender and diabetes {.challenge}
 >
-> Do you think any association between gender and whether a person is diabetic is shown by this data set?
+> Do you think there is any association between gender and whether a person is diabetic shown by this data set?
 >
-> Why?
+> Why, or why not?
 >
 
 
@@ -227,7 +230,7 @@ We already saw how to count different levels in a factor with `table`.
 We can use summary functions such as `mean` with a function called `tapply`, which works similarly to `apply`. The three arguments we need are very similar to the three arguments we used with `apply`:
 
 1. The data to summarize.
-2. The what we want *not* to be collapsed in the output.
+2. What we want *not* to be collapsed away in the output.
 3. The function to use to summarize the data.
 
 However rather than specifying a *dimension* for argument 2 we specify a *factor*.
@@ -242,7 +245,7 @@ We obtain NAs because our data contains NAs. We need to tell `mean` to ignore th
 tapply(diabetes$glyhb, diabetes$frame, mean, na.rm=TRUE)
 ```
 
-The result is a vector, with names from the classifying factor. These means seem of a continuous measurement seem to be bearing out our earlier observation using a discrete form of the measurement that this data show some link between body frame and diabetes prevalence.
+The result is a vector, with names from the classifying factor. These means of a continuous measurement seem to be bearing out our earlier observation using a discrete form of the measurement, that this data show some link between body frame and diabetes prevalence.
 
 We can summarize over several factors, in which case they must be given as a list. Two factors produces a matrix. More factors would produce a higher dimensional *array*.
 
@@ -251,6 +254,14 @@ tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)
 ```
 
 This is similar to a "pivot table", which you may have used in a spreadsheet.
+
+
+> ### Challenge {.challenge}
+>
+> Find the age of the youngest and oldest subject, for each gender and in each location in the study.
+>
+> Extension: How could we clean up the data frame so we never needed to use na.rm=TRUE?
+>
 
 
 ## Melting a matrix into a data frame
@@ -295,7 +306,7 @@ diabetes2 <- diabetes
 diabetes2$chol <- cholesterol$chol
 ```
 
-Oh. The two data frames don't have exactly the same set of subjects. We should also have checked that they were even in the same order before blithely combining them. R has shown an error this time, but there are many ways to mess up like this that would not show an error. How embarassing.
+Oh. The two data frames don't have exactly the same set of subjects. We should also have checked if they were even in the same order before blithely combining them. R has shown an error this time, but there are ways to mess up like this that would not show an error. How embarassing.
 
 ```{r}
 nrow(diabetes)
@@ -316,7 +327,7 @@ head(diabetes2)
 plot(diabetes2$chol, diabetes2$glyhb)
 ```
 
-Note that the result is in a different order to the input. However, it contains the correct rows.
+Note that the result is in a different order to the input. However it contains the correct rows.
 
 
 ### Left join using the `merge` function

@@ -25,7 +25,7 @@ These tools play well with `ggplot2`, which we saw in the previous chapter.
 * Many statistical tests are built in to R.
 
 * Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically.
-    * Many statistical techniques take linear models as their starting point, including `edgeR` which we will be using to test for differential gene expression.
+    * Many statistical techniques take linear models as their starting point, including `limma` which we will be using to test for differential gene expression.
     * Many R function repurpose the `~` formula syntax for other ways of relating response and explanatory variables.
 
 See "The R Book" by Michael J. Crawley for general reference.

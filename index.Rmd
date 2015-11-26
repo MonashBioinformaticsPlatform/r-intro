@@ -18,16 +18,16 @@ Some of this material is derived from work that is Copyright © [Software Carpen
 
 ## Topics
 
-[Starting out in R](start.html)
+[Starting out in R](start.html) ([.Rmd](start.Rmd))
 
-[Working with data in a matrix](matrices.html)
+[Working with data in a matrix](matrices.html) ([.Rmd](matrices.Rmd))
 
-[Working with data in a data frame](data_frames.html)
+[Working with data in a data frame](data_frames.html) ([.Rmd](data_frames.Rmd))
 
-[For loops](for_loops.html)
+[For loops](for_loops.html) ([.Rmd](for_loops.Rmd))
 
 ### Extension topics
 
-[Plotting with ggplot2](ggplot.html)
+[Plotting with ggplot2](ggplot.html) ([.Rmd](ggplot.Rmd))
 
 [Next steps](next.html)

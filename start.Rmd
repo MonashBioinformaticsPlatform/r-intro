@@ -35,12 +35,16 @@ Spaces can be used to make code easier to read.
 
 We can compare with `== < > <= >=`. This produces a "logical" value, `TRUE` or `FALSE`. Note the double equals, `==`, for equality comparison.
 
+```{r}
+2 * 2 == 4
+```
+
 There are also character strings such as `"string"`.
 
 
 ## Variables
 
-A variable is a name for a value, such as `x`, `current_temperature`, or `subject_id`. We can create a new variable by assigning a value to it using `<-`
+A variable is a name for a value, such as `x`, `current_temperature`, or `subject.id`. We can create a new variable by assigning a value to it using `<-`
 
 ```{r}
 weight_kg <- 55
@@ -68,7 +72,7 @@ We can do arithmetic with the variable:
 > document our code in this way so that others (and us the next time we
 > read it) have an easier time following what the code is doing.
 
-We can also change an object's value by assigning it a new value:
+We can also change a variable's value by assigning it a new value:
 
 ```{r}
 weight_kg <- 57.5
@@ -81,7 +85,7 @@ assignment is like putting the sticky note on a particular value:
 
 ![Variables as Sticky Notes](fig/python-sticky-note-variables-01.png)
 
-This means that assigning a value to one object does not change the values of other variables.
+Assigning a new value to one variable does not change the values of other variables.
 For example, let's store the subject's weight in pounds in a variable:
 
 ```{r}
@@ -112,12 +116,11 @@ This is different from the way spreadsheets work.
 
 ## Vectors
 
-A vector[^vectornote] of numbers is a collection of numbers. We call the individual numbers "elements" of the vector.
+A "vector"[^vectornote] of numbers is a collection of numbers. We call the individual numbers "elements" of the vector.
 
-[^vectornote]: We use the word vector here in the mathematical sense, as used in linear algebra, *not* in any biological sense, and *not* in the geometric sense.
+[^vectornote]: We use the word vector here in the mathematical sense, as used in linear algebra, not in any biological sense, and not in the geometric sense.
 
-We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R, values are just vectors of length one. R is obsesssed with vectors.
-
+We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R, numbers are just vectors of length one. R is obsesssed with vectors.
 
 ```{r}
 myvec <- c(10,20,30)
@@ -144,8 +147,13 @@ We will also encounter vectors of character strings, for example `"hello"` or `c
 >
 > Sometimes the best way to understand R is to try some examples and see what it does.
 >
-> What happens when you try to make a vector containing different types, using `c( )`? Try a few different combinations of types, and try to explain what R is doing.
+> What happens when you try to make a vector containing different types, using `c( )`? Make a vector with some numbers, and some words (eg. character strings like "test", or "hello").
 >
+> Why does the output show the numbers surrounded by quotes " " like character strings are?
+
+
+Because vectors can only contain one type of thing, R chooses a lowest common denominator type of vector, a type that can contain everything we are trying to put in it. A different language might stop with an error, but R tries to soldier on as best it can. A number can be represented as a character string, but a character string can not be represented as a number, so when we try to put both in the same vector R converts everything to a character string.
+
 
 ## Functions
 
@@ -155,13 +163,15 @@ R has various functions, such as `sum( )`. We can get help on a function with, e
 ?sum
 ```
 
+```{r}
+sum(myvec)
 ```
-sum( c(1,2,3) )
-```
+
+Here we have called the function `sum` with the argument `myvec`.
 
 Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from "libraries" (also known as "packages").
 
-Functions take some number of *arguments*. Let's look at the function `rep`, which means "repeat", and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.
+Some functions take more than one argument. Let's look at the function `rep`, which means "repeat", and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.
 
 ```{r}
 rep(42, 10)
@@ -181,7 +191,7 @@ rep(x=c(1,2,3), 10)
 rep(x=c(1,2,3), times=10)
 ```
 
-Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, `rep` can also take an argument `each=`. It's typical for a function to be invoked with some number of positional arguments, which are always given, plus some more rarely used arguments, typically given by name.
+Arguments can have default values, and a function may have many different possible arguments that make it do obscure things. For example, `rep` can also take an argument `each=`. It's typical for a function to be invoked with some number of positional arguments, which are always given, plus some less commonly used arguments, typically given by name.
 
 ```{r}
 rep(c(1,2,3), each=3)
@@ -209,13 +219,13 @@ Functions that need to return multiple outputs often do so as a list. We will be
 
 We've seen several data types in this chapter, and will be seeing two more in the following chapters. This section serves as an overview of data types in R and their typical usage.
 
-Each data type has various ways it can be created and various ways it can be accessed. If we have data in the wrong type, there are also functions to  "cast" it to the right type.
+Each data type has various ways it can be created and various ways it can be accessed. If we have data in the wrong type, there are functions to  "cast" it to the right type.
 
 This will all make more sense once you have seen these data types in action.
 
 > ### Tip {.callout}
 >
-> If you're not sure what sort of object you are dealing with you can use `class`, or for more detailed information `str` (structure).
+> If you're not sure what type of value you are dealing with you can use `class`, or for more detailed information `str` (structure).
 >
 
 ### vector
@@ -254,7 +264,7 @@ Examples: `TRUE` `FALSE` `T` `F` `c(TRUE,FALSE,TRUE)`
 
 #### factor vector
 
-A categorical vector, where the elements can be one of several different "levels". More on these in the chapter on data frames.
+A categorical vector, where the elements can be one of several different "levels". There will be more on these in the chapter on data frames.
 
 Creation/casting: `factor(c("mutant","wildtype","mutant"), levels=c("wildtype","mutant"))`
 
@@ -282,7 +292,7 @@ Get a whole column: `mat[,5]`
 
 Creation: `matrix( )`
 
-Costing: `as.matrix( )`
+Casting: `as.matrix( )`
 
 ### data.frame
 
