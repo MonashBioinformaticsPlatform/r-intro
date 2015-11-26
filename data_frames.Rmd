@@ -178,7 +178,7 @@ head( diabetes$frame )
 
 Some functions in R do different things if you give them different types of argument. `summary` and `plot` are examples of such functions.
 
-If we `plot` factors, shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.
+If we `plot` factors, R shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.
 
 ```{r}
 plot( diabetes$frame )
@@ -260,7 +260,7 @@ This is similar to a "pivot table", which you may have used in a spreadsheet.
 >
 > Find the age of the youngest and oldest subject, for each gender and in each location in the study.
 >
-> Extension: How could we clean up the data frame so we never needed to use na.rm=TRUE?
+> Extension: How could we clean up the data frame so we never needed to use `na.rm=TRUE` when summarizing glyhb values?
 >
 
 
@@ -341,7 +341,7 @@ nrow(diabetes3)
 head(diabetes3)
 ```
 
-The missing data from the second data frame is indicated by NAs.
+The data missing from the second data frame is indicated by NAs.
 
 > ### Tip {.callout}
 >

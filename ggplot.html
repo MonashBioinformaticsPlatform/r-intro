@@ -42,11 +42,21 @@
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
 <p>The call to <code>ggplot</code> sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.</p>
-<p>Further aesthetics can be added.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age, <span class="dt">size=</span>weight, <span class="dt">color=</span>gender)) +
+<p>Further aesthetics can be added. Hans Rosling would be excited!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age, <span class="dt">size=</span>weight, <span class="dt">color=</span>frame)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
 <pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
+<p>We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb.</p>
+<p>“stat” components can be added that overlay a graphical summary of the data. For example “stat_smooth” overlays a curve fitted to the data. If there is a grouping of the data, for example by color, then separate curves are shown for each group.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bad_rows &lt;-
+<span class="st">    </span><span class="kw">is.na</span>(diabetes$frame) |
+<span class="st">    </span><span class="kw">is.na</span>(diabetes$height) |
+<span class="st">    </span><span class="kw">is.na</span>(diabetes$weight)
+
+<span class="kw">ggplot</span>(diabetes[!bad_rows,], <span class="kw">aes</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>height, <span class="dt">color=</span>frame)) +
+<span class="st">    </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
 <h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
 <p>Let’s return to our first matrix example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
@@ -72,16 +82,17 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 ## 5 Resin5    Alice 31.85
 ## 6 Resin6    Alice 30.20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+<p><img src="fig/ggplot-unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
 <p>Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
+<p><img src="fig/ggplot-unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) +
 <span class="st">    </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-10-2.png" alt="plot of chunk unnamed-chunk-10" /></p>
+<p><img src="fig/ggplot-unnamed-chunk-11-2.png" alt="plot of chunk unnamed-chunk-11" /></p>
+<p>Faceting lets us quickly produce a collection of small plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +
 <span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>resin) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-10-3.png" alt="plot of chunk unnamed-chunk-10" /></p>
+<p><img src="fig/ggplot-unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <h2 id="saving-ggplots">Saving ggplots</h2>
 <p>ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot created but not shown.</span>

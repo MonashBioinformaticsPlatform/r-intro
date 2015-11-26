@@ -44,11 +44,25 @@ ggplot(diabetes, aes(y=glyhb, x=age)) +
 
 The call to `ggplot` sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.
 
-Further aesthetics can be added.
+Further aesthetics can be added. Hans Rosling would be excited!
 
 ```{r}
-ggplot(diabetes, aes(y=glyhb, x=age, size=weight, color=gender)) +
+ggplot(diabetes, aes(y=glyhb, x=age, size=weight, color=frame)) +
     geom_point()
+```
+
+We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb.
+
+"stat" components can be added that overlay a graphical summary of the data. For example "stat_smooth" overlays a curve fitted to the data. If there is a grouping of the data, for example by color, then separate curves are shown for each group.
+
+```{r}
+bad_rows <-
+    is.na(diabetes$frame) |
+    is.na(diabetes$height) |
+    is.na(diabetes$weight)
+
+ggplot(diabetes[!bad_rows,], aes(y=weight, x=height, color=frame)) +
+    geom_point() + stat_smooth(method="lm")
 ```
 
 
@@ -82,7 +96,11 @@ ggplot(long, aes(x=operator, y=value)) + geom_boxplot() + geom_point()
 
 ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
     geom_line() + theme_bw()
+```
 
+Faceting lets us quickly produce a collection of small plots.
+
+```{r}
 ggplot(long, aes(x=operator, y=value)) +
     facet_wrap(~ resin) + geom_point() + theme_bw()
 ```

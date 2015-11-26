@@ -38,7 +38,9 @@ The books "Linear Models with R" and "Extending the Linear Model with R" by Juli
 
 ### Getting help
 
-Stackoverflow-style sites are great for getting help:
+Talk to the Monash Bioinformatics Platform for help and pointers.
+
+Stackoverflow-style sites are also great for getting help:
 
 * [support.bioconductor.org](https://support.bioconductor.org) for bioconductor related questions.
 * [biostars.org](https://biostars.org) for general bioinformatics questions.

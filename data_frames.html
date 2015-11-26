@@ -203,7 +203,7 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 ## Levels: small medium large</code></pre>
 <h2 id="plotting-factors">Plotting factors</h2>
 <p>Some functions in R do different things if you give them different types of argument. <code>summary</code> and <code>plot</code> are examples of such functions.</p>
-<p>If we <code>plot</code> factors, shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.</p>
+<p>If we <code>plot</code> factors, R shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame )</code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" /></p>
 <p>When we give R two factors to plot it produces a “mosaic plot” that helps us see if there is any relationship between the two factors.</p>
@@ -273,7 +273,7 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 </div>
 <div class="panel-body">
 <p>Find the age of the youngest and oldest subject, for each gender and in each location in the study.</p>
-<p>Extension: How could we clean up the data frame so we never needed to use na.rm=TRUE?</p>
+<p>Extension: How could we clean up the data frame so we never needed to use <code>na.rm=TRUE</code> when summarizing glyhb values?</p>
 </div>
 </section>
 <h2 id="melting-a-matrix-into-a-data-frame">Melting a matrix into a data frame</h2>
@@ -362,7 +362,7 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 ## 4   S1002  4.64 Buckingham  58 female     61    256 large    FALSE  228
 ## 5  S10020  7.53 Buckingham  64   male     71    225 large     TRUE  181
 ## 6   S1003  4.63 Buckingham  67   male     67    119 large    FALSE   NA</code></pre>
-<p>The missing data from the second data frame is indicated by NAs.</p>
+<p>The data missing from the second data frame is indicated by NAs.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip-3"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>

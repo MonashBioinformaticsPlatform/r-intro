@@ -50,7 +50,7 @@ A variable is a name for a value, such as `x`, `current_temperature`, or `subjec
 weight_kg <- 55
 ```
 
-RStudio helpfully shows us the variable in the "Environment" pane. We can also print it by typing the name of the variable and hitting `Enter` (or `return`).
+RStudio helpfully shows us the variable in the "Environment" pane. We can also print it by typing the name of the variable and hitting enter.
 In general, R will print to the console any object returned by a function or operation *unless* we assign it to a variable.
 
 ```{r}
@@ -202,9 +202,9 @@ rep(c(1,2,3), each=3, times=5)
 
 ## Lists
 
-Vectors contain all the same kind of thing. Lists can contain different kinds of thing.
+Vectors contain all the same kind of thing. Lists can contain different kinds of thing. Lists can even contain vectors or other lists as elements.
 
-We generally gives the things in a list names. Try `list(num=42, greeting="hello")`. To access named elements we use `$`.
+We generally give the things in a list names. Try `list(num=42, greeting="hello")`. To access named elements we use `$`.
 
 ```{r}
 mylist <- list(num=42, greeting="Hello, world")
@@ -270,7 +270,7 @@ Creation/casting: `factor(c("mutant","wildtype","mutant"), levels=c("wildtype","
 
 ### list
 
-Lists contain zero or more elements, of any type. If your data can't be bundled up in any other type, bundle it up in a list.
+Lists contain zero or more elements, of any type. Elements of a list can even be vectors with their own multiple elements, or other lists. If your data can't be bundled up in any other type, bundle it up in a list.
 
 List elements can and typically do have names (`names`).
 
