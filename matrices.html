@@ -32,12 +32,12 @@
 </div>
 <div class="panel-body">
 <p>The location of the file is given relative to your “working directory”. You can see the location of your working directory in the title of the console pane in RStudio. It is most likely “~”, indicating your personal home directory.</p>
-<p>The filename means from the current working directory, in the sub-directory “data”, in the sub-directory “intro-r”, the file “pvc.csv”.</p>
+<p>The filename “data/intro-r/pvc.csv” means from the current working directory, in the sub-directory “data”, in the sub-directory “intro-r”, the file “pvc.csv”.</p>
 <p>You can check that the file is actually in this location using the “Files” pane in the bottom right corner of RStudio.</p>
 <p>If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the files may be in a different location.</p>
 </div>
 </aside>
-<p><code>read.csv</code> has two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in.</p>
+<p>We have called <code>read.csv</code> with two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in. If we don’t specify <code>row.names</code> the result will not have row names.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
@@ -68,7 +68,7 @@
 <p>Actually this data is better thought of as a matrix<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>. In a data frame the columns contain different types of data, but in a matrix all the elements are the same type of data. A matrix in R is like a mathematical matrix, containing all the same type of thing (usually numbers).</p>
 <p>R often but not always lets these be used interchangably. It’s also helpful when thinking about data to distinguish between a data frame and a matrix. Different operations make sense for data frames and matrices.</p>
 <p>Data frames are very central to R, and mastering R is very much about thinking in data frames. However when we get to RNA-Seq we will be using matrices of read counts, so it will be worth our time to learn to use matrices as well.</p>
-<p>Let us insist to R that what we have is a matrix.</p>
+<p>Let us insist to R that what we have is a matrix. <code>as.matrix</code> “casts” our data to have matrix type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)
 <span class="kw">class</span>(mat)</code></pre></div>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
@@ -96,7 +96,7 @@
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(mat)</code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>This tells us that our matrix, <code>mat</code>, has 8 rows and 3 columns.</p>
-<p>If we want to get a single value from the data frame, we can provide an index in square brackets:</p>
+<p>If we want to get a single value from the data frame, we can provide a row and column index in square brackets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first value in mat</span>
 mat[<span class="dv">1</span>, <span class="dv">1</span>]</code></pre></div>
 <pre><code>## [1] 36.25</code></pre>
@@ -176,12 +176,12 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <p>To learn about a function in R, e.g. <code>apply</code>, we can read its help documention by running <code>help(apply)</code> or <code>?apply</code>.</p>
 </div>
 </aside>
-<p><code>apply</code> allows us to repeat a function on all of the rows (<code>MARGIN = 1</code>) or columns (<code>MARGIN = 2</code>) of a matrix.</p>
+<p><code>apply</code> allows us to repeat a function on all of the rows (<code>MARGIN = 1</code>) or columns (<code>MARGIN = 2</code>) of a matrix. We can think of <code>apply</code> as collapsing the matrix down to just the dimension specified by <code>MARGIN</code>, with rows being dimension 1 and columns dimension 2 (recall that when indexing the matrix we give the row first and the column second).</p>
 <p>Thus, to obtain the average particle size of each resin we will need to calculate the mean of all of the rows (<code>MARGIN = 1</code>) of the matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, mean)</code></pre></div>
 <p>And to obtain the average particle size for each operator we will need to calculate the mean of all of the columns (<code>MARGIN = 2</code>) of the matrix.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">avg_operator &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">2</span>, mean)</code></pre></div>
-<p>Since the second argument to <code>apply</code> is <code>MARGIN</code>, the above command is equivalent to <code>apply(dat, MARGIN = 2, mean)</code>. We’ll learn why this is so in the next lesson.</p>
+<p>Since the second argument to <code>apply</code> is <code>MARGIN</code>, the above command is equivalent to <code>apply(dat, MARGIN = 2, mean)</code>.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip-4"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
@@ -196,17 +196,17 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 </div>
 <div class="panel-body">
 <p>We can take slices of character vectors as well:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">animal &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;k&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;y&quot;</span>)
-<span class="co"># first three characters</span>
-animal[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
-<pre><code>## [1] &quot;m&quot; &quot;o&quot; &quot;n&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># last three characters</span>
-animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
-<pre><code>## [1] &quot;k&quot; &quot;e&quot; &quot;y&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phrase &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;don&#39;t&quot;</span>, <span class="st">&quot;know&quot;</span>, <span class="st">&quot;I&quot;</span>, <span class="st">&quot;know&quot;</span>)
+<span class="co"># first three words</span>
+phrase[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] &quot;I&quot;     &quot;don&#39;t&quot; &quot;know&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># last three words</span>
+phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] &quot;know&quot; &quot;I&quot;    &quot;know&quot;</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>If the first four characters are selected using the slice <code>animal[1:4]</code>, how can we obtain the first four characters in reverse order?</p></li>
-<li><p>What is <code>animal[-1]</code>? What is <code>animal[-4]</code>? Given those answers, explain what <code>animal[-1:-4]</code> does.</p></li>
-<li><p>Use a slice of <code>animal</code> to create a new character vector that spells the word “eon”, i.e. <code>c(&quot;e&quot;, &quot;o&quot;, &quot;n&quot;)</code>.</p></li>
+<li><p>If the first four words are selected using the slice <code>phrase[1:4]</code>, how can we obtain the first four words in reverse order?</p></li>
+<li><p>What is <code>phrase[-2]</code>? What is <code>phrase[-5]</code>? Given those answers, explain what <code>phrase[-1:-3]</code> does.</p></li>
+<li><p>Use a slice of <code>phrase</code> to create a new character vector that spells the phrase “I know I don’t”, i.e. <code>c(&quot;I&quot;, &quot;know&quot;, &quot;I&quot;, &quot;don't&quot;)</code>.</p></li>
 </ol>
 </div>
 </section>
@@ -225,7 +225,7 @@ animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
 </div>
 </section>
 <h2 id="t-test">t test</h2>
-<p>R has many statistical tests built in. A classic test is the t test. Do the means of two vectors differ significantly?</p>
+<p>R has many statistical tests built in. One of the most commonly used tests is the t test. Do the means of two vectors differ significantly?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat[<span class="dv">1</span>,]</code></pre></div>
 <pre><code>## Alice   Bob  Carl 
 ## 36.25 35.40 35.30</code></pre>
@@ -275,31 +275,44 @@ animal[<span class="dv">4</span>:<span class="dv">6</span>]</code></pre></div>
 <p>This means we can write software that uses the various results from t-test, for example performing a whole series of t-tests and reporting the significant results.</p>
 <h2 id="plotting">Plotting</h2>
 <p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
-<p>Let’s take a look at the average inflammation over time. Recall that we already calculated these values above using <code>apply(mat, 2, mean)</code> and saved them in the variable <code>avg_operator</code>. Plotting the values is done with the function <code>plot</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_operator)</code></pre></div>
-<p><img src="fig/matrices-plot-avg-operator-1.png" alt="plot of chunk plot-avg-operator" /></p>
-<p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per operator across all resins. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators. Let’s have a look at two other statistics: the maximum and minimum inflammation per operator.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_operator &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">2</span>, max)
-<span class="kw">plot</span>(max_operator)</code></pre></div>
-<p><img src="fig/matrices-plot-max-operator-1.png" alt="plot of chunk plot-max-operator" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">min_operator &lt;-<span class="st"> </span><span class="kw">apply</span>(dat, <span class="dv">2</span>, min)
-<span class="kw">plot</span>(min_operator)</code></pre></div>
-<p><img src="fig/matrices-plot-min-operator-1.png" alt="plot of chunk plot-min-operator" /></p>
+<p>Let’s take a look at the average particle size per resin. Recall that we already calculated these values above using <code>apply(mat, 1, mean)</code> and saved them in the variable <code>avg_resin</code>. Plotting the values is done with the function <code>plot</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin)</code></pre></div>
+<p><img src="fig/matrices-unnamed-chunk-22-1.png" alt="plot of chunk unnamed-chunk-22" /></p>
+<p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per operator across all resins. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators.</p>
+<p><code>plot</code> can take many different parameters to modify the appearance of the output. Here is a plot with some different parameters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin,
+    <span class="dt">xlab=</span><span class="st">&quot;Resin&quot;</span>,
+    <span class="dt">ylab=</span><span class="st">&quot;Particle size&quot;</span>,
+    <span class="dt">main=</span><span class="st">&quot;Average particle size per resin&quot;</span>,
+    <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
+<p><img src="fig/matrices-unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
+<p>Let’s have a look at two other statistics: the maximum and minimum particle size per resin. Additional points or lines can be added to a plot with <code>points</code> or <code>lines</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, max)
+min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, min)
+
+<span class="kw">plot</span>(avg_resin, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">40</span>))
+<span class="kw">lines</span>(max_resin)
+<span class="kw">lines</span>(min_resin)</code></pre></div>
+<p><img src="fig/matrices-unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
+<p>R doesn’t know to adjust the y limits if we add new data outside the original limits, so we needed to specify <code>ylim</code> manually. This is R’s base graphics system. If there is time today, we will look at a more advanced graphics package called “ggplot2” that handles this kind of issue more intelligently.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h3 id="challenge---plotting-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Plotting data</h3>
 </div>
 <div class="panel-body">
-<p>Create a plot showing the standard deviation of for each operator across all resins.</p>
+<p>Create a plot showing the standard deviation for each resin.</p>
+<p>Advanced: Create a plot showing +/- two standard deviations about the mean.</p>
+<p>Extension: Create similar plots for operator. Comment on which dimension is the major source of variation in this data.</p>
 </div>
 </section>
 <h2 id="saving-plots">Saving plots</h2>
-<p>It’s possible to save a plot as a .PNG or .PDF from the RStudio interface with the “Export” button. However if we want to automate plot making, we need to do this with R code.</p>
+<p>It’s possible to save a plot as a .PNG or .PDF from the RStudio interface with the “Export” button. However if we want to keep a complete record of exactly how we create each plot, we prefer to do this with R code.</p>
 <p>Plotting in R is sent to a “device”. By default, this device is RStudio. However we can temporarily send plots to a different device, such as a .PNG file (<code>png(&quot;filename.png&quot;)</code>) or .PDF file (<code>pdf(&quot;filename.pdf&quot;)</code>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pdf</span>(<span class="st">&quot;test.pdf&quot;</span>)
 <span class="kw">plot</span>(avg_resin)
 <span class="kw">dev.off</span>()</code></pre></div>
-<p><code>dev.off()</code> is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget it, your interactive plots will stop appearing as expected!</p>
+<p><code>dev.off()</code> is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!</p>
+<p>The file you created should appear in the file manager pane of RStudio, you can view it by clicking on it.</p>
 <div class="footnotes">
 <hr />
 <ol>

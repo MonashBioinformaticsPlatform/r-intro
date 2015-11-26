@@ -22,7 +22,7 @@ read.csv(file="data/intro-r/pvc.csv", row.names=1)
 >
 > The location of the file is given relative to your "working directory". You can see the location of your working directory in the title of the console pane in RStudio. It is most likely "~", indicating your personal home directory.
 >
-> The filename means from the current working directory, in the sub-directory "data", in the sub-directory "intro-r", the file "pvc.csv".
+> The filename "data/intro-r/pvc.csv" means from the current working directory, in the sub-directory "data", in the sub-directory "intro-r", the file "pvc.csv".
 >
 > You can check that the file is actually in this location using the "Files" pane in the bottom right corner of RStudio.
 >
@@ -30,8 +30,8 @@ read.csv(file="data/intro-r/pvc.csv", row.names=1)
 >
 
 
-`read.csv` has two arguments: the name of the file we want to read, and which column contains the row names.
-The filename needs to be a character string, so we put it in quotes. Assigning the second argument, `row.names`, to be `1` indicates that the data file has row names, and which column number they are stored in.
+We have called `read.csv` with two arguments: the name of the file we want to read, and which column contains the row names.
+The filename needs to be a character string, so we put it in quotes. Assigning the second argument, `row.names`, to be `1` indicates that the data file has row names, and which column number they are stored in. If we don't specify `row.names` the result will not have row names.
 
 > ### Tip {.callout}
 >
@@ -59,7 +59,7 @@ R often but not always lets these be used interchangably. It's also helpful when
 
 Data frames are very central to R, and mastering R is very much about thinking in data frames. However when we get to RNA-Seq we will be using matrices of read counts, so it will be worth our time to learn to use matrices as well.
 
-Let us insist to R that what we have is a matrix.
+Let us insist to R that what we have is a matrix. `as.matrix` "casts" our data to have matrix type.
 
 ```{r}
 mat <- as.matrix(dat)
@@ -92,7 +92,7 @@ ncol(mat)
 
 This tells us that our matrix, `mat`, has `r nrow(mat)` rows and `r ncol(mat)` columns.
 
-If we want to get a single value from the data frame, we can provide an index in square brackets:
+If we want to get a single value from the data frame, we can provide a row and column index in square brackets:
 
 ```{r}
 # first value in mat
@@ -187,7 +187,7 @@ To support this, we can use the `apply` function.
 > To learn about a function in R, e.g. `apply`, we can read its help
 > documention by running `help(apply)` or `?apply`.
 
-`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix.
+`apply` allows us to repeat a function on all of the rows (`MARGIN = 1`) or columns (`MARGIN = 2`) of a matrix. We can think of `apply` as collapsing the matrix down to just the dimension specified by `MARGIN`, with rows being dimension 1 and columns dimension 2 (recall that when indexing the matrix we give the row first and the column second).
 
 Thus, to obtain the average particle size of each resin we will need to calculate the mean of all of the rows (`MARGIN = 1`) of the matrix.
 
@@ -202,7 +202,6 @@ avg_operator <- apply(mat, 2, mean)
 ```
 
 Since the second argument to `apply` is `MARGIN`, the above command is equivalent to `apply(dat, MARGIN = 2, mean)`.
-We'll learn why this is so in the next lesson.
 
 > ### Tip {.callout}
 >
@@ -210,26 +209,28 @@ We'll learn why this is so in the next lesson.
 > can calculate the row-wise or column-wise means with `rowMeans` and
 > `colMeans`, respectively.
 
+
 > ### Challenge - Slicing (subsetting) data {.challenge}
 >
 > We can take slices of character vectors as well:
 >
 > ```{r}
-> animal <- c("m", "o", "n", "k", "e", "y")
-> # first three characters
-> animal[1:3]
-> # last three characters
-> animal[4:6]
+> phrase <- c("I", "don't", "know", "I", "know")
+> # first three words
+> phrase[1:3]
+> # last three words
+> phrase[3:5]
 > ```
 >
-> 1.  If the first four characters are selected using the slice `animal[1:4]`, how can we obtain the first four characters in reverse order?
+> 1.  If the first four words are selected using the slice `phrase[1:4]`, how can we obtain the first four words in reverse order?
 >
-> 1.  What is `animal[-1]`?
->    What is `animal[-4]`?
+> 2.  What is `phrase[-2]`?
+>    What is `phrase[-5]`?
 >    Given those answers,
->    explain what `animal[-1:-4]` does.
+>    explain what `phrase[-1:-3]` does.
 >
-> 1.  Use a slice of `animal` to create a new character vector that spells the word "eon", i.e. `c("e", "o", "n")`.
+> 3.  Use a slice of `phrase` to create a new character vector that spells the phrase "I know I don't", i.e. `c("I", "know", "I", "don't")`.
+>
 
 
 > ### Challenge - Subsetting data 2 {.challenge}
@@ -247,7 +248,7 @@ We'll learn why this is so in the next lesson.
 
 ## t test
 
-R has many statistical tests built in. A classic test is the t test. Do the means of two vectors differ significantly?
+R has many statistical tests built in. One of the most commonly used tests is the t test. Do the means of two vectors differ significantly?
 
 ```{r}
 mat[1,]
@@ -264,6 +265,7 @@ t.test(mat[1,], mat[2,], paired=TRUE)
 > ### Challenge - using t.test {.challenge}
 >
 > Can you find a significant difference between any two resins?
+>
 
 
 When we call t.test it returns an object that behaves like a `list`. Recall that in R a `list` is a miscellaneous collection of data.
@@ -282,36 +284,54 @@ This means we can write software that uses the various results from t-test, for 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
 Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R's plotting features.
 
-Let's take a look at the average inflammation over time.
-Recall that we already calculated these values above using `apply(mat, 2, mean)` and saved them in the variable `avg_operator`.
+Let's take a look at the average particle size per resin.
+Recall that we already calculated these values above using `apply(mat, 1, mean)` and saved them in the variable `avg_resin`.
 Plotting the values is done with the function `plot`.
 
-```{r plot-avg-operator}
-plot(avg_operator)
+```{r}
+plot(avg_resin)
 ```
 
 Above, we gave the function `plot` a vector of numbers corresponding to the average per operator across all resins.
 `plot` created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 3 operators.
-Let's have a look at two other statistics: the maximum and minimum inflammation per operator.
 
-```{r plot-max-operator}
-max_operator <- apply(mat, 2, max)
-plot(max_operator)
+`plot` can take many different parameters to modify the appearance of the output. Here is a plot with some different parameters:
+
+```{r}
+plot(avg_resin,
+    xlab="Resin",
+    ylab="Particle size",
+    main="Average particle size per resin",
+    type="b")
 ```
 
-```{r plot-min-operator}
-min_operator <- apply(dat, 2, min)
-plot(min_operator)
+Let's have a look at two other statistics: the maximum and minimum particle size per resin. Additional points or lines can be added to a plot with `points` or `lines`.
+
+```{r}
+max_resin <- apply(mat, 1, max)
+min_resin <- apply(mat, 1, min)
+
+plot(avg_resin, type="b", ylim=c(25,40))
+lines(max_resin)
+lines(min_resin)
 ```
+
+R doesn't know to adjust the y limits if we add new data outside the original limits, so we needed to specify `ylim` manually. This is R's base graphics system. If there is time today, we will look at a more advanced graphics package called "ggplot2" that handles this kind of issue more intelligently.
+
 
 > ### Challenge - Plotting data {.challenge}
 >
-> Create a plot showing the standard deviation of for each operator across all resins.
+> Create a plot showing the standard deviation for each resin.
+>
+> Advanced: Create a plot showing +/- two standard deviations about the mean.
+>
+> Extension: Create similar plots for operator. Comment on which dimension is the major source of variation in this data.
+>
 
 
 ## Saving plots
 
-It's possible to save a plot as a .PNG or .PDF from the RStudio interface with the "Export" button. However if we want to automate plot making, we need to do this with R code.
+It's possible to save a plot as a .PNG or .PDF from the RStudio interface with the "Export" button. However if we want to keep a complete record of exactly how we create each plot, we prefer to do this with R code.
 
 Plotting in R is sent to a "device". By default, this device is RStudio. However we can temporarily send plots to a different device, such as a .PNG file (`png("filename.png")`) or .PDF file (`pdf("filename.pdf")`).
 
@@ -321,4 +341,6 @@ plot(avg_resin)
 dev.off()
 ```
 
-`dev.off()` is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget it, your interactive plots will stop appearing as expected!
+`dev.off()` is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
+
+The file you created should appear in the file manager pane of RStudio, you can view it by clicking on it.

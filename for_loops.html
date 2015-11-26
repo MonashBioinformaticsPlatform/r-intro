@@ -84,7 +84,6 @@ for (letter in <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># after the loop, letter is</span>
 letter</code></pre></div>
 <pre><code>## [1] &quot;c&quot;</code></pre>
-<p>You can perhaps now start to see how functions like <code>sum</code> work internally.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h3 id="challenge---using-loops"><span class="glyphicon glyphicon-pencil"></span>Challenge - Using loops</h3>
@@ -112,6 +111,13 @@ letter</code></pre></div>
 <p>Try it with various different values in <code>base</code> and <code>power</code>.</p>
 </div>
 </section>
+<p>Many of the functions and operators we have been using are implemented using for loops, so often in R we are able to use these rather than directly writing a for loop. However when we need to do something complicated, for loops are there for us. Some real world reasons you might use a for loop:</p>
+<ul>
+<li><p>To create a collection of similar plots.</p></li>
+<li><p>To load and process a collection of files, all in the same way.</p></li>
+<li><p>To perform a Monte Carlo simulation to estimate the power of a proposed experiment, for a given effect size and expected noise due to measurement error and biological variation.</p></li>
+<li><p>To perform resampling such as a permutation test or a bootstrap, to assure yourself that some result you have calculated is not simply due to chance.</p></li>
+</ul>
         </div>
       </div>
       </article>

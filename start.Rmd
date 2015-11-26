@@ -120,16 +120,23 @@ We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `
 
 
 ```{r}
-myvec <- c(1,2,3)
+myvec <- c(10,20,30)
 myvec + 1
 myvec + myvec
 length(myvec)
-c(10, myvec)
+c(40, myvec)
 ```
 
 When we talk about the length of a vector, we are talking about the number of numbers in the vector.
 
 Access elements of a vector with `[ ]`, for example `myvec[1]` to get the first element.
+
+```{r}
+myvec[1]
+myvec[2]
+myvec[2] <- 5
+myvec
+```
 
 We will also encounter vectors of character strings, for example `"hello"` or `c("hello","world")`. Also we will encounter "logical" vectors, which contain `TRUE` and `FALSE` values. R also has "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).
 
@@ -185,7 +192,7 @@ rep(c(1,2,3), each=3, times=5)
 
 ## Lists
 
-Vectors contain all the same kind of thing. Try `c(42, "hello")`. Lists can contain different kinds of thing.
+Vectors contain all the same kind of thing. Lists can contain different kinds of thing.
 
 We generally gives the things in a list names. Try `list(num=42, greeting="hello")`. To access named elements we use `$`.
 
@@ -196,8 +203,7 @@ mylist$greeting
 
 This terminology is peculiar to R. Other languages make the same distinction but they may use different words for vectors and lists.
 
-If you're not sure what sort of object you are dealing with you can use `class`, or for more detailed information `str` (structure).
-
+Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.
 
 ## Overview of data types
 
@@ -206,6 +212,11 @@ We've seen several data types in this chapter, and will be seeing two more in th
 Each data type has various ways it can be created and various ways it can be accessed. If we have data in the wrong type, there are also functions to  "cast" it to the right type.
 
 This will all make more sense once you have seen these data types in action.
+
+> ### Tip {.callout}
+>
+> If you're not sure what sort of object you are dealing with you can use `class`, or for more detailed information `str` (structure).
+>
 
 ### vector
 

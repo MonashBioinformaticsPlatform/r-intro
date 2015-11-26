@@ -93,9 +93,6 @@ letter
 ```
 
 
-You can perhaps now start to see how functions like `sum` work internally.
-
-
 > ### Challenge - Using loops {.challenge}
 >
 > 1. Recall that we can use `:` to create a sequence of numbers.
@@ -129,3 +126,14 @@ You can perhaps now start to see how functions like `sum` work internally.
 >
 > Try it with various different values in `base` and `power`.
 >
+
+
+Many of the functions and operators we have been using are implemented using for loops, so often in R we are able to use these rather than directly writing a for loop. However when we need to do something complicated, for loops are there for us. Some real world reasons you might use a for loop:
+
+* To create a collection of similar plots.
+
+* To load and process a collection of files, all in the same way.
+
+* To perform a Monte Carlo simulation to estimate the power of a proposed experiment, for a given effect size and expected noise due to measurement error and biological variation.
+
+* To perform resampling such as a permutation test or a bootstrap, to assure yourself that some result you have calculated is not simply due to chance.
