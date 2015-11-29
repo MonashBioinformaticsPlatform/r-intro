@@ -31,3 +31,9 @@ Some of this material is derived from work that is Copyright © [Software Carpen
 [Plotting with ggplot2](ggplot.html) ([.Rmd](ggplot.Rmd))
 
 [Next steps](next.html)
+
+
+<br><br>
+[These notes on GitHub](https://github.com/MonashBioinformaticsPlatform/2015-11-30-intro-r)
+
+
