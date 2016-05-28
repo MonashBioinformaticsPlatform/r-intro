@@ -4,7 +4,7 @@ title: "Introduction to R"
 
 # Introduction to R
 
-These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
+These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 1st of June 2016.
 
 R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
 
@@ -34,6 +34,4 @@ Some of this material is derived from work that is Copyright © [Software Carpen
 
 
 <br><br>
-[These notes on GitHub](https://github.com/MonashBioinformaticsPlatform/2015-11-30-intro-r)
-
-
+[These notes on GitHub](https://github.com/MonashBioinformaticsPlatform/2016-06-01-intro-r)
