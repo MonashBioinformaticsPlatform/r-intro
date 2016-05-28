@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 As we saw earlier, `read.csv` loads tabular data from a CSV file into a data frame.
 
 ```{r}
-diabetes <- read.csv("data/intro-r/diabetes.csv")
+diabetes <- read.csv("intro-r/diabetes.csv")
 
 class(diabetes)
 head(diabetes)
@@ -24,7 +24,7 @@ nrow(diabetes)
 
 > ### Tip {.callout}
 >
-> A data frame can also be created de novo from vectors, with the `data.frame` function. For example
+> A data frame can also be created from vectors, with the `data.frame` function. For example
 >
 > ```{r}
 > data.frame(foo=c(10,20,30), bar=c("a","b","c"))
@@ -284,7 +284,7 @@ melt(counts)
 
 > ### Tip {.callout}
 >
-> The `aggregate` function effectively combines these two steps for you. See also the `ddply` function in package `plyr`, and the `dplyr` package. There are many variations on the basic idea behind `apply`!
+> The `aggregate` function effectively combines these two steps for you. This can also be done with the popular `dplyr` library's `summarise` function. There are many variations on the basic idea behind `apply`!
 >
 
 

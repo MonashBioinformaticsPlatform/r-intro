@@ -17,8 +17,8 @@ PNGS=$(patsubst %.svg,%.png,$(SVGS))
 
 all : index.html intro-r.zip $(addsuffix .html,$(SECTIONS)) intro-r.pdf $(PNGS)
 
-intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
-	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 \
+intro-r.tex : intro.md $(addsuffix .md,$(SECTIONS))
+	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 --no-highlight \
 		-Vlinks-as-notes=1 \
 		-Vdocumentclass=report \
 		-Vpapersize:a4paper \
@@ -26,8 +26,17 @@ intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 		intro.md $(addsuffix .md,$(SECTIONS)) \
 		-o $@
 
-intro-r.zip : data/intro-r/*.csv
-	( cd data && zip -FSr ../intro-r.zip intro-r )
+intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
+	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 --no-highlight \
+		-Vlinks-as-notes=1 \
+		-Vdocumentclass=report \
+		-Vpapersize:a4paper \
+		-Vgeometry:margin=1in \
+		intro.md $(addsuffix .md,$(SECTIONS)) \
+		-o $@
+
+intro-r.zip : intro-r/*
+	zip -FSr intro-r.zip intro-r
 
 %.md : %.Rmd
 	Rscript -e 'knitr::knit("$<")'

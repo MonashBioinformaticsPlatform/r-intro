@@ -9,10 +9,20 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 
+h1, h2, h3 {
+	background: #ffeecc;
+	border-radius: 0.25em;
+	padding: 0.5em;
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+
+/*
 h1, h2 {
     margin-top: 40px;
     margin-bottom: 10px;
 }
+*/
 
 h1.title {
     margin: 40px 0px;
@@ -31,6 +41,11 @@ Bootstrap panels.  There's a pandoc error with rendering headers nested under
 blockquote: these headers don't preserve attributes.  It means we have to
 manually set styles for these headers to look like Bootstrap's "panel-title"
 class. */
+
+.callout, .challenge {
+	margin: 4em;
+}
+
 .panel-heading h1,
 .panel-heading h2,
 .panel-heading h3,
@@ -162,7 +177,7 @@ body {
 }
 
 body.workshop, body.lesson {
-	background-color: #BEC3C6;
+	background-color: #BBDDEE;
 	margin: 20px 0;
 }
 
@@ -174,6 +189,11 @@ body.stylesheet {
 }
 
 /* Code sample */
+pre {
+    margin-left: 4em;
+	margin-right: 4em;
+}
+
 pre.sourceCode,
 pre.input {
     color: ForestGreen;

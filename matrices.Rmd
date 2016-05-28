@@ -15,14 +15,14 @@ Our example data is quality measurements (particle size) on PVC plastic producti
 The data set is stored in comma-separated value (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open `pvc.csv` and have a look at what it contains.
 
 ```{r, results="hide"}
-read.csv("data/intro-r/pvc.csv", row.names=1)
+read.csv("intro-r/pvc.csv", row.names=1)
 ```
 
 > ### Tip {.callout}
 >
 > The location of the file is given relative to your "working directory". You can see the location of your working directory in the title of the console pane in RStudio. It is most likely "~", indicating your personal home directory. You can change working directory with `setwd`.
 >
-> The filename "data/intro-r/pvc.csv" means from the current working directory, in the sub-directory "data", in the sub-directory "intro-r", the file "pvc.csv".
+> The filename "intro-r/pvc.csv" means from the current working directory, in the sub-directory "intro-r", the file "pvc.csv".
 >
 > You can check that the file is actually in this location using the "Files" pane in the bottom right corner of RStudio.
 >
@@ -40,7 +40,7 @@ The filename needs to be a character string, so we put it in quotes. Assigning t
 
 
 ```{r, results="hide"}
-dat <- read.csv("data/intro-r/pvc.csv", row.names=1)
+dat <- read.csv("intro-r/pvc.csv", row.names=1)
 ```
 
 ```{r}
@@ -71,7 +71,7 @@ Much better.
 
 > ### Tip {.callout}
 >
-> Matrices can also be created de novo in various ways.
+> Matrices can be created in various ways.
 >
 > `matrix` converts a vector into a matrix with a specified number of rows and columns.
 >
@@ -206,7 +206,7 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 
 > ### Tip {.callout}
 >
-> Some common operations have more efficient alternatives. For example, you
+> Some common operations have more concise alternatives. For example, you
 > can calculate the row-wise or column-wise means with `rowMeans` and
 > `colMeans`, respectively.
 

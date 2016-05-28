@@ -10,6 +10,12 @@ R is both a programming language and an interactive environment for statistics. 
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
+## Setup
+
+There are several way to use R. We've written this course with an environment called RStudio in mind. On the day, we will be using RStudio from the web, but you can also install it on your laptop. R and RStudio are free.
+
+* [Download RStudio](https://www.rstudio.com/products/rstudio/download/)
+
 ## Course material
 
 [intro-r.pdf](intro-r.pdf) - These notes as a pdf.

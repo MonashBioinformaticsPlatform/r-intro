@@ -1,13 +1,16 @@
 ---
 title: "Introduction to R"
+header-includes:
+  - \usepackage{fancyvrb}
+  - \DefineVerbatimEnvironment{verbatim}{Verbatim}{xleftmargin=0.35in}
 ---
 
 ### Preface
 
-These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 30th of November 2015.
+These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 1st of June 2016.
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
 Data files we are working with are available from:
 
-http://monashbioinformaticsplatform.github.io/2015-11-30-intro-r/
+http://monashbioinformaticsplatform.github.io/2016-06-01-intro-r/
