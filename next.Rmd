@@ -15,10 +15,24 @@ The [Software Carpentry in R](http://swcarpentry.github.io/r-novice-inflammation
 
 ### Tidying and summarizing data
 
-* [plyr](http://plyr.had.co.nz/), [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html),  and [tidyr](http://blog.rstudio.org/2014/07/22/introducing-tidyr/) packages by Hadley Wickham.
-* [magrittr](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html)'s `%>%` operator for chaining together data frame manipulations.
+* [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) by Hadley Wickham, and also tidyr, readr, stringr.
+* [magrittr's](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html) `%>%` operator for chaining together data frame manipulations.
 
 These tools play well with `ggplot2`, which we saw in the previous chapter.
+
+### Bioinformatics
+
+[Bioconductor](http://bioconductor.org) is a collection of bioinformatics related packages, including the popular `limma` and `edgeR` packages for RNA-Seq analysis developed at the Walter and Eliza Hall Institute, and packages such as `rtracklayer`, `GenomicRanges`, and `Biostrings` for working with DNA/RNA/protein sequences and genomic features.
+
+* [Bioconductor cheat sheet](https://github.com/mikelove/bioc-refcard/blob/master/README.Rmd)
+
+### Even more functions and packages
+
+* [RStudio's collection of cheat sheets](https://www.rstudio.com/resources/cheatsheets/) cover newer packages in R.
+* [An old-school cheat sheet](https://cran.r-project.org/doc/contrib/Short-refcard.pdf) for dinosaurs and people wishing to go deeper.
+* [CRAN](https://cran.rstudio.com/) has hundreds of contributed packages which can be installed with `install.packages`.
+
+As ever, the help system `?functionname` is your friend.
 
 ### Statistics
 
@@ -32,17 +46,23 @@ See "The R Book" by Michael J. Crawley for general reference.
 
 The books "Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples.
 
-### Bioinformatics
+### Q&A sites
 
-[Bioconductor](http://bioconductor.org) is a collection of bioinformatics related packages, including the popular `limma` and `edgeR` packages for RNA-Seq analysis developed at the Walter and Eliza Hall Institute.
-
-### Getting help
-
-Talk to the Monash Bioinformatics Platform for help and pointers.
-
-Stackoverflow-style sites are also great for getting help:
+Stackoverflow-style sites are great for getting help:
 
 * [support.bioconductor.org](https://support.bioconductor.org) for bioconductor related questions.
 * [biostars.org](https://biostars.org) for general bioinformatics questions.
 * [stats.stackexchange.com](http://stats.stackexchange.com) for statistics questions.
 * [stackoverflow.com](http://stackoverflow.com) for general programming questions.
+
+### Community
+
+The Monash Bioinformatics Platform offers:
+
+* Weekly drop in sessions where you can get help with R, or general bioinformatics problems.
+* Informal Wednesday afternoon talks, which often relate to R.
+* Courses on various topics through the year.
+
+[Join the mailing list to hear about future events.](http://bioinformatics.erc.monash.edu/)
+
+Also, the [COMBINE](https://combine.org.au/) student and early career researcher organization runs Software Carpentry workshops.
