@@ -34,7 +34,7 @@ Producing a plot with ggplot2, we must give three things:
 Let's load up our diabetes data frame again.
 
 ```{r}
-diabetes <- read.csv("data/intro-r/diabetes.csv")
+diabetes <- read.csv("intro-r/diabetes.csv")
 ```
 
 ```{r}
@@ -65,13 +65,23 @@ ggplot(diabetes[!bad_rows,], aes(y=weight, x=height, color=frame)) +
     geom_point() + stat_smooth(method="lm")
 ```
 
+> ### Challenge - Gapminder data {.challenge}
+>
+> Use the Gapminder data you loaded earlier, or cheat and load it all with:
+>
+> ```{r}
+> gap <- read.csv("intro-r/all-gapminder.csv")
+> ```
+>
+> Plot life expectancy vs GDP per capita, coloring points by continent.
+>
 
 ## Using ggplot2 with a matrix
 
 Let's return to our first matrix example.
 
 ```{r}
-dat <- read.csv(file="data/intro-r/pvc.csv", row.names=1)
+dat <- read.csv(file="intro-r/pvc.csv", row.names=1)
 mat <- as.matrix(dat)
 ```
 
@@ -91,9 +101,15 @@ ggplot(long, aes(x=operator, y=value)) + geom_point()
 
 Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.
 
+## More complex plots
+
 ```{r}
 ggplot(long, aes(x=operator, y=value)) + geom_boxplot() + geom_point()
+```
 
+Lines need a `group` aesthetic.
+
+```{r}
 ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
     geom_line() + theme_bw()
 ```
@@ -104,6 +120,8 @@ Faceting lets us quickly produce a collection of small plots.
 ggplot(long, aes(x=operator, y=value)) +
     facet_wrap(~ resin) + geom_point() + theme_bw()
 ```
+
+The excellent [ggplot2 documentation](http://docs.ggplot2.org) lists many further ways to build up a plot.
 
 
 ## Saving ggplots
@@ -127,3 +145,11 @@ dev.off()
 ```
 
 See also the function `ggsave`.
+
+
+> ### Challenge - Gapminder data {.challenge}
+>
+> Apply what you have just learned to explore the Gapminder data further.
+>
+> Think of a way to summarise the Gapminder data with `tapply` and visualize the summarised data.
+>
