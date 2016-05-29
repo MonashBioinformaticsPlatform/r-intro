@@ -165,30 +165,38 @@ years
 # years <- c(1952, 1957, <etc> )
 ```
 
-```{r}
-filenames <- paste0("intro-r/gapminder-", years, ".csv")
-filenames
-# We could also have just written
-# filenames <- c("intro-r/gapminder-1952.csv", <etc> )
-```
-
-It would be nice if R would load all of these at once. Many R functions do behave like this. Alas in this case `read.csv` gives an obscure error message.
+We will make filenames with `paste0` which pastes several values together as a character string.
 
 ```{r}
-gap <- read.csv(filenames)
+paste0("intro-r/gapminder-", 1952, ".csv")
 ```
 
-We will loop over all of the filenames, and build up a data frame. We start with `NULL`, which is a special value in R meaning nothing at all. We add to this with `rbind`, which concatenates the rows of data frames.
+We will loop over all of the years, and build up a data frame. We start with `NULL`, which is a special value in R meaning nothing at all. We add to this with `rbind`, which concatenates the rows of data frames.
 
 ```{r}
 gap <- NULL
-for(filename in filenames) {
+for(year in years) {
+    filename <- paste0("intro-r/gapminder-", year, ".csv")
+    gap_year <- read.csv(filename)
+    gap <- rbind(gap, gap_year)
+}
+```
+
+Again, `print` or `cat` can be used to check everything is working correctly.
+
+```{r}
+gap <- NULL
+for(year in years) {
+    filename <- paste0("intro-r/gapminder-", year, ".csv")
+
     cat("Loading", filename, "\n")
 
     gap_year <- read.csv(filename)
+
+    cat("Read", nrow(gap_year), "rows\n")
+
     gap <- rbind(gap, gap_year)
 
-    cat("Loaded", nrow(gap_year), "rows\n")
     cat("Now have", nrow(gap), "rows in gap\n")
 }
 
