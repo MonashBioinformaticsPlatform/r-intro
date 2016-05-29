@@ -18,19 +18,9 @@
   <body class="lesson">
     <div class="container card">
       
-<h1>ggplot2</h1>
-<ul>
-<li><a href="#plotting-with-ggplot2">Plotting with ggplot2</a><ul>
-<li><a href="#using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</a></li>
-<li><a href="#using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</a></li>
-<li><a href="#saving-ggplots">Saving ggplots</a></li>
-</ul></li>
-</ul>
-
       <article>
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
-
 <h1 id="plotting-with-ggplot2">Plotting with ggplot2</h1>
 <p>We already saw some of R’s built in plotting facilities with the function <code>plot</code>. A more recent and much more powerful plotting library is <code>ggplot2</code>. This implements ideas from a book called “The Grammar of Graphics”. The syntax is a little strange, but there are plenty of examples in the <a href="http://docs.ggplot2.org/current/">online documentation</a>.</p>
 <p>If <code>ggplot2</code> isn’t already installed, we need to install it.</p>
@@ -46,58 +36,76 @@
 </ol>
 <h2 id="using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</h2>
 <p>Let’s load up our diabetes data frame again.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/intro-r/diabetes.csv&quot;</span>)</code></pre></div>
-<pre><code>## Warning in file(file, &quot;rt&quot;): cannot open file &#39;data/intro-r/diabetes.csv&#39;:
-## No such file or directory</code></pre>
-<pre><code>## Error in file(file, &quot;rt&quot;): cannot open the connection</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/diabetes.csv&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Error in ggplot(diabetes, aes(y = glyhb, x = age)): object &#39;diabetes&#39; not found</code></pre>
+<pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
 <p>The call to <code>ggplot</code> sets up the basics of how we are going to represent the various columns of the data frame. We then literally add layers of graphics to this.</p>
 <p>Further aesthetics can be added. Hans Rosling would be excited!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age, <span class="dt">size=</span>weight, <span class="dt">color=</span>frame)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Error in ggplot(diabetes, aes(y = glyhb, x = age, size = weight, color = frame)): object &#39;diabetes&#39; not found</code></pre>
+<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
 <p>We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb.</p>
 <p>“stat” components can be added that overlay a graphical summary of the data. For example “stat_smooth” overlays a curve fitted to the data. If there is a grouping of the data, for example by color, then separate curves are shown for each group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bad_rows &lt;-
 <span class="st">    </span><span class="kw">is.na</span>(diabetes$frame) |
 <span class="st">    </span><span class="kw">is.na</span>(diabetes$height) |
-<span class="st">    </span><span class="kw">is.na</span>(diabetes$weight)</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;diabetes&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes[!bad_rows,], <span class="kw">aes</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>height, <span class="dt">color=</span>frame)) +
+<span class="st">    </span><span class="kw">is.na</span>(diabetes$weight)
+
+<span class="kw">ggplot</span>(diabetes[!bad_rows,], <span class="kw">aes</span>(<span class="dt">y=</span>weight, <span class="dt">x=</span>height, <span class="dt">color=</span>frame)) +
 <span class="st">    </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">stat_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</code></pre></div>
-<pre><code>## Error in ggplot(diabetes[!bad_rows, ], aes(y = weight, x = height, color = frame)): object &#39;diabetes&#39; not found</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---gapminder-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Gapminder data</h3>
+</div>
+<div class="panel-body">
+<p>Use the Gapminder data you loaded earlier, or cheat and load it all with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/all-gapminder.csv&quot;</span>)</code></pre></div>
+<p>Plot life expectancy vs GDP per capita, coloring points by continent.</p>
+</div>
+</section>
 <h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
 <p>Let’s return to our first matrix example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;data/intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
-<pre><code>## Warning in file(file, &quot;rt&quot;): cannot open file &#39;data/intro-r/pvc.csv&#39;: No
-## such file or directory</code></pre>
-<pre><code>## Error in file(file, &quot;rt&quot;): cannot open the connection</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</code></pre></div>
-<pre><code>## Error in as.matrix(dat): object &#39;dat&#39; not found</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
+mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</code></pre></div>
 <p>ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this “long” form with the <code>melt</code> function in the library <code>reshape2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
-long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)</code></pre></div>
-<pre><code>## Error in melt(mat): object &#39;mat&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(long)</code></pre></div>
-<pre><code>## Error in head(long): object &#39;long&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;resin&quot;</span>,<span class="st">&quot;operator&quot;</span>,<span class="st">&quot;value&quot;</span>)</code></pre></div>
-<pre><code>## Error in colnames(long) &lt;- c(&quot;resin&quot;, &quot;operator&quot;, &quot;value&quot;): object &#39;long&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(long)</code></pre></div>
-<pre><code>## Error in head(long): object &#39;long&#39; not found</code></pre>
+long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
+<span class="kw">head</span>(long)</code></pre></div>
+<pre><code>##     Var1  Var2 value
+## 1 Resin1 Alice 36.25
+## 2 Resin2 Alice 35.15
+## 3 Resin3 Alice 30.70
+## 4 Resin4 Alice 29.70
+## 5 Resin5 Alice 31.85
+## 6 Resin6 Alice 30.20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;resin&quot;</span>,<span class="st">&quot;operator&quot;</span>,<span class="st">&quot;value&quot;</span>)
+<span class="kw">head</span>(long)</code></pre></div>
+<pre><code>##    resin operator value
+## 1 Resin1    Alice 36.25
+## 2 Resin2    Alice 35.15
+## 3 Resin3    Alice 30.70
+## 4 Resin4    Alice 29.70
+## 5 Resin5    Alice 31.85
+## 6 Resin6    Alice 30.20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Error in ggplot(long, aes(x = operator, y = value)): object &#39;long&#39; not found</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
 <p>Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
+<h2 id="more-complex-plots">More complex plots</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Error in ggplot(long, aes(x = operator, y = value)): object &#39;long&#39; not found</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
+<p>Lines need a <code>group</code> aesthetic.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) +
 <span class="st">    </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<pre><code>## Error in ggplot(long, aes(x = operator, y = value, group = resin, color = resin)): object &#39;long&#39; not found</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
 <p>Faceting lets us quickly produce a collection of small plots.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +
 <span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>resin) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<pre><code>## Error in ggplot(long, aes(x = operator, y = value)): object &#39;long&#39; not found</code></pre>
+<p><img src="fig/ggplot-unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" /></p>
+<p>The excellent <a href="http://docs.ggplot2.org">ggplot2 documentation</a> lists many further ways to build up a plot.</p>
 <h2 id="saving-ggplots">Saving ggplots</h2>
 <p>ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot created but not shown.</span>
@@ -114,6 +122,15 @@ p
 <span class="kw">print</span>(p)
 <span class="kw">dev.off</span>()</code></pre></div>
 <p>See also the function <code>ggsave</code>.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---gapminder-data-1"><span class="glyphicon glyphicon-pencil"></span>Challenge - Gapminder data</h3>
+</div>
+<div class="panel-body">
+<p>Apply what you have just learned to explore the Gapminder data further.</p>
+<p>Think of a way to summarise the Gapminder data with <code>tapply</code> and visualize the summarised data.</p>
+</div>
+</section>
         </div>
       </div>
       </article>
