@@ -48,7 +48,7 @@
 <h2 id="for-loops-1">For loops</h2>
 <p>What we did above was quite repetitive. It’s always better when the computer does repetitive work for us.</p>
 <p>Here’s a better approach, using a for loop:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (word in sentence) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(word in sentence) {
     <span class="kw">print</span>(word)
 }</code></pre></div>
 <pre><code>## [1] &quot;Let&quot;
@@ -58,7 +58,7 @@
 ## [1] &quot;the&quot;
 ## [1] &quot;work&quot;</code></pre>
 <p>The general form of a loop is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (variable in collection) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(variable in vector) {
   do things with variable
 }</code></pre></div>
 <p>We can name the loop variable anything we like (with a few restrictions, e.g. the name of the variable cannot start with a digit). <code>in</code> is part of the <code>for</code> syntax. Note that the body of the loop is enclosed in curly braces <code>{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
@@ -66,16 +66,28 @@
 <p>Here’s another loop that repeatedly updates a variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len &lt;-<span class="st"> </span><span class="dv">0</span>
 vowels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)
-for (v in vowels) {
+for(v in vowels) {
   len &lt;-<span class="st"> </span>len +<span class="st"> </span><span class="dv">1</span>
 }
 <span class="co"># Number of vowels</span>
 len</code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>It’s worth tracing the execution of this little program step by step. Since there are five elements in the vector <code>vowels</code>, the statement inside the loop will be executed five times. The first time around, <code>len</code> is zero (the value assigned to it on line 1) and <code>v</code> is <code>&quot;a&quot;</code>. The statement adds 1 to the old value of <code>len</code>, producing 1, and updates <code>len</code> to refer to that new value. The next time around, <code>v</code> is <code>&quot;e&quot;</code> and <code>len</code> is 1, so <code>len</code> is updated to be 2. After three more updates, <code>len</code> is 5; since there is nothing left in the vector <code>vowels</code> for R to process, the loop finishes.</p>
+<p>By inserting calls to <code>print</code> or <code>cat</code> in the code, we can see that this is exactly what has happened:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len &lt;-<span class="st"> </span><span class="dv">0</span>
+vowels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)
+for(v in vowels) {
+  len &lt;-<span class="st"> </span>len +<span class="st"> </span><span class="dv">1</span>
+  <span class="kw">cat</span>(<span class="st">&quot;v is&quot;</span>, v ,<span class="st">&quot;and len is now&quot;</span>, len, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}</code></pre></div>
+<pre><code>## v is a and len is now 1 
+## v is e and len is now 2 
+## v is i and len is now 3 
+## v is o and len is now 4 
+## v is u and len is now 5</code></pre>
 <p>Note that a loop variable is just a variable that’s being used to record progress in a loop. It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">letter &lt;-<span class="st"> &quot;z&quot;</span>
-for (letter in <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)) {
+for(letter in <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)) {
   <span class="kw">print</span>(letter)
 }</code></pre></div>
 <pre><code>## [1] &quot;a&quot;
@@ -95,27 +107,110 @@ letter</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>Suppose the variable <code>n</code> has been set with some value, and we want to print out the numbers up to that value, one per line.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
 <p>Write a for loop to achieve this.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Suppose we have a vector called <code>vec</code> and we want to find the total of all the numbers in <code>vec</code>.</li>
 </ol>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">7</span>, <span class="dv">30</span>, <span class="dv">300</span>, <span class="dv">1000</span>)</code></pre></div>
 <p>Write a for loop to calculate this total.</p>
 <p>(R has a built-in function called <code>sum</code> that does this for you. Please don’t use it for this exercise.)</p>
 <ol start="3" style="list-style-type: decimal">
-<li>Exponentiation is built into R:</li>
+<li>Multiplication.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span>^<span class="dv">4</span></code></pre></div>
-<pre><code>## [1] 16</code></pre>
-<p>Suppose variables <code>base</code> and <code>power</code> have been set.</p>
-<p>Write a for loop to raise <code>base</code> to the power <code>power</code>.</p>
-<p>Try it with various different values in <code>base</code> and <code>power</code>.</p>
+<p>Suppose variables <code>a</code> and <code>b</code> have been set to whole numbers:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span><span class="dv">6</span>
+b &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
+<p>Use a for loop to calculate <code>a</code> times <code>b</code>. Do not use <code>*</code>.</p>
+<p>Hint: In challenge 1 you found a way to do something n times!</p>
+<p>Try your loop with various different values in <code>a</code> and <code>b</code>.</p>
 </div>
 </section>
+<h2 id="loading-a-set-of-files">Loading a set of files</h2>
+<p>Let’s look at a more practical example of a for loop, following the pattern of accumulating a result that we’ve just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years <code>intro-r/gapminder-NNNN.csv</code>. We would like to load all of these CSV files into a single data frame.</p>
+<p><code>read.csv</code> can only read one file at a time, so we will need to call <code>read.csv</code> many times.</p>
+<p>First let’s get a character vector of the filenames we want to load. I’m using a couple of useful functions we haven’t seen before, <code>seq</code> and <code>paste0</code>. As usual, you can look these up in the help system with <code>?seq</code> and <code>?paste0</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1952</span>, <span class="dv">2007</span>, <span class="dv">5</span>)
+years</code></pre></div>
+<pre><code>##  [1] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 2002 2007</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We could also have written</span>
+<span class="co"># years &lt;- c(1952, 1957, &lt;etc&gt; )</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">filenames &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;intro-r/gapminder-&quot;</span>, years, <span class="st">&quot;.csv&quot;</span>)
+filenames</code></pre></div>
+<pre><code>##  [1] &quot;intro-r/gapminder-1952.csv&quot; &quot;intro-r/gapminder-1957.csv&quot;
+##  [3] &quot;intro-r/gapminder-1962.csv&quot; &quot;intro-r/gapminder-1967.csv&quot;
+##  [5] &quot;intro-r/gapminder-1972.csv&quot; &quot;intro-r/gapminder-1977.csv&quot;
+##  [7] &quot;intro-r/gapminder-1982.csv&quot; &quot;intro-r/gapminder-1987.csv&quot;
+##  [9] &quot;intro-r/gapminder-1992.csv&quot; &quot;intro-r/gapminder-1997.csv&quot;
+## [11] &quot;intro-r/gapminder-2002.csv&quot; &quot;intro-r/gapminder-2007.csv&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We could also have just written</span>
+<span class="co"># filenames &lt;- c(&quot;intro-r/gapminder-1952.csv&quot;, &lt;etc&gt; )</span></code></pre></div>
+<p>It would be nice if R would load all of these at once. Many R functions do behave like this. Alas in this case <code>read.csv</code> gives an obscure error message.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filenames)</code></pre></div>
+<pre><code>## Error in file(file, &quot;rt&quot;): invalid &#39;description&#39; argument</code></pre>
+<p>We will loop over all of the filenames, and build up a data frame. We start with <code>NULL</code>, which is a special value in R meaning nothing at all. We add to this with <code>rbind</code>, which concatenates the rows of data frames.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="ot">NULL</span>
+for(filename in filenames) {
+    <span class="kw">cat</span>(<span class="st">&quot;Loading&quot;</span>, filename, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+    gap_year &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename)
+    gap &lt;-<span class="st"> </span><span class="kw">rbind</span>(gap, gap_year)
+
+    <span class="kw">cat</span>(<span class="st">&quot;Loaded&quot;</span>, <span class="kw">nrow</span>(gap_year), <span class="st">&quot;rows</span><span class="ch">\n</span><span class="st">&quot;</span>)
+    <span class="kw">cat</span>(<span class="st">&quot;Now have&quot;</span>, <span class="kw">nrow</span>(gap), <span class="st">&quot;rows in gap</span><span class="ch">\n</span><span class="st">&quot;</span>)
+}</code></pre></div>
+<pre><code>## Loading intro-r/gapminder-1952.csv 
+## Loaded 142 rows
+## Now have 142 rows in gap
+## Loading intro-r/gapminder-1957.csv 
+## Loaded 142 rows
+## Now have 284 rows in gap
+## Loading intro-r/gapminder-1962.csv 
+## Loaded 142 rows
+## Now have 426 rows in gap
+## Loading intro-r/gapminder-1967.csv 
+## Loaded 142 rows
+## Now have 568 rows in gap
+## Loading intro-r/gapminder-1972.csv 
+## Loaded 142 rows
+## Now have 710 rows in gap
+## Loading intro-r/gapminder-1977.csv 
+## Loaded 142 rows
+## Now have 852 rows in gap
+## Loading intro-r/gapminder-1982.csv 
+## Loaded 142 rows
+## Now have 994 rows in gap
+## Loading intro-r/gapminder-1987.csv 
+## Loaded 142 rows
+## Now have 1136 rows in gap
+## Loading intro-r/gapminder-1992.csv 
+## Loaded 142 rows
+## Now have 1278 rows in gap
+## Loading intro-r/gapminder-1997.csv 
+## Loaded 142 rows
+## Now have 1420 rows in gap
+## Loading intro-r/gapminder-2002.csv 
+## Loaded 142 rows
+## Now have 1562 rows in gap
+## Loading intro-r/gapminder-2007.csv 
+## Loaded 142 rows
+## Now have 1704 rows in gap</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(gap)</code></pre></div>
+<pre><code>## [1] 1704</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(gap)</code></pre></div>
+<pre><code>##       country continent year lifeExp      pop  gdpPercap
+## 1 Afghanistan      Asia 1952  28.801  8425333   779.4453
+## 2     Albania    Europe 1952  55.230  1282697  1601.0561
+## 3     Algeria    Africa 1952  43.077  9279525  2449.0082
+## 4      Angola    Africa 1952  30.015  4232095  3520.6103
+## 5   Argentina  Americas 1952  62.485 17876956  5911.3151
+## 6   Australia   Oceania 1952  69.120  8691212 10039.5956</code></pre>
+<h2 id="when-to-use-for-loops">When to use for loops</h2>
 <p>Many of the functions and operators we have been using are implemented using for loops, so often in R we are able to use these rather than directly writing a for loop. However when we need to do something complicated, for loops are there for us. Some real world reasons you might use a for loop:</p>
 <ul>
 <li><p>To create a collection of similar plots.</p></li>
 <li><p>To load and process a collection of files, all in the same way.</p></li>
-<li><p>To perform a Monte Carlo simulation to estimate the power of a proposed experiment, for a given effect size and expected noise due to measurement error and biological variation.</p></li>
+<li><p>To run a program outside of R, such as a read aligner, with each of a collection of files as input. Programs outside of R can be run using <code>system</code>.</p></li>
 <li><p>To perform resampling such as a permutation test or a bootstrap, to assure yourself that some result you have calculated is not simply due to chance.</p></li>
 </ul>
         </div>

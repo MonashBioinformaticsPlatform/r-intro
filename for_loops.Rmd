@@ -42,7 +42,7 @@ What we did above was quite repetitive. It's always better when the computer doe
 Here's a better approach, using a for loop:
 
 ```{r}
-for (word in sentence) {
+for(word in sentence) {
     print(word)
 }
 ```
@@ -50,7 +50,7 @@ for (word in sentence) {
 The general form of a loop is:
 
 ```{r, eval=FALSE}
-for (variable in collection) {
+for(variable in vector) {
   do things with variable
 }
 ```
@@ -65,7 +65,7 @@ Here's another loop that repeatedly updates a variable:
 ```{r}
 len <- 0
 vowels <- c("a", "e", "i", "o", "u")
-for (v in vowels) {
+for(v in vowels) {
   len <- len + 1
 }
 # Number of vowels
@@ -80,12 +80,23 @@ The statement adds 1 to the old value of `len`, producing 1, and updates `len` t
 The next time around, `v` is `"e"` and `len` is 1, so `len` is updated to be 2.
 After three more updates, `len` is 5; since there is nothing left in the vector `vowels` for R to process, the loop finishes.
 
+By inserting calls to `print` or `cat` in the code, we can see that this is exactly what has happened:
+
+```{r}
+len <- 0
+vowels <- c("a", "e", "i", "o", "u")
+for(v in vowels) {
+  len <- len + 1
+  cat("v is", v ,"and len is now", len, "\n")
+}
+```
+
 Note that a loop variable is just a variable that's being used to record progress in a loop.
 It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:
 
 ```{r}
 letter <- "z"
-for (letter in c("a", "b", "c")) {
+for(letter in c("a", "b", "c")) {
   print(letter)
 }
 # after the loop, letter is
@@ -103,10 +114,18 @@ letter
 >
 > Suppose the variable `n` has been set with some value, and we want to print out the numbers up to that value, one per line.
 >
+> ```{r}
+> n <- 7
+> ```
+>
 > Write a for loop to achieve this.
 >
 >
 > 2. Suppose we have a vector called `vec` and we want to find the total of all the numbers in `vec`.
+>
+> ```{r}
+> vec <- c(7, 30, 300, 1000)
+> ```
 >
 > Write a for loop to calculate this total.
 >
@@ -114,19 +133,71 @@ letter
 > Please don't use it for this exercise.)
 >
 >
-> 3. Exponentiation is built into R:
+> 3. Multiplication.
+>
+> Suppose variables `a` and `b` have been set to whole numbers:
 >
 > ```{r}
-> 2^4
+> a <- 6
+> b <- 7
 > ```
 >
-> Suppose variables `base` and `power` have been set.
+> Use a for loop to calculate `a` times `b`. Do not use `*`.
 >
-> Write a for loop to raise `base` to the power `power`.
+> Hint: In challenge 1 you found a way to do something n times!
 >
-> Try it with various different values in `base` and `power`.
+> Try your loop with various different values in `a` and `b`.
 >
 
+
+## Loading a set of files
+
+Let's look at a more practical example of a for loop, following the pattern of accumulating a result that we've just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years `intro-r/gapminder-NNNN.csv`. We would like to load all of these CSV files into a single data frame.
+
+`read.csv` can only read one file at a time, so we will need to call `read.csv` many times.
+
+First let's get a character vector of the filenames we want to load. I'm using a couple of useful functions we haven't seen before, `seq` and `paste0`. As usual, you can look these up in the help system with `?seq` and `?paste0`.
+
+```{r}
+years <- seq(1952, 2007, 5)
+years
+# We could also have written
+# years <- c(1952, 1957, <etc> )
+```
+
+```{r}
+filenames <- paste0("intro-r/gapminder-", years, ".csv")
+filenames
+# We could also have just written
+# filenames <- c("intro-r/gapminder-1952.csv", <etc> )
+```
+
+It would be nice if R would load all of these at once. Many R functions do behave like this. Alas in this case `read.csv` gives an obscure error message.
+
+```{r}
+gap <- read.csv(filenames)
+```
+
+We will loop over all of the filenames, and build up a data frame. We start with `NULL`, which is a special value in R meaning nothing at all. We add to this with `rbind`, which concatenates the rows of data frames.
+
+```{r}
+gap <- NULL
+for(filename in filenames) {
+    cat("Loading", filename, "\n")
+
+    gap_year <- read.csv(filename)
+    gap <- rbind(gap, gap_year)
+
+    cat("Loaded", nrow(gap_year), "rows\n")
+    cat("Now have", nrow(gap), "rows in gap\n")
+}
+
+nrow(gap)
+head(gap)
+```
+
+
+## When to use for loops
 
 Many of the functions and operators we have been using are implemented using for loops, so often in R we are able to use these rather than directly writing a for loop. However when we need to do something complicated, for loops are there for us. Some real world reasons you might use a for loop:
 
@@ -134,6 +205,6 @@ Many of the functions and operators we have been using are implemented using for
 
 * To load and process a collection of files, all in the same way.
 
-* To perform a Monte Carlo simulation to estimate the power of a proposed experiment, for a given effect size and expected noise due to measurement error and biological variation.
+* To run a program outside of R, such as a read aligner, with each of a collection of files as input. Programs outside of R can be run using `system`.
 
 * To perform resampling such as a permutation test or a bootstrap, to assure yourself that some result you have calculated is not simply due to chance.

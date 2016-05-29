@@ -6,15 +6,15 @@ title: "Introduction to R"
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 1st of June 2016.
 
-R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
-
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
-## Setup
+R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
 
-There are several way to use R. We've written this course with an environment called RStudio in mind. On the day, we will be using RStudio from the web, but you can also install it on your laptop. R and RStudio are free.
+We will be using RStudio, a friendly front end to R. On the day, we will be using RStudio from the web, but you can also install R and RStudio on your laptop. Both R and RStudio are free.
 
+* [Download R](https://cran.rstudio.com/)
 * [Download RStudio](https://www.rstudio.com/products/rstudio/download/)
+
 
 ## Course material
 

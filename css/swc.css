@@ -1,6 +1,7 @@
 /* Card is used only at lessons */
 div.container.card {
 	background-color: white;
+	border-radius: 5px;
 }
 
 /* Headings */
@@ -11,10 +12,15 @@ h1, h2, h3, h4, h5, h6 {
 
 h1, h2, h3 {
 	background: #ffeecc;
-	border-radius: 0.25em;
-	padding: 0.5em;
+	border-radius: 5px;
+	padding: 0.4em;
 	margin-top: 2em;
 	margin-bottom: 1em;
+}
+
+h1 {
+	background: #ffdd99;
+	padding: 2em;
 }
 
 /*
