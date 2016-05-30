@@ -139,7 +139,7 @@ mat[, <span class="dv">2</span>]</code></pre></div>
 <pre><code>## Resin1 Resin2 Resin3 Resin4 Resin5 Resin6 Resin7 Resin8 
 ##  35.40  35.35  29.65  30.05  31.40  30.65  32.50  36.45</code></pre>
 <h2 id="summary-functions">Summary functions</h2>
-<p>Now let’s perform some common mathematical operations to learn about our data. When analyzing data we often want to look at partial statistics, such as the maximum value per resin or the average value per operator. One way to do this is to select the data we want to create a new temporary vector (or matrix, or data frame), and then perform the calculation on this subset:</p>
+<p>Now let’s perform some common mathematical operations to learn about our data. When analyzing data we often want to look at partial statistics, such as the maximum value per resin or the average value per operator. One way to do this is to select the data we want as a new temporary variable, and then perform the calculation on this subset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first row, all of the columns</span>
 resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <span class="co"># max particle size for resin 1</span>
@@ -149,7 +149,7 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># max particle size for resin 2</span>
 <span class="kw">max</span>(mat[<span class="dv">2</span>, ])</code></pre></div>
 <pre><code>## [1] 35.35</code></pre>
-<p>R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:</p>
+<p>R has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># minimum particle size for operator 3</span>
 <span class="kw">min</span>(mat[, <span class="dv">3</span>])</code></pre></div>
 <pre><code>## [1] 28.65</code></pre>

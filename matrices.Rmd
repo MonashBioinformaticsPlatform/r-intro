@@ -144,7 +144,7 @@ mat[, 2]
 
 ## Summary functions
 
-Now let's perform some common mathematical operations to learn about our data. When analyzing data we often want to look at partial statistics, such as the maximum value per resin or the average value per operator. One way to do this is to select the data we want to create a new temporary vector (or matrix, or data frame), and then perform the calculation on this subset:
+Now let's perform some common mathematical operations to learn about our data. When analyzing data we often want to look at partial statistics, such as the maximum value per resin or the average value per operator. One way to do this is to select the data we want as a new temporary variable, and then perform the calculation on this subset:
 
 ```{r}
 # first row, all of the columns
@@ -161,7 +161,7 @@ Instead, we can combine the selection and the function call:
 max(mat[2, ])
 ```
 
-R also has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
+R has functions for other common calculations, e.g. finding the minimum, mean, median, and standard deviation of the data:
 
 ```{r}
 # minimum particle size for operator 3

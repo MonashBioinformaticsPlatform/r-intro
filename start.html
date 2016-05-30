@@ -90,7 +90,7 @@ weight_lb</code></pre></div>
 <p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
 <h2 id="vectors">Vectors</h2>
 <p>A “vector”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> of numbers is a collection of numbers. We call the individual numbers “elements” of the vector.</p>
-<p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R, numbers are just vectors of length one. R is obsesssed with vectors.</p>
+<p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R numbers are just vectors of length one. R is obsesssed with vectors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>)
 myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
 <pre><code>## [1] 11 21 31</code></pre>
@@ -153,7 +153,6 @@ myvec</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">num=</span><span class="dv">42</span>, <span class="dt">greeting=</span><span class="st">&quot;Hello, world&quot;</span>)
 mylist$greeting</code></pre></div>
 <pre><code>## [1] &quot;Hello, world&quot;</code></pre>
-<p>This terminology is peculiar to R. Other languages make the same distinction but they may use different words for vectors and lists.</p>
 <p>Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.</p>
 <h2 id="overview-of-data-types">Overview of data types</h2>
 <p>We’ve seen several data types in this chapter, and will be seeing two more in the following chapters. This section serves as an overview of data types in R and their typical usage.</p>

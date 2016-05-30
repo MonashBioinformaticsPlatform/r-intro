@@ -44,21 +44,23 @@ ggplot(diabetes, aes(y=glyhb, x=age)) +
 
 The call to `ggplot` and `aes` sets up the basics of how we are going to represent the various columns of the data frame. `aes` defines the "aesthetics", which is how columns of the data frame map to graphical attributes such as x and y position, color, size, etc. We then literally add layers of graphics to this.
 
-Seasoned programmers may notice with some alarm that `aes` is a magical function, since its bare parameters refer to columns of the data frame as though they were variables. To those programmers we comment briefly and inscrutibly that R uses lazy evaluation of function parameters to allow any function to potentially behave like a macro.
+Seasoned programmers may notice with some alarm that `aes` does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. To those programmers we comment briefly that R uses lazy evaluation of function parameters to allow any function to potentially behave like a macro, and that this is exactly as dangerous and powerful as it sounds. It's used tastefully, for the most part.
 
 Further aesthetics can be used. Hans Rosling would be excited!
 
 ```{r}
-ggplot(diabetes, aes(y=glyhb, x=age, size=weight, color=frame)) +
+ggplot(diabetes, aes(x=age, y=glyhb, size=weight, color=frame)) +
     geom_point()
 ```
 
-We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb. Lets try to show this trend.
+We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb. Let's try to show this trend.
 
 ```{r}
-ggplot(na.omit(diabetes), aes(y=weight, x=height, color=frame)) +
+ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=frame)) +
     geom_point() + geom_smooth(method="lm")
 ```
+
+Hmm.
 
 Some "geom"s have an associated "stat". For example `geom_smooth` overlays a curve fitted to the data. You can see in the help it has a default parameter of `stat="smooth"` which calculates this curve. If there is a grouping of the data, for example by color, then separate curves are shown for each group.
 
@@ -77,7 +79,7 @@ ggplot(diabetes, aes(x=gender, fill=frame)) + geom_bar()
 > gap <- read.csv("intro-r/all-gapminder.csv")
 > ```
 >
-> Plot life expectancy vs GDP per capita, coloring points by continent.
+> Plot life expectancy vs GDP per capita, coloring points by continent and sizing by year.
 >
 
 ## Using ggplot2 with a matrix

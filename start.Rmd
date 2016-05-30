@@ -120,7 +120,7 @@ A "vector"[^vectornote] of numbers is a collection of numbers. We call the indiv
 
 [^vectornote]: We use the word vector here in the mathematical sense, as used in linear algebra, not in any biological sense, and not in the geometric sense.
 
-We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R, numbers are just vectors of length one. R is obsesssed with vectors.
+We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R numbers are just vectors of length one. R is obsesssed with vectors.
 
 ```{r}
 myvec <- c(10,20,30)
@@ -210,8 +210,6 @@ We generally give the things in a list names. Try `list(num=42, greeting="hello"
 mylist <- list(num=42, greeting="Hello, world")
 mylist$greeting
 ```
-
-This terminology is peculiar to R. Other languages make the same distinction but they may use different words for vectors and lists.
 
 Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.
 

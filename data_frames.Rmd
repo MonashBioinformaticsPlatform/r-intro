@@ -76,18 +76,18 @@ diabetes[which_over_80,]
 
 Comparison operators available are:
 
-* `x == y ` "equal to"
-* `x != y ` "not equal to"
-* `x < y  ` "less than"
-* `x > y  ` "greater than"
-* `x <= y ` "less than or equal to"
-* `x >= y ` "greater than or equal to"
+* `x == y ` -- "equal to"
+* `x != y ` -- "not equal to"
+* `x < y  ` -- "less than"
+* `x > y  ` -- "greater than"
+* `x <= y ` -- "less than or equal to"
+* `x >= y ` -- "greater than or equal to"
 
 More complicated conditions can be constructed using logical operators:
 
-* `a & b ` "and", true only if both `a` and `b` are true.
-* `a | b ` "or", true if either `a` or `b` or both are true.
-* `! a   ` "not" , true if `a` is false, and false if `a` is true.
+* `a & b ` -- "and", true only if both `a` and `b` are true.
+* `a | b ` -- "or", true if either `a` or `b` or both are true.
+* `! a   ` -- "not" , true if `a` is false, and false if `a` is true.
 
 ```{r}
 is_over_80_and_female <- is_over_80 & diabetes$gender == "female"
@@ -146,7 +146,7 @@ mean( diabetes$glyhb[not_missing] )
 mean( na.omit(diabetes$glyhb) )
 ```
 
-`na.omit` can also be used on a whole data frame, and removes rows with NAs in any column.
+`na.omit` can also be used on a whole data frame, and removes rows with NA in any column.
 
 ## Factors
 

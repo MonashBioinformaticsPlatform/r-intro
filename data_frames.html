@@ -105,18 +105,18 @@ which_over_80</code></pre></div>
 ## 324  S40789 11.18     Louisa  80 female     62    162  small</code></pre>
 <p>Comparison operators available are:</p>
 <ul>
-<li><code>x == y</code> “equal to”</li>
-<li><code>x != y</code> “not equal to”</li>
-<li><code>x &lt; y</code> “less than”</li>
-<li><code>x &gt; y</code> “greater than”</li>
-<li><code>x &lt;= y</code> “less than or equal to”</li>
-<li><code>x &gt;= y</code> “greater than or equal to”</li>
+<li><code>x == y</code> – “equal to”</li>
+<li><code>x != y</code> – “not equal to”</li>
+<li><code>x &lt; y</code> – “less than”</li>
+<li><code>x &gt; y</code> – “greater than”</li>
+<li><code>x &lt;= y</code> – “less than or equal to”</li>
+<li><code>x &gt;= y</code> – “greater than or equal to”</li>
 </ul>
 <p>More complicated conditions can be constructed using logical operators:</p>
 <ul>
-<li><code>a &amp; b</code> “and”, true only if both <code>a</code> and <code>b</code> are true.</li>
-<li><code>a | b</code> “or”, true if either <code>a</code> or <code>b</code> or both are true.</li>
-<li><code>! a</code> “not” , true if <code>a</code> is false, and false if <code>a</code> is true.</li>
+<li><code>a &amp; b</code> – “and”, true only if both <code>a</code> and <code>b</code> are true.</li>
+<li><code>a | b</code> – “or”, true if either <code>a</code> or <code>b</code> or both are true.</li>
+<li><code>! a</code> – “not” , true if <code>a</code> is false, and false if <code>a</code> is true.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80_and_female &lt;-<span class="st"> </span>is_over_80 &amp;<span class="st"> </span>diabetes$gender ==<span class="st"> &quot;female&quot;</span>
 
@@ -177,7 +177,7 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 <pre><code>## [1] 5.580292</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>( <span class="kw">na.omit</span>(diabetes$glyhb) )</code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
-<p><code>na.omit</code> can also be used on a whole data frame, and removes rows with NAs in any column.</p>
+<p><code>na.omit</code> can also be used on a whole data frame, and removes rows with NA in any column.</p>
 <h2 id="factors">Factors</h2>
 <p>When R loads a CSV file, it tries to give appropriate types to the columns. Let’s examine what types R has given our data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diabetes)</code></pre></div>
