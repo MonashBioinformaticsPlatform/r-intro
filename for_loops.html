@@ -129,7 +129,7 @@ b &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
 <h2 id="loading-a-set-of-files">Loading a set of files</h2>
 <p>Let’s look at a more practical example of a for loop, following the pattern of accumulating a result that we’ve just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years <code>intro-r/gapminder-NNNN.csv</code>. We would like to load all of these CSV files into a single data frame.</p>
 <p><code>read.csv</code> can only read one file at a time, so we will need to call <code>read.csv</code> many times.</p>
-<p>First let’s get a character vector of the filenames we want to load. I’m using a couple of useful functions we haven’t seen before, <code>seq</code> and <code>paste0</code>. As usual, you can look these up in the help system with <code>?seq</code> and <code>?paste0</code>.</p>
+<p>I will be using a couple of useful functions we haven’t seen before, <code>seq</code> and <code>paste0</code>. As usual, you can look these up in the help system with <code>?seq</code> and <code>?paste0</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1952</span>, <span class="dv">2007</span>, <span class="dv">5</span>)
 years</code></pre></div>
 <pre><code>##  [1] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 2002 2007</code></pre>

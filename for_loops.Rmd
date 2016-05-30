@@ -156,7 +156,7 @@ Let's look at a more practical example of a for loop, following the pattern of a
 
 `read.csv` can only read one file at a time, so we will need to call `read.csv` many times.
 
-First let's get a character vector of the filenames we want to load. I'm using a couple of useful functions we haven't seen before, `seq` and `paste0`. As usual, you can look these up in the help system with `?seq` and `?paste0`.
+I will be using a couple of useful functions we haven't seen before, `seq` and `paste0`. As usual, you can look these up in the help system with `?seq` and `?paste0`.
 
 ```{r}
 years <- seq(1952, 2007, 5)

@@ -137,13 +137,16 @@ Many summary functions, such as `mean`, have a flag to say ignore `NA` values.
 mean(diabetes$glyhb, na.rm=TRUE)
 ```
 
-There is also an `is.na` function, allowing us to perform this removal manually using logical indexing.
+There is also an `is.na` function, allowing us to find which values are NA, and `na.omit` which removes NAs.
 
 ```{r}
 not_missing <- !is.na(diabetes$glyhb)
 mean( diabetes$glyhb[not_missing] )
+
+mean( na.omit(diabetes$glyhb) )
 ```
 
+`na.omit` can also be used on a whole data frame, and removes rows with NAs in any column.
 
 ## Factors
 
@@ -295,7 +298,7 @@ One often wishes to merge data from two different sources. We want a new data fr
 Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.
 
 ```{r}
-cholesterol <- read.csv("data/intro-r/chol.csv")
+cholesterol <- read.csv("intro-r/chol.csv")
 head(cholesterol)
 ```
 

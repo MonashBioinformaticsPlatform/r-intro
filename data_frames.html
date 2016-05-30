@@ -171,10 +171,13 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 <p>Many summary functions, such as <code>mean</code>, have a flag to say ignore <code>NA</code> values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes$glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
-<p>There is also an <code>is.na</code> function, allowing us to perform this removal manually using logical indexing.</p>
+<p>There is also an <code>is.na</code> function, allowing us to find which values are NA, and <code>na.omit</code> which removes NAs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_missing &lt;-<span class="st"> </span>!<span class="kw">is.na</span>(diabetes$glyhb)
 <span class="kw">mean</span>( diabetes$glyhb[not_missing] )</code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>( <span class="kw">na.omit</span>(diabetes$glyhb) )</code></pre></div>
+<pre><code>## [1] 5.580292</code></pre>
+<p><code>na.omit</code> can also be used on a whole data frame, and removes rows with NAs in any column.</p>
 <h2 id="factors">Factors</h2>
 <p>When R loads a CSV file, it tries to give appropriate types to the columns. Let’s examine what types R has given our data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diabetes)</code></pre></div>
@@ -311,48 +314,57 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes$g
 <h2 id="merging-two-data-frames">Merging two data frames</h2>
 <p>One often wishes to merge data from two different sources. We want a new data frame with columns from both of the input data frames. This is also called a <code>join</code> operation.</p>
 <p>Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/intro-r/chol.csv&quot;</span>)</code></pre></div>
-<pre><code>## Warning in file(file, &quot;rt&quot;): cannot open file &#39;data/intro-r/chol.csv&#39;: No
-## such file or directory</code></pre>
-<pre><code>## Error in file(file, &quot;rt&quot;): cannot open the connection</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(cholesterol)</code></pre></div>
-<pre><code>## Error in head(cholesterol): object &#39;cholesterol&#39; not found</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/chol.csv&quot;</span>)
+<span class="kw">head</span>(cholesterol)</code></pre></div>
+<pre><code>##   subject chol
+## 1   S1000  203
+## 2   S1001  165
+## 3   S1002  228
+## 4   S1005  249
+## 5   S1008  248
+## 6   S1011  195</code></pre>
 <p>Great! We’ll just add this new column of data to our data frame.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span>diabetes
 diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;cholesterol&#39; not found</code></pre>
+<pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, &quot;chol&quot;, value = c(203L, 165L, 228L, : replacement has 362 rows, data has 354</code></pre>
 <p>Oh. The two data frames don’t have exactly the same set of subjects. We should also have checked if they were even in the same order before blithely combining them. R has shown an error this time, but there are ways to mess up like this that would not show an error. How embarassing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
 <pre><code>## [1] 354</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(cholesterol)</code></pre></div>
-<pre><code>## Error in nrow(cholesterol): object &#39;cholesterol&#39; not found</code></pre>
+<pre><code>## [1] 362</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>( <span class="kw">intersect</span>(diabetes$subject, cholesterol$subject) )</code></pre></div>
-<pre><code>## Error in as.vector(y): object &#39;cholesterol&#39; not found</code></pre>
+<pre><code>## [1] 320</code></pre>
 <h3 id="inner-join-using-the-merge-function">Inner join using the <code>merge</code> function</h3>
 <p>We will have to do the best we can with the subjects that are present in both data frames (an “inner join”). The <code>merge</code> function lets us merge the data frames.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>)</code></pre></div>
-<pre><code>## Error in as.data.frame(y): object &#39;cholesterol&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes2)</code></pre></div>
-<pre><code>## [1] 354</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>)
+
+<span class="kw">nrow</span>(diabetes2)</code></pre></div>
+<pre><code>## [1] 320</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes2)</code></pre></div>
-<pre><code>##   subject glyhb   location age gender height weight  frame diabetic
-## 1   S1002  4.64 Buckingham  58 female     61    256  large    FALSE
-## 2   S1003  4.63 Buckingham  67   male     67    119  large    FALSE
-## 3   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE
-## 4   S1008  4.81 Buckingham  34   male     71    190  large    FALSE
-## 5   S1011  4.84 Buckingham  30   male     69    191 medium    FALSE
-## 6   S1015  3.94 Buckingham  37   male     59    170 medium    FALSE</code></pre>
+<pre><code>##   subject glyhb   location age gender height weight  frame diabetic chol
+## 1  S10001  4.01 Buckingham  21 female     65    169  large    FALSE  132
+## 2  S10016  6.39 Buckingham  71 female     63    244  large    FALSE  228
+## 3   S1002  4.64 Buckingham  58 female     61    256  large    FALSE  228
+## 4  S10020  7.53 Buckingham  64   male     71    225  large     TRUE  181
+## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
+## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2$chol, diabetes2$glyhb)</code></pre></div>
-<pre><code>## Error in xy.coords(x, y, xlabel, ylabel, log): &#39;x&#39; and &#39;y&#39; lengths differ</code></pre>
+<p><img src="fig/dataframes-unnamed-chunk-28-1.png" alt="plot of chunk unnamed-chunk-28" /></p>
 <p>Note that the result is in a different order to the input. However it contains the correct rows.</p>
 <h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
 <p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes3 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>, <span class="dt">all.x=</span><span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## Error in as.data.frame(y): object &#39;cholesterol&#39; not found</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes3)</code></pre></div>
-<pre><code>## Error in nrow(diabetes3): object &#39;diabetes3&#39; not found</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes3 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>, <span class="dt">all.x=</span><span class="ot">TRUE</span>)
+
+<span class="kw">nrow</span>(diabetes3)</code></pre></div>
+<pre><code>## [1] 354</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes3)</code></pre></div>
-<pre><code>## Error in head(diabetes3): object &#39;diabetes3&#39; not found</code></pre>
+<pre><code>##   subject glyhb   location age gender height weight frame diabetic chol
+## 1  S10000  4.83 Buckingham  23   male     76    164 small    FALSE   NA
+## 2  S10001  4.01 Buckingham  21 female     65    169 large    FALSE  132
+## 3  S10016  6.39 Buckingham  71 female     63    244 large    FALSE  228
+## 4   S1002  4.64 Buckingham  58 female     61    256 large    FALSE  228
+## 5  S10020  7.53 Buckingham  64   male     71    225 large     TRUE  181
+## 6   S1003  4.63 Buckingham  67   male     67    119 large    FALSE   NA</code></pre>
 <p>The data missing from the second data frame is indicated by NAs.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
