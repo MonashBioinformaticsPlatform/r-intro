@@ -7,10 +7,10 @@ header-includes:
 
 ### Preface
 
-These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 1st of June 2016.
+These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform.
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
 Data files we are working with are available from:
 
-http://monashbioinformaticsplatform.github.io/2016-06-01-intro-r/
+http://monashbioinformaticsplatform.github.io/r-intro/

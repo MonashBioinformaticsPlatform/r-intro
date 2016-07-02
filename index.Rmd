@@ -4,7 +4,7 @@ title: "Introduction to R"
 
 # Introduction to R
 
-These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform on the 1st of June 2016.
+These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform.
 
 Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
 
@@ -40,4 +40,4 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 
 <br><br>
-[These notes on GitHub](https://github.com/MonashBioinformaticsPlatform/2016-06-01-intro-r)
+[These notes on GitHub](https://github.com/MonashBioinformaticsPlatform/r-intro)
