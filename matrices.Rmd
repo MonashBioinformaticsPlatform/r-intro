@@ -15,18 +15,18 @@ Our example data is quality measurements (particle size) on PVC plastic producti
 The data set is stored in comma-separated value (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open `pvc.csv` and have a look at what it contains.
 
 ```{r, results="hide"}
-read.csv("intro-r/pvc.csv", row.names=1)
+read.csv("r-intro-files/pvc.csv", row.names=1)
 ```
 
 > ### Tip {.callout}
 >
 > The location of the file is given relative to your "working directory". You can see the location of your working directory in the title of the console pane in RStudio. It is most likely "~", indicating your personal home directory. You can change working directory with `setwd`.
 >
-> The filename "intro-r/pvc.csv" means from the current working directory, in the sub-directory "intro-r", the file "pvc.csv".
+> The filename "r-intro-files/pvc.csv" means from the current working directory, in the sub-directory "r-intro-files", the file "pvc.csv".
 >
 > You can check that the file is actually in this location using the "Files" pane in the bottom right corner of RStudio.
 >
-> If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the file may be in a different location.
+> If you are working on your own machine rather than our training server, and downloaded and unarchived the r-intro-files.zip file, the file may be in a different location.
 >
 
 
@@ -40,7 +40,7 @@ The filename needs to be a character string, so we put it in quotes. Assigning t
 
 
 ```{r, results="hide"}
-dat <- read.csv("intro-r/pvc.csv", row.names=1)
+dat <- read.csv("r-intro-files/pvc.csv", row.names=1)
 ```
 
 ```{r}

@@ -127,7 +127,7 @@ b &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
 </div>
 </section>
 <h2 id="loading-a-set-of-files">Loading a set of files</h2>
-<p>Let’s look at a more practical example of a for loop, following the pattern of accumulating a result that we’ve just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years <code>intro-r/gapminder-NNNN.csv</code>. We would like to load all of these CSV files into a single data frame.</p>
+<p>Let’s look at a more practical example of a for loop, following the pattern of accumulating a result that we’ve just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years <code>r-intro-files/gapminder-NNNN.csv</code>. We would like to load all of these CSV files into a single data frame.</p>
 <p><code>read.csv</code> can only read one file at a time, so we will need to call <code>read.csv</code> many times.</p>
 <p>I will be using a couple of useful functions we haven’t seen before, <code>seq</code> and <code>paste0</code>. As usual, you can look these up in the help system with <code>?seq</code> and <code>?paste0</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">years &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1952</span>, <span class="dv">2007</span>, <span class="dv">5</span>)
@@ -136,19 +136,19 @@ years</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We could also have written</span>
 <span class="co"># years &lt;- c(1952, 1957, &lt;etc&gt; )</span></code></pre></div>
 <p>We will make filenames with <code>paste0</code> which pastes several values together as a character string.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste0</span>(<span class="st">&quot;intro-r/gapminder-&quot;</span>, <span class="dv">1952</span>, <span class="st">&quot;.csv&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;intro-r/gapminder-1952.csv&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste0</span>(<span class="st">&quot;r-intro-files/gapminder-&quot;</span>, <span class="dv">1952</span>, <span class="st">&quot;.csv&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;r-intro-files/gapminder-1952.csv&quot;</code></pre>
 <p>We will loop over all of the years, and build up a data frame. We start with <code>NULL</code>, which is a special value in R meaning nothing at all. We add to this with <code>rbind</code>, which concatenates the rows of data frames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="ot">NULL</span>
 for(year in years) {
-    filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;intro-r/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
+    filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r-intro-files/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
     gap_year &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename)
     gap &lt;-<span class="st"> </span><span class="kw">rbind</span>(gap, gap_year)
 }</code></pre></div>
 <p>Again, <code>print</code> or <code>cat</code> can be used to check everything is working correctly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="ot">NULL</span>
 for(year in years) {
-    filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;intro-r/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
+    filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r-intro-files/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
 
     <span class="kw">cat</span>(<span class="st">&quot;Loading&quot;</span>, filename, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
 
@@ -160,40 +160,40 @@ for(year in years) {
 
     <span class="kw">cat</span>(<span class="st">&quot;Now have&quot;</span>, <span class="kw">nrow</span>(gap), <span class="st">&quot;rows in gap</span><span class="ch">\n</span><span class="st">&quot;</span>)
 }</code></pre></div>
-<pre><code>## Loading intro-r/gapminder-1952.csv 
+<pre><code>## Loading r-intro-files/gapminder-1952.csv 
 ## Read 142 rows
 ## Now have 142 rows in gap
-## Loading intro-r/gapminder-1957.csv 
+## Loading r-intro-files/gapminder-1957.csv 
 ## Read 142 rows
 ## Now have 284 rows in gap
-## Loading intro-r/gapminder-1962.csv 
+## Loading r-intro-files/gapminder-1962.csv 
 ## Read 142 rows
 ## Now have 426 rows in gap
-## Loading intro-r/gapminder-1967.csv 
+## Loading r-intro-files/gapminder-1967.csv 
 ## Read 142 rows
 ## Now have 568 rows in gap
-## Loading intro-r/gapminder-1972.csv 
+## Loading r-intro-files/gapminder-1972.csv 
 ## Read 142 rows
 ## Now have 710 rows in gap
-## Loading intro-r/gapminder-1977.csv 
+## Loading r-intro-files/gapminder-1977.csv 
 ## Read 142 rows
 ## Now have 852 rows in gap
-## Loading intro-r/gapminder-1982.csv 
+## Loading r-intro-files/gapminder-1982.csv 
 ## Read 142 rows
 ## Now have 994 rows in gap
-## Loading intro-r/gapminder-1987.csv 
+## Loading r-intro-files/gapminder-1987.csv 
 ## Read 142 rows
 ## Now have 1136 rows in gap
-## Loading intro-r/gapminder-1992.csv 
+## Loading r-intro-files/gapminder-1992.csv 
 ## Read 142 rows
 ## Now have 1278 rows in gap
-## Loading intro-r/gapminder-1997.csv 
+## Loading r-intro-files/gapminder-1997.csv 
 ## Read 142 rows
 ## Now have 1420 rows in gap
-## Loading intro-r/gapminder-2002.csv 
+## Loading r-intro-files/gapminder-2002.csv 
 ## Read 142 rows
 ## Now have 1562 rows in gap
-## Loading intro-r/gapminder-2007.csv 
+## Loading r-intro-files/gapminder-2007.csv 
 ## Read 142 rows
 ## Now have 1704 rows in gap</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(gap)</code></pre></div>

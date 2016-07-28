@@ -23,7 +23,7 @@
         <div class="col-md-10 col-md-offset-1">
 <h1 id="working-with-data-in-a-data-frame">Working with data in a data frame</h1>
 <p>As we saw earlier, <code>read.csv</code> loads tabular data from a CSV file into a data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/diabetes.csv&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)
 
 <span class="kw">class</span>(diabetes)</code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
@@ -314,7 +314,7 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes$g
 <h2 id="merging-two-data-frames">Merging two data frames</h2>
 <p>One often wishes to merge data from two different sources. We want a new data frame with columns from both of the input data frames. This is also called a <code>join</code> operation.</p>
 <p>Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/chol.csv&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/chol.csv&quot;</span>)
 <span class="kw">head</span>(cholesterol)</code></pre></div>
 <pre><code>##   subject chol
 ## 1   S1000  203

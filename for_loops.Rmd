@@ -152,7 +152,7 @@ letter
 
 ## Loading a set of files
 
-Let's look at a more practical example of a for loop, following the pattern of accumulating a result that we've just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years `intro-r/gapminder-NNNN.csv`. We would like to load all of these CSV files into a single data frame.
+Let's look at a more practical example of a for loop, following the pattern of accumulating a result that we've just seen. We have been given some demographic data from the Gapminder project, but unfortunately it is split into individual years `r-intro-files/gapminder-NNNN.csv`. We would like to load all of these CSV files into a single data frame.
 
 `read.csv` can only read one file at a time, so we will need to call `read.csv` many times.
 
@@ -168,7 +168,7 @@ years
 We will make filenames with `paste0` which pastes several values together as a character string.
 
 ```{r}
-paste0("intro-r/gapminder-", 1952, ".csv")
+paste0("r-intro-files/gapminder-", 1952, ".csv")
 ```
 
 We will loop over all of the years, and build up a data frame. We start with `NULL`, which is a special value in R meaning nothing at all. We add to this with `rbind`, which concatenates the rows of data frames.
@@ -176,7 +176,7 @@ We will loop over all of the years, and build up a data frame. We start with `NU
 ```{r}
 gap <- NULL
 for(year in years) {
-    filename <- paste0("intro-r/gapminder-", year, ".csv")
+    filename <- paste0("r-intro-files/gapminder-", year, ".csv")
     gap_year <- read.csv(filename)
     gap <- rbind(gap, gap_year)
 }
@@ -187,7 +187,7 @@ Again, `print` or `cat` can be used to check everything is working correctly.
 ```{r}
 gap <- NULL
 for(year in years) {
-    filename <- paste0("intro-r/gapminder-", year, ".csv")
+    filename <- paste0("r-intro-files/gapminder-", year, ".csv")
 
     cat("Loading", filename, "\n")
 

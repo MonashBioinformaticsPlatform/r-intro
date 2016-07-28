@@ -1,5 +1,6 @@
 
+*.Rproj
 *.md
-
 .*
 
+.Rproj.user

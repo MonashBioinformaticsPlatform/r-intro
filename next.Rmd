@@ -4,43 +4,27 @@ title: "Next steps"
 
 # Next steps
 
-We have barely touched the surface of what R has to offer today. If you want to take your skills to the next level, here are some topics to investigate:
+We have barely touched the surface of what R has to offer. If you want to take your skills to the next level, here are some topics to investigate:
 
-### Programming
-
-* Writing functions.
-* Using if statements.
-
-The [Software Carpentry in R](http://swcarpentry.github.io/r-novice-inflammation/) course introduces R as a programming language.
-
-### Tidying and summarizing data
-
-* [dplyr](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) by Hadley Wickham, and also tidyr, readr, stringr.
-* [magrittr's](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html) `%>%` operator for chaining together data frame manipulations.
-
-These tools play well with `ggplot2`, which we saw in the previous chapter.
-
-### Bioinformatics
-
-[Bioconductor](http://bioconductor.org) is a collection of bioinformatics related packages, including the popular `limma` and `edgeR` packages for RNA-Seq analysis developed at the Walter and Eliza Hall Institute, and packages such as `rtracklayer`, `GenomicRanges`, and `Biostrings` for working with DNA/RNA/protein sequences and genomic features.
-
-* [Bioconductor cheat sheet](https://github.com/mikelove/bioc-refcard/blob/master/README.Rmd)
-
-### Even more functions and packages
+### Cheat sheets
 
 * [RStudio's collection of cheat sheets](https://www.rstudio.com/resources/cheatsheets/) cover newer packages in R.
 * [An old-school cheat sheet](https://cran.r-project.org/doc/contrib/Short-refcard.pdf) for dinosaurs and people wishing to go deeper.
-* [CRAN](https://cran.rstudio.com/) has hundreds of contributed packages which can be installed with `install.packages`.
+* [Bioconductor cheat sheet](https://github.com/mikelove/bioc-refcard/blob/master/README.Rmd)
 
-As ever, the help system `?functionname` is your friend.
+### More packages
+
+* [CRAN](https://cran.rstudio.com/) has hundreds of contributed packages which can be installed with `install.packages`.
+* [Bioconductor](http://bioconductor.org/) is another huge collection of packages with a biological focus.
 
 ### Statistics
 
 * Many statistical tests are built in to R.
 
 * Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically.
-    * Many statistical techniques take linear models as their starting point, including `limma` which we will be using to test for differential gene expression.
+    * Many statistical techniques take linear models as their starting point, including `limma` which we will be using to test for differential gene expression, `glm` for logistic regression (etc), survival analysis, mixed models to characterize variation within populations.
     * Many R function repurpose the `~` formula syntax for other ways of relating response and explanatory variables.
+
 
 See "The R Book" by Michael J. Crawley for general reference.
 

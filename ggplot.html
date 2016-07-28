@@ -35,7 +35,7 @@
 </ol>
 <h2 id="using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</h2>
 <p>Let’s load up our diabetes data frame again.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/diabetes.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
 <pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
@@ -62,13 +62,13 @@
 </div>
 <div class="panel-body">
 <p>Use the Gapminder data you loaded earlier, or cheat and load it all with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/all-gapminder.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/all-gapminder.csv&quot;</span>)</code></pre></div>
 <p>Plot life expectancy vs GDP per capita, coloring points by continent and sizing by year.</p>
 </div>
 </section>
 <h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
 <p>Let’s return to our first matrix example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;r-intro-files/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
 mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</code></pre></div>
 <p>ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this “long” form with the <code>melt</code> function in the library <code>reshape2</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)

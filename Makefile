@@ -15,9 +15,12 @@ SECTIONS=start matrices data_frames for_loops ggplot next
 SVGS=$(wildcard fig/*.svg)
 PNGS=$(patsubst %.svg,%.png,$(SVGS))
 
-all : index.html intro-r.zip $(addsuffix .html,$(SECTIONS)) intro-r.pdf $(PNGS)
+all : index.html r-intro-files.zip $(addsuffix .html,$(SECTIONS)) r-intro.pdf $(PNGS)
 
-intro-r.tex : intro.md $(addsuffix .md,$(SECTIONS))
+clean :
+	rm index.html index.md intro.md r-intro-files.zip $(addsuffix .md,$(SECTIONS)) $(addsuffix .html,$(SECTIONS)) r-intro.pdf ; true
+
+r-intro.tex : intro.md $(addsuffix .md,$(SECTIONS))
 	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 --no-highlight \
 		-Vlinks-as-notes=1 \
 		-Vdocumentclass=report \
@@ -26,7 +29,7 @@ intro-r.tex : intro.md $(addsuffix .md,$(SECTIONS))
 		intro.md $(addsuffix .md,$(SECTIONS)) \
 		-o $@
 
-intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
+r-intro.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 --no-highlight \
 		-Vlinks-as-notes=1 \
 		-Vdocumentclass=report \
@@ -35,8 +38,8 @@ intro-r.pdf : intro.md $(addsuffix .md,$(SECTIONS))
 		intro.md $(addsuffix .md,$(SECTIONS)) \
 		-o $@
 
-intro-r.zip : intro-r/*
-	zip -FSr intro-r.zip intro-r
+r-intro-files.zip : r-intro-files/*
+	zip -FSr r-intro-files.zip r-intro-files
 
 %.md : %.Rmd
 	Rscript -e 'knitr::knit("$<")'

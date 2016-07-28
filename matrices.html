@@ -25,16 +25,16 @@
 <h2 id="loading-data">Loading data</h2>
 <p>Our example data is quality measurements (particle size) on PVC plastic production, using eight different resin batches, and three different machine operators.</p>
 <p>The data set is stored in comma-separated value (CSV) format. Each row is a resin batch, and each column is an operator. In RStudio, open <code>pvc.csv</code> and have a look at what it contains.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h3 id="tip"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
 <p>The location of the file is given relative to your “working directory”. You can see the location of your working directory in the title of the console pane in RStudio. It is most likely “~”, indicating your personal home directory. You can change working directory with <code>setwd</code>.</p>
-<p>The filename “intro-r/pvc.csv” means from the current working directory, in the sub-directory “intro-r”, the file “pvc.csv”.</p>
+<p>The filename “r-intro-files/pvc.csv” means from the current working directory, in the sub-directory “r-intro-files”, the file “pvc.csv”.</p>
 <p>You can check that the file is actually in this location using the “Files” pane in the bottom right corner of RStudio.</p>
-<p>If you are working on your own machine rather than our training server, and downloaded and unarchived the intro-r.zip file, the file may be in a different location.</p>
+<p>If you are working on your own machine rather than our training server, and downloaded and unarchived the r-intro-files.zip file, the file may be in a different location.</p>
 </div>
 </aside>
 <p>We have called <code>read.csv</code> with two arguments: the name of the file we want to read, and which column contains the row names. The filename needs to be a character string, so we put it in quotes. Assigning the second argument, <code>row.names</code>, to be <code>1</code> indicates that the data file has row names, and which column number they are stored in. If we don’t specify <code>row.names</code> the result will not have row names.</p>
@@ -46,7 +46,7 @@
 <p><code>read.csv</code> actually has many more arguments that you may find useful when importing your own data in the future.</p>
 </div>
 </aside>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;intro-r/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat</code></pre></div>
 <pre><code>##        Alice   Bob  Carl
 ## Resin1 36.25 35.40 35.30

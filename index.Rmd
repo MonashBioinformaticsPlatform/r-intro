@@ -18,9 +18,9 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 ## Course material
 
-[intro-r.pdf](intro-r.pdf) - These notes as a pdf.
+[r-intro.pdf](r-intro.pdf) - These notes as a pdf.
 
-[intro-r.zip](intro-r.zip) - Zip file containing data we are working with.
+[r-intro-files.zip](rintro-files.zip) - Zip file containing data we are working with.
 
 ## Topics
 
@@ -32,11 +32,19 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 [For loops](for_loops.html) ([.Rmd](for_loops.Rmd))
 
-### Extension topics
-
 [Plotting with ggplot2](ggplot.html) ([.Rmd](ggplot.Rmd))
 
-[Next steps](next.html)
+
+## See also
+
+In this series:
+
+* [R more](https://monashbioinformaticsplatform.github.io/r-more/)
+* [RNAseq DE analysis using R](http://monashbioinformaticsplatform.github.io/RNAseq-DE-analysis-with-R/)
+
+Other resources:
+
+* [Next steps](next.html)
 
 
 <br><br>

@@ -34,7 +34,7 @@ Producing a plot with ggplot2, we must give three things:
 Let's load up our diabetes data frame again.
 
 ```{r}
-diabetes <- read.csv("intro-r/diabetes.csv")
+diabetes <- read.csv("r-intro-files/diabetes.csv")
 ```
 
 ```{r}
@@ -76,7 +76,7 @@ ggplot(diabetes, aes(x=gender, fill=frame)) + geom_bar()
 > Use the Gapminder data you loaded earlier, or cheat and load it all with:
 >
 > ```{r}
-> gap <- read.csv("intro-r/all-gapminder.csv")
+> gap <- read.csv("r-intro-files/all-gapminder.csv")
 > ```
 >
 > Plot life expectancy vs GDP per capita, coloring points by continent and sizing by year.
@@ -87,7 +87,7 @@ ggplot(diabetes, aes(x=gender, fill=frame)) + geom_bar()
 Let's return to our first matrix example.
 
 ```{r}
-dat <- read.csv(file="intro-r/pvc.csv", row.names=1)
+dat <- read.csv(file="r-intro-files/pvc.csv", row.names=1)
 mat <- as.matrix(dat)
 ```
 

@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 As we saw earlier, `read.csv` loads tabular data from a CSV file into a data frame.
 
 ```{r}
-diabetes <- read.csv("intro-r/diabetes.csv")
+diabetes <- read.csv("r-intro-files/diabetes.csv")
 
 class(diabetes)
 head(diabetes)
@@ -298,7 +298,7 @@ One often wishes to merge data from two different sources. We want a new data fr
 Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.
 
 ```{r}
-cholesterol <- read.csv("intro-r/chol.csv")
+cholesterol <- read.csv("r-intro-files/chol.csv")
 head(cholesterol)
 ```
 
