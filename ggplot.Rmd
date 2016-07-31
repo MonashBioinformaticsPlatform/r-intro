@@ -31,14 +31,15 @@ Producing a plot with ggplot2, we must give three things:
 
 ## Using ggplot2 with a data frame
 
-Let's load up our diabetes data frame again.
+Let's use the Gapminder data we loaded in the section on for-loops. If you haven't done this section, you can load it all with:
 
 ```{r}
-diabetes <- read.csv("r-intro-files/diabetes.csv")
+gap <- read.csv("r-intro-files/all-gapminder.csv")
 ```
 
+
 ```{r}
-ggplot(diabetes, aes(y=glyhb, x=age)) +
+ggplot(gap, aes(x=year, y=lifeExp)) +
     geom_point()
 ```
 
@@ -46,41 +47,70 @@ The call to `ggplot` and `aes` sets up the basics of how we are going to represe
 
 Seasoned programmers may notice with some alarm that `aes` does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. To those programmers we comment briefly that R uses lazy evaluation of function parameters to allow any function to potentially behave like a macro, and that this is exactly as dangerous and powerful as it sounds. It's used tastefully, for the most part.
 
-Further aesthetics can be used. Hans Rosling would be excited!
+Further aesthetics can be used. Any aesthetic can be either numeric or categorical, an appropriate scale will be used.
 
 ```{r}
-ggplot(diabetes, aes(x=age, y=glyhb, size=weight, color=frame)) +
+ggplot(gap, aes(x=year, y=lifeExp, color=continent, size=pop)) +
     geom_point()
 ```
 
-We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb. Let's try to show this trend.
+A wide variety of geoms are available.
 
 ```{r}
-ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=frame)) +
-    geom_point() + geom_smooth(method="lm")
+ggplot(gap, aes(x=factor(year), y=lifeExp)) +
+    geom_boxplot()
 ```
 
-Hmm.
-
-Some "geom"s have an associated "stat". For example `geom_smooth` overlays a curve fitted to the data. You can see in the help it has a default parameter of `stat="smooth"` which calculates this curve. If there is a grouping of the data, for example by color, then separate curves are shown for each group.
-
-`geom_bar` by default uses a stat called "count", and so shows counts of rows in your data. (If you want to not use this stat, you could use `geom_bar(stat="identity")`.)
+To draw lines, we need to use a "group" aesthetic.
 
 ```{r}
-ggplot(diabetes, aes(x=gender, fill=frame)) + geom_bar()
+ggplot(gap, aes(x=year, y=lifeExp, group=country, color=continent)) +
+    geom_line()
+```
+
+`geom_smooth` can be used to show trends.
+
+```{r}
+ggplot(gap, aes(x=year, y=lifeExp)) +
+    geom_point() +
+    geom_smooth()
+```
+
+Aesthetics can be specified globally in `ggplot`, or within individual geoms. Here, the group is applied only to draw the lines, and color is used to produce multiple trend lines:
+
+```{r}
+ggplot(gap, aes(x=year, y=lifeExp)) +
+    geom_line(aes(group=country)) +
+    geom_smooth(aes(color=continent))
 ```
 
 
-> ### Challenge - Gapminder data {.challenge}
+### Highlighting subsets
+
+Geoms can be added that use a different data frame, using the `data=` argument.
+
+```{r}
+australia <- gap[gap$country == "Australia",]
+
+ggplot(gap, aes(x=year, y=lifeExp, group=country)) +
+    geom_line() +
+    geom_line(data=australia, color="red", size=2)
+```
+
+Notice also that the second `geom_line` has some further arguments controlling its appearance. These *aren't* aesthetics, they're not a mapping of data to appearance, they are direct specification of the appearance. There isn't an associated scale as when color was an aesthetic.
+
+
+> ### Challenge - Diabetes data {.challenge}
 >
-> Use the Gapminder data you loaded earlier, or cheat and load it all with:
->
+> Let's load our diabetes data frame again.
+> 
 > ```{r}
-> gap <- read.csv("r-intro-files/all-gapminder.csv")
+> diabetes <- read.csv("r-intro-files/diabetes.csv")
 > ```
 >
-> Plot life expectancy vs GDP per capita, coloring points by continent and sizing by year.
+> Experiment with different ways of plotting this data frame. 
 >
+
 
 ## Using ggplot2 with a matrix
 
@@ -102,35 +132,33 @@ head(long)
 ```
 
 ```{r}
-ggplot(long, aes(x=operator, y=value)) + geom_point()
+ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) + 
+    geom_line()
 ```
 
 Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.
 
-## More complex plots
+
+## Faceting
+
+Faceting lets us quickly produce a collection of small plots. The plots all have the same scales and the eye can easily compare them.
 
 ```{r}
-ggplot(long, aes(x=operator, y=value)) + geom_boxplot() + geom_point()
+ggplot(long, aes(x=operator, y=value)) + 
+    geom_point() +
+    facet_wrap(~ resin) 
 ```
 
-Lines need a `group` aesthetic.
-
 ```{r}
-ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
-    geom_line() + theme_bw()
-```
-
-Faceting lets us quickly produce a collection of small plots.
-
-```{r}
-ggplot(long, aes(x=operator, y=value)) +
-    facet_wrap(~ resin) + geom_point() + theme_bw()
+ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
+    geom_point() +
+    facet_grid(gender ~ frame)
 ```
 
 
 ## Saving ggplots
 
-ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly `print( )` the plot.
+Ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly `print( )` the plot.
 
 ```{r, eval=FALSE}
 # Plot created but not shown.
@@ -143,17 +171,16 @@ p
 print(p)
 
 # To save to a file
+ggsave("test.png", p)
+
+# or
 png("test.png")
 print(p)
 dev.off()
 ```
 
-See also the function `ggsave`.
-
 
 > ### Challenge - Gapminder data {.challenge}
->
-> Apply what you have just learned to explore the Gapminder data further.
 >
 > Think of a way to summarise the Gapminder data with `tapply` and visualize the summarised data.
 >

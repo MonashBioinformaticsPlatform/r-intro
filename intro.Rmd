@@ -3,6 +3,7 @@ title: "Introduction to R"
 header-includes:
   - \usepackage{fancyvrb}
   - \DefineVerbatimEnvironment{verbatim}{Verbatim}{xleftmargin=0.35in}
+  - \setkeys{Gin}{width=0.6666\maxwidth,height=0.6666\maxheight,keepaspectratio}
 ---
 
 ### Preface

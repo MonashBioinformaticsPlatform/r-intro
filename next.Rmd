@@ -30,6 +30,12 @@ See "The R Book" by Michael J. Crawley for general reference.
 
 The books "Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples.
 
+### Life outside R
+
+Not all data analysis is done in R. The Software Carpentry workshops give a broader introduction to computing in science.
+
+* [Software Carpentry](http://software-carpentry.org/lessons/)
+
 ### Q&A sites
 
 Stackoverflow-style sites are great for getting help:

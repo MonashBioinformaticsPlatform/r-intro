@@ -34,36 +34,52 @@
 <li>The actual graphical elements to display (“geometric objects”).</li>
 </ol>
 <h2 id="using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</h2>
-<p>Let’s load up our diabetes data frame again.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">y=</span>glyhb, <span class="dt">x=</span>age)) +
+<p>Let’s use the Gapminder data we loaded in the section on for-loops. If you haven’t done this section, you can load it all with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/all-gapminder.csv&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Warning: Removed 11 rows containing missing values (geom_point).</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
 <p>The call to <code>ggplot</code> and <code>aes</code> sets up the basics of how we are going to represent the various columns of the data frame. <code>aes</code> defines the “aesthetics”, which is how columns of the data frame map to graphical attributes such as x and y position, color, size, etc. We then literally add layers of graphics to this.</p>
 <p>Seasoned programmers may notice with some alarm that <code>aes</code> does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. To those programmers we comment briefly that R uses lazy evaluation of function parameters to allow any function to potentially behave like a macro, and that this is exactly as dangerous and powerful as it sounds. It’s used tastefully, for the most part.</p>
-<p>Further aesthetics can be used. Hans Rosling would be excited!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>glyhb, <span class="dt">size=</span>weight, <span class="dt">color=</span>frame)) +
+<p>Further aesthetics can be used. Any aesthetic can be either numeric or categorical, an appropriate scale will be used.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">color=</span>continent, <span class="dt">size=</span>pop)) +
 <span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
-<pre><code>## Warning: Removed 12 rows containing missing values (geom_point).</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
-<p>We can see some trend for glyhb to increase with age, and we tend to see medium and large framed people at higher levels of glyhb. Let’s try to show this trend.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">na.omit</span>(diabetes), <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>glyhb, <span class="dt">color=</span>frame)) +
-<span class="st">    </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>)</code></pre></div>
+<p>A wide variety of geoms are available.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(year), <span class="dt">y=</span>lifeExp)) +
+<span class="st">    </span><span class="kw">geom_boxplot</span>()</code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
-<p>Hmm.</p>
-<p>Some “geom”s have an associated “stat”. For example <code>geom_smooth</code> overlays a curve fitted to the data. You can see in the help it has a default parameter of <code>stat=&quot;smooth&quot;</code> which calculates this curve. If there is a grouping of the data, for example by color, then separate curves are shown for each group.</p>
-<p><code>geom_bar</code> by default uses a stat called “count”, and so shows counts of rows in your data. (If you want to not use this stat, you could use <code>geom_bar(stat=&quot;identity&quot;)</code>.)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">x=</span>gender, <span class="dt">fill=</span>frame)) +<span class="st"> </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p>To draw lines, we need to use a “group” aesthetic.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country, <span class="dt">color=</span>continent)) +
+<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
+<p><code>geom_smooth</code> can be used to show trends.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) +
+<span class="st">    </span><span class="kw">geom_point</span>() +
+<span class="st">    </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+<p>Aesthetics can be specified globally in <code>ggplot</code>, or within individual geoms. Here, the group is applied only to draw the lines, and color is used to produce multiple trend lines:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) +
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group=</span>country)) +
+<span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color=</span>continent))</code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
+<h3 id="highlighting-subsets">Highlighting subsets</h3>
+<p>Geoms can be added that use a different data frame, using the <code>data=</code> argument.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">australia &lt;-<span class="st"> </span>gap[gap$country ==<span class="st"> &quot;Australia&quot;</span>,]
+
+<span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country)) +
+<span class="st">    </span><span class="kw">geom_line</span>() +
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>australia, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
+<p>Notice also that the second <code>geom_line</code> has some further arguments controlling its appearance. These <em>aren’t</em> aesthetics, they’re not a mapping of data to appearance, they are direct specification of the appearance. There isn’t an associated scale as when color was an aesthetic.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h3 id="challenge---gapminder-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Gapminder data</h3>
+<h3 id="challenge---diabetes-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Diabetes data</h3>
 </div>
 <div class="panel-body">
-<p>Use the Gapminder data you loaded earlier, or cheat and load it all with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/all-gapminder.csv&quot;</span>)</code></pre></div>
-<p>Plot life expectancy vs GDP per capita, coloring points by continent and sizing by year.</p>
+<p>Let’s load our diabetes data frame again.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)</code></pre></div>
+<p>Experiment with different ways of plotting this data frame.</p>
 </div>
 </section>
 <h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
@@ -90,22 +106,22 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 ## 4 Resin4    Alice 29.70
 ## 5 Resin5    Alice 31.85
 ## 6 Resin6    Alice 30.20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
-<p>Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
-<h2 id="more-complex-plots">More complex plots</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_boxplot</span>() +<span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
-<p>Lines need a <code>group</code> aesthetic.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) +
-<span class="st">    </span><span class="kw">geom_line</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
-<p><img src="fig/ggplot-unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" /></p>
-<p>Faceting lets us quickly produce a collection of small plots.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +
-<span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>resin) +<span class="st"> </span><span class="kw">geom_point</span>() +<span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) +<span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" /></p>
+<p>Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
+<h2 id="faceting">Faceting</h2>
+<p>Faceting lets us quickly produce a collection of small plots. The plots all have the same scales and the eye can easily compare them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_point</span>() +
+<span class="st">    </span><span class="kw">facet_wrap</span>(~<span class="st"> </span>resin) </code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">na.omit</span>(diabetes), <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>glyhb, <span class="dt">color=</span>location)) +
+<span class="st">    </span><span class="kw">geom_point</span>() +
+<span class="st">    </span><span class="kw">facet_grid</span>(gender ~<span class="st"> </span>frame)</code></pre></div>
+<p><img src="fig/ggplot-unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" /></p>
 <h2 id="saving-ggplots">Saving ggplots</h2>
-<p>ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
+<p>Ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot created but not shown.</span>
 p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) +<span class="st"> </span><span class="kw">geom_point</span>()
 
@@ -116,16 +132,17 @@ p
 <span class="kw">print</span>(p)
 
 <span class="co"># To save to a file</span>
+<span class="kw">ggsave</span>(<span class="st">&quot;test.png&quot;</span>, p)
+
+<span class="co"># or</span>
 <span class="kw">png</span>(<span class="st">&quot;test.png&quot;</span>)
 <span class="kw">print</span>(p)
 <span class="kw">dev.off</span>()</code></pre></div>
-<p>See also the function <code>ggsave</code>.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h3 id="challenge---gapminder-data-1"><span class="glyphicon glyphicon-pencil"></span>Challenge - Gapminder data</h3>
+<h3 id="challenge---gapminder-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Gapminder data</h3>
 </div>
 <div class="panel-body">
-<p>Apply what you have just learned to explore the Gapminder data further.</p>
 <p>Think of a way to summarise the Gapminder data with <code>tapply</code> and visualize the summarised data.</p>
 </div>
 </section>
