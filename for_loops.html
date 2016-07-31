@@ -62,6 +62,25 @@
   do things with variable
 }</code></pre></div>
 <p>We can name the loop variable anything we like (with a few restrictions, e.g. the name of the variable cannot start with a digit). <code>in</code> is part of the <code>for</code> syntax. Note that the body of the loop is enclosed in curly braces <code>{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
+<h3 id="variations">Variations</h3>
+<p>All of these do the same as above:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(w in sentence) <span class="kw">print</span>(w)
+
+for(word in <span class="kw">c</span>(<span class="st">&quot;Let&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;computer&quot;</span>,<span class="st">&quot;do&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;work&quot;</span>)) {
+    <span class="kw">print</span>(word)
+}
+
+magikarp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Let&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;computer&quot;</span>,<span class="st">&quot;do&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;work&quot;</span>)
+for(blastoise in magikarp) {
+    <span class="kw">print</span>(blastoise)
+}
+
+    for(word 
+   in sentence
+       ){
+     <span class="kw">print</span>(
+      word
+       )}</code></pre></div>
 <h2 id="accumulating-a-result">Accumulating a result</h2>
 <p>Here’s another loop that repeatedly updates a variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len &lt;-<span class="st"> </span><span class="dv">0</span>

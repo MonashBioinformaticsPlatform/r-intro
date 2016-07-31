@@ -57,6 +57,30 @@ for(variable in vector) {
 
 We can name the loop variable anything we like (with a few restrictions, e.g. the name of the variable cannot start with a digit). `in` is part of the `for` syntax. Note that the body of the loop is enclosed in curly braces `{ }`. For a single-line loop body, as here, the braces aren't needed, but it is good practice to include them as we did.
 
+### Variations
+
+All of these do the same as above:
+
+```{r eval=FALSE}
+for(w in sentence) print(w)
+
+for(word in c("Let","the","computer","do","the","work")) {
+    print(word)
+}
+
+magikarp <- c("Let","the","computer","do","the","work")
+for(blastoise in magikarp) {
+    print(blastoise)
+}
+
+    for(word 
+   in sentence
+       ){
+     print(
+      word
+       )}
+```
+
 
 ## Accumulating a result
 
