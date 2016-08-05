@@ -20,7 +20,7 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 [r-intro.pdf](r-intro.pdf) - These notes as a pdf.
 
-[r-intro-files.zip](rintro-files.zip) - Zip file containing data we are working with.
+[r-intro-files.zip](r-intro-files.zip) - Zip file containing data we are working with.
 
 ## Topics
 
