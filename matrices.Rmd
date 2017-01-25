@@ -113,11 +113,7 @@ An index like `[4, 2]` selects a single element of a matrix, but we can select w
 mat[1:4, 1:2]
 ```
 
-The slice `1:4` means, the numbers from 1 to 4. It's the same as `c(1,2,3,4)`, and doesn't need to be used inside `[ ]`.
-
-```{r}
-1:4
-```
+The slice `1:4` means the numbers from 1 to 4. It's the same as `c(1,2,3,4)`.
 
 The slice does not need to start at 1, e.g. the line below selects rows 5 through 8:
 
@@ -141,6 +137,18 @@ mat[5, ]
 # All rows from column 2
 mat[, 2]
 ```
+
+> ### Challenge - Subsetting data in a matrix {.challenge}
+>
+> Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3.
+> To do this you would extract the relevant slice from the matrix and calculate the maximum value.
+> Which of the following lines of R code gives the correct answer?
+>
+> (a) `max(dat[5, ])`
+> (b) `max(dat[2:3, 5])`
+> (c) `max(dat[5, 2:3])`
+> (d) `max(dat[5, 2, 3])`
+
 
 ## Summary functions
 
@@ -211,40 +219,12 @@ Since the second argument to `apply` is `MARGIN`, the above command is equivalen
 > `colMeans`, respectively.
 
 
-> ### Challenge - Slicing (subsetting) data {.challenge}
+> ### Challenge - summarizing the matrix {.challenge}
 >
-> We can take slices of character vectors as well:
+> How would you calculate the standard deviation for each resin?
 >
-> ```{r}
-> phrase <- c("I", "don't", "know", "I", "know")
-> # first three words
-> phrase[1:3]
-> # last three words
-> phrase[3:5]
-> ```
+> Advanced: How would you calculate the values two standard deviations above and below the mean for each resin?
 >
-> 1.  If the first four words are selected using the slice `phrase[1:4]`, how can we obtain the first four words in reverse order?
->
-> 2.  What is `phrase[-2]`?
->    What is `phrase[-5]`?
->    Given those answers,
->    explain what `phrase[-1:-3]` does.
->
-> 3.  Use a slice of `phrase` to create a new character vector that forms the phrase "I know I don't", i.e. `c("I", "know", "I", "don't")`.
->
-
-
-> ### Challenge - Subsetting data 2 {.challenge}
->
-> Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3.
-> To do this you would extract the relevant slice from the matrix and calculate the maximum value.
-> Which of the following lines of R code gives the correct answer?
->
-> (a) `max(dat[5, ])`
-> (b) `max(dat[2:3, 5])`
-> (c) `max(dat[5, 2:3])`
-> (d) `max(dat[5, 2, 3])`
-
 
 
 ## t test
@@ -269,7 +249,7 @@ t.test(mat[1,], mat[2,], paired=TRUE)
 >
 
 
-When we call t.test it returns an object that behaves like a `list`. Recall that in R a `list` is a miscellaneous collection of values.
+When we call `t.test` it returns an object that behaves like a `list`. Recall that in R a `list` is a miscellaneous collection of values.
 
 ```{r}
 result <- t.test(mat[1,], mat[2,], paired=TRUE)
@@ -320,13 +300,11 @@ lines(min_resin)
 R doesn't know to adjust the y limits if we add new data outside the original limits, so we needed to specify `ylim` manually. This is R's base graphics system. If there is time today, we will look at a more advanced graphics package called "ggplot2" that handles this kind of issue more intelligently.
 
 
-> ### Challenge - Plotting data {.challenge}
+> ### Challenge - plotting data {.challenge}
 >
 > Create a plot showing the standard deviation for each resin.
 >
 > Advanced: Create a plot showing +/- two standard deviations about the mean.
->
-> Extension: Create similar plots for operator. Which dimension (resin or operator) is the major source of variation in this data?
 >
 
 
@@ -336,7 +314,7 @@ It's possible to save a plot as a .PNG or .PDF from the RStudio interface with t
 
 Plotting in R is sent to a "device". By default, this device is RStudio. However we can temporarily send plots to a different device, such as a .PNG file (`png("filename.png")`) or .PDF file (`pdf("filename.pdf")`).
 
-```{r, eval=FALSE}
+```{r eval=FALSE}
 pdf("test.pdf")
 plot(avg_resin)
 dev.off()

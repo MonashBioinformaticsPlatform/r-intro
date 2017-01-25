@@ -113,9 +113,7 @@ mat[<span class="dv">4</span>, <span class="dv">2</span>]</code></pre></div>
 ## Resin2 35.15 35.35
 ## Resin3 30.70 29.65
 ## Resin4 29.70 30.05</code></pre>
-<p>The slice <code>1:4</code> means, the numbers from 1 to 4. It’s the same as <code>c(1,2,3,4)</code>, and doesn’t need to be used inside <code>[ ]</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">4</span></code></pre></div>
-<pre><code>## [1] 1 2 3 4</code></pre>
+<p>The slice <code>1:4</code> means the numbers from 1 to 4. It’s the same as <code>c(1,2,3,4)</code>.</p>
 <p>The slice does not need to start at 1, e.g. the line below selects rows 5 through 8:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mat[<span class="dv">5</span>:<span class="dv">8</span>, <span class="dv">1</span>:<span class="dv">2</span>]</code></pre></div>
 <pre><code>##        Alice   Bob
@@ -138,6 +136,20 @@ mat[<span class="dv">5</span>, ]</code></pre></div>
 mat[, <span class="dv">2</span>]</code></pre></div>
 <pre><code>## Resin1 Resin2 Resin3 Resin4 Resin5 Resin6 Resin7 Resin8 
 ##  35.40  35.35  29.65  30.05  31.40  30.65  32.50  36.45</code></pre>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---subsetting-data-in-a-matrix"><span class="glyphicon glyphicon-pencil"></span>Challenge - Subsetting data in a matrix</h3>
+</div>
+<div class="panel-body">
+<p>Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the matrix and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
+<ol style="list-style-type: lower-alpha">
+<li><code>max(dat[5, ])</code></li>
+<li><code>max(dat[2:3, 5])</code></li>
+<li><code>max(dat[5, 2:3])</code></li>
+<li><code>max(dat[5, 2, 3])</code></li>
+</ol>
+</div>
+</section>
 <h2 id="summary-functions">Summary functions</h2>
 <p>Now let’s perform some common mathematical operations to learn about our data. When analyzing data we often want to look at partial statistics, such as the maximum value per resin or the average value per operator. One way to do this is to select the data we want as a new temporary variable, and then perform the calculation on this subset:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># first row, all of the columns</span>
@@ -190,36 +202,11 @@ resin_1 &lt;-<span class="st"> </span>mat[<span class="dv">1</span>, ]
 </aside>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
-<h3 id="challenge---slicing-subsetting-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Slicing (subsetting) data</h3>
+<h3 id="challenge---summarizing-the-matrix"><span class="glyphicon glyphicon-pencil"></span>Challenge - summarizing the matrix</h3>
 </div>
 <div class="panel-body">
-<p>We can take slices of character vectors as well:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phrase &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;don&#39;t&quot;</span>, <span class="st">&quot;know&quot;</span>, <span class="st">&quot;I&quot;</span>, <span class="st">&quot;know&quot;</span>)
-<span class="co"># first three words</span>
-phrase[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
-<pre><code>## [1] &quot;I&quot;     &quot;don&#39;t&quot; &quot;know&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># last three words</span>
-phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
-<pre><code>## [1] &quot;know&quot; &quot;I&quot;    &quot;know&quot;</code></pre>
-<ol style="list-style-type: decimal">
-<li><p>If the first four words are selected using the slice <code>phrase[1:4]</code>, how can we obtain the first four words in reverse order?</p></li>
-<li><p>What is <code>phrase[-2]</code>? What is <code>phrase[-5]</code>? Given those answers, explain what <code>phrase[-1:-3]</code> does.</p></li>
-<li><p>Use a slice of <code>phrase</code> to create a new character vector that forms the phrase “I know I don’t”, i.e. <code>c(&quot;I&quot;, &quot;know&quot;, &quot;I&quot;, &quot;don't&quot;)</code>.</p></li>
-</ol>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h3 id="challenge---subsetting-data-2"><span class="glyphicon glyphicon-pencil"></span>Challenge - Subsetting data 2</h3>
-</div>
-<div class="panel-body">
-<p>Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the matrix and calculate the maximum value. Which of the following lines of R code gives the correct answer?</p>
-<ol style="list-style-type: lower-alpha">
-<li><code>max(dat[5, ])</code></li>
-<li><code>max(dat[2:3, 5])</code></li>
-<li><code>max(dat[5, 2:3])</code></li>
-<li><code>max(dat[5, 2, 3])</code></li>
-</ol>
+<p>How would you calculate the standard deviation for each resin?</p>
+<p>Advanced: How would you calculate the values two standard deviations above and below the mean for each resin?</p>
 </div>
 </section>
 <h2 id="t-test">t test</h2>
@@ -263,7 +250,7 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
 <p>Can you find a significant difference between any two resins?</p>
 </div>
 </section>
-<p>When we call t.test it returns an object that behaves like a <code>list</code>. Recall that in R a <code>list</code> is a miscellaneous collection of values.</p>
+<p>When we call <code>t.test</code> it returns an object that behaves like a <code>list</code>. Recall that in R a <code>list</code> is a miscellaneous collection of values.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">result &lt;-<span class="st"> </span><span class="kw">t.test</span>(mat[<span class="dv">1</span>,], mat[<span class="dv">2</span>,], <span class="dt">paired=</span><span class="ot">TRUE</span>)
 <span class="kw">names</span>(result)</code></pre></div>
 <pre><code>## [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
@@ -275,7 +262,7 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
 <p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture (or course) of its own, but we can explore a few of R’s plotting features.</p>
 <p>Let’s take a look at the average particle size per resin. Recall that we already calculated these values above using <code>apply(mat, 1, mean)</code> and saved them in the variable <code>avg_resin</code>. Plotting the values is done with the function <code>plot</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
+<p><img src="fig/matrices-unnamed-chunk-21-1.png" alt="plot of chunk unnamed-chunk-21" /></p>
 <p>Above, we gave the function <code>plot</code> a vector of numbers corresponding to the average per resin across all operators. <code>plot</code> created a scatter plot where the y-axis is the average particle size and the x-axis is the order, or index, of the values in the vector, which in this case correspond to the 8 resins.</p>
 <p><code>plot</code> can take many different arguments to modify the appearance of the output. Here is a plot with some extra arguments:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(avg_resin,
@@ -283,7 +270,7 @@ phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
     <span class="dt">ylab=</span><span class="st">&quot;Particle size&quot;</span>,
     <span class="dt">main=</span><span class="st">&quot;Average particle size per resin&quot;</span>,
     <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
+<p><img src="fig/matrices-unnamed-chunk-22-1.png" alt="plot of chunk unnamed-chunk-22" /></p>
 <p>Let’s have a look at two other statistics: the maximum and minimum particle size per resin. Additional points or lines can be added to a plot with <code>points</code> or <code>lines</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">max_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, max)
 min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span class="dv">1</span>, min)
@@ -291,7 +278,7 @@ min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span
 <span class="kw">plot</span>(avg_resin, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">25</span>,<span class="dv">40</span>))
 <span class="kw">lines</span>(max_resin)
 <span class="kw">lines</span>(min_resin)</code></pre></div>
-<p><img src="fig/matrices-unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
+<p><img src="fig/matrices-unnamed-chunk-23-1.png" alt="plot of chunk unnamed-chunk-23" /></p>
 <p>R doesn’t know to adjust the y limits if we add new data outside the original limits, so we needed to specify <code>ylim</code> manually. This is R’s base graphics system. If there is time today, we will look at a more advanced graphics package called “ggplot2” that handles this kind of issue more intelligently.</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -300,7 +287,6 @@ min_resin &lt;-<span class="st"> </span><span class="kw">apply</span>(mat, <span
 <div class="panel-body">
 <p>Create a plot showing the standard deviation for each resin.</p>
 <p>Advanced: Create a plot showing +/- two standard deviations about the mean.</p>
-<p>Extension: Create similar plots for operator. Which dimension (resin or operator) is the major source of variation in this data?</p>
 </div>
 </section>
 <h2 id="saving-plots">Saving plots</h2>

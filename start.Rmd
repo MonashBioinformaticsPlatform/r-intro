@@ -16,7 +16,7 @@ We will be working in [RStudio](https://www.rstudio.com/products/rstudio/downloa
 
 * A *text editor*, where R commands can be recorded for future reference.
 * A history of commands that have been typed on the console.
-* A list of *variables*, which contain values that R has been told to save from previous commands.
+* An "environment" pane with a list of *variables*, which contain values that R has been told to save from previous commands.
 * A file manager.
 * Help on the functions available in R.
 * A panel to show plots (graphs).
@@ -27,7 +27,7 @@ Open RStudio, click on the "Console" pane, type `1+1` and press enter. R display
 1+1
 ```
 
-`+` is called an operator. R has the operators you would expect for for basic mathematics: `+` `-` `*` `/`. It also has operators that do more obscure things.
+`+` is called an operator. R has the operators you would expect for for basic mathematics: `+` `-` `*` `/` `^`. It also has operators that do more obscure things.
 
 `*` has higher precedence than `+`.  We can use brackets if necessary `( )`. Try `1+2*3` and `(1+2)*3`.
 
@@ -44,7 +44,7 @@ There are also character strings such as `"string"`.
 
 ## Variables
 
-A variable is a name for a value, such as `x`, `current_temperature`, or `subject.id`. We can create a new variable by assigning a value to it using `<-`
+A variable is a name for a value, such as `x`, `current_temperature`, or `subject.id`. We can create a new variable by assigning a value to it using `<-`.
 
 ```{r}
 weight_kg <- 55
@@ -111,35 +111,31 @@ weight_lb
 ![Updating a Variable](fig/python-sticky-note-variables-03.png)
 
 Since `weight_lb` doesn't "remember" where its value came from, it isn't automatically updated when `weight_kg` changes.
-This is different from the way spreadsheets work.
+This is different from how spreadsheets work.
 
 
 ## Vectors
 
-A "vector"[^vectornote] of numbers is a collection of numbers. We call the individual numbers "elements" of the vector.
+A *vector*[^vectornote] of numbers is a collection of numbers. We call the individual numbers *elements* of the vector.
 
 [^vectornote]: We use the word vector here in the mathematical sense, as used in linear algebra, not in any biological sense, and not in the geometric sense.
 
-We can make vectors with `c( )`, for example `c(1,2,3)`, and do maths to them. `c` means "combine". Actually in R numbers are just vectors of length one. R is obsesssed with vectors.
+We can make vectors with `c( )`, for example `c(1,2,3)`. `c` means "combine". R is obsesssed with vectors. In R, numbers are just vectors of length one. Many things that can be done with a single number can also be done with a vector. For example arithmetic can be done on vectors just like on single numbers.
 
 ```{r}
-myvec <- c(10,20,30)
+myvec <- c(10,20,30,40,50)
 myvec + 1
 myvec + myvec
 length(myvec)
-c(40, myvec)
+c(60, myvec)
+c(myvec, myvec)
 ```
 
 When we talk about the length of a vector, we are talking about the number of numbers in the vector.
 
-Access elements of a vector with `[ ]`, for example `myvec[1]` to get the first element.
 
-```{r}
-myvec[1]
-myvec[2]
-myvec[2] <- 5
-myvec
-```
+
+#### Types of vector
 
 We will also encounter vectors of character strings, for example `"hello"` or `c("hello","world")`. Also we will encounter "logical" vectors, which contain `TRUE` and `FALSE` values. R also has "factors", which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).
 
@@ -155,9 +151,74 @@ We will also encounter vectors of character strings, for example `"hello"` or `c
 Because vectors can only contain one type of thing, R chooses a lowest common denominator type of vector, a type that can contain everything we are trying to put in it. A different language might stop with an error, but R tries to soldier on as best it can. A number can be represented as a character string, but a character string can not be represented as a number, so when we try to put both in the same vector R converts everything to a character string.
 
 
+#### Indexing vectors
+
+Access elements of a vector with `[ ]`, for example `myvec[1]` to get the first element. You can also assign to a specific element of a vector.
+
+```{r}
+myvec[1]
+myvec[2]
+myvec[2] <- 5
+myvec
+```
+
+Can we use a vector to index another vector? Yes!
+
+```{r}
+myind <- c(4,3,2)
+myvec[myind]
+```
+
+We could equivalently have written
+
+```{r}
+myvec[c(4,3,2)]
+```
+
+Sometimes we want a contiguous *slice* from a vector.
+
+```{r}
+myvec[3:5]
+```
+
+`:` here actually creates a vector, which is then used to index `myvec`. `:` is pretty useful on its own too.
+
+```{r}
+3:5
+1:50
+numbers <- 1:10
+numbers*numbers
+```
+
+Now we can see why R always puts a `[1]` in its output: it is indicating that the first element of the vector can be accessed with `[1]`. Subsequent lines show the appropriate index to access the first number in the line.
+
+
+> ### Challenge - Indexing and slicing data {.challenge}
+>
+> We can take slices of character vectors as well:
+>
+> ```{r}
+> phrase <- c("I", "don't", "know", "I", "know")
+> # first three words
+> phrase[1:3]
+> # last three words
+> phrase[3:5]
+> ```
+>
+> 1.  If the first four words are selected using the slice `phrase[1:4]`, how can we obtain the first four words in reverse order?
+>
+> 2.  What is `phrase[-2]`?
+>    What is `phrase[-5]`?
+>    Given those answers,
+>    explain what `phrase[-1:-3]` does.
+>
+> 3.  Use indexing of `phrase` to create a new character vector that forms the phrase "I know I don't", i.e. `c("I", "know", "I", "don't")`.
+>
+
+
 ## Functions
 
-R has various functions, such as `sum( )`. We can get help on a function with, eg `?sum`.
+R has various *functions*, such as `sum( )`. We can get help on a function with, eg `?sum`.
 
 ```
 ?sum
@@ -167,7 +228,7 @@ R has various functions, such as `sum( )`. We can get help on a function with, e
 sum(myvec)
 ```
 
-Here we have called the function `sum` with the argument `myvec`.
+Here we have *called* the function `sum` with the *argument* `myvec`.
 
 Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from "libraries" (also known as "packages").
 
@@ -198,11 +259,19 @@ rep(c(1,2,3), each=3)
 rep(c(1,2,3), each=3, times=5)
 ```
 
+> ### Challenge - Using functions {.challenge}
+>
+> 1. Use `sum` to sum from 1 to 5 (ie 1+2+3+4+5).
+>
+> 2. Use `sum` to sum from 1 to 1,000,000.
+>
+> 3. You are reading some R code and see that it uses a function called `seq`. What does `seq` do?
+>
 
 
 ## Lists
 
-Vectors contain all the same kind of thing. Lists can contain different kinds of thing. Lists can even contain vectors or other lists as elements.
+Vectors contain all the same kind of thing. *Lists* can contain different kinds of thing. Lists can even contain vectors or other lists as elements.
 
 We generally give the things in a list names. Try `list(num=42, greeting="hello")`. To access named elements we use `$`.
 
@@ -212,6 +281,7 @@ mylist$greeting
 ```
 
 Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.
+
 
 ## Overview of data types
 
@@ -223,7 +293,13 @@ This will all make more sense once you have seen these data types in action.
 
 > ### Tip {.callout}
 >
-> If you're not sure what type of value you are dealing with you can use `class`, or for more detailed information `str` (structure).
+> If you're not sure what type of value you are dealing with you can use `class`, or for more detailed information `str` (structure). Try the following:
+>
+> ```{r eval=FALSE}
+> class(myvec)
+> class(mylist)
+> str(mylist)
+> ```
 >
 
 ### vector

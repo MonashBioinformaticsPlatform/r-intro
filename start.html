@@ -28,7 +28,7 @@
 <ul>
 <li>A <em>text editor</em>, where R commands can be recorded for future reference.</li>
 <li>A history of commands that have been typed on the console.</li>
-<li>A list of <em>variables</em>, which contain values that R has been told to save from previous commands.</li>
+<li>An “environment” pane with a list of <em>variables</em>, which contain values that R has been told to save from previous commands.</li>
 <li>A file manager.</li>
 <li>Help on the functions available in R.</li>
 <li>A panel to show plots (graphs).</li>
@@ -36,7 +36,7 @@
 <p>Open RStudio, click on the “Console” pane, type <code>1+1</code> and press enter. R displays the result of the calculation. In this document, we will be showing such an interaction with R as below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1+1</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<p><code>+</code> is called an operator. R has the operators you would expect for for basic mathematics: <code>+</code> <code>-</code> <code>*</code> <code>/</code>. It also has operators that do more obscure things.</p>
+<p><code>+</code> is called an operator. R has the operators you would expect for for basic mathematics: <code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>^</code>. It also has operators that do more obscure things.</p>
 <p><code>*</code> has higher precedence than <code>+</code>. We can use brackets if necessary <code>( )</code>. Try <code>1+2*3</code> and <code>(1+2)*3</code>.</p>
 <p>Spaces can be used to make code easier to read.</p>
 <p>We can compare with <code>== &lt; &gt; &lt;= &gt;=</code>. This produces a “logical” value, <code>TRUE</code> or <code>FALSE</code>. Note the double equals, <code>==</code>, for equality comparison.</p>
@@ -44,7 +44,7 @@
 <pre><code>## [1] TRUE</code></pre>
 <p>There are also character strings such as <code>&quot;string&quot;</code>.</p>
 <h2 id="variables">Variables</h2>
-<p>A variable is a name for a value, such as <code>x</code>, <code>current_temperature</code>, or <code>subject.id</code>. We can create a new variable by assigning a value to it using <code>&lt;-</code></p>
+<p>A variable is a name for a value, such as <code>x</code>, <code>current_temperature</code>, or <code>subject.id</code>. We can create a new variable by assigning a value to it using <code>&lt;-</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="dv">55</span></code></pre></div>
 <p>RStudio helpfully shows us the variable in the “Environment” pane. We can also print it by typing the name of the variable and hitting enter. In general, R will print to the console any object returned by a function or operation <em>unless</em> we assign it to a variable.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg</code></pre></div>
@@ -87,28 +87,23 @@ weight_kg</code></pre></div>
 weight_lb</code></pre></div>
 <pre><code>## [1] 126.5</code></pre>
 <p><img src="fig/python-sticky-note-variables-03.png" alt="Updating a Variable" /></p>
-<p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from the way spreadsheets work.</p>
+<p>Since <code>weight_lb</code> doesn’t “remember” where its value came from, it isn’t automatically updated when <code>weight_kg</code> changes. This is different from how spreadsheets work.</p>
 <h2 id="vectors">Vectors</h2>
-<p>A “vector”<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> of numbers is a collection of numbers. We call the individual numbers “elements” of the vector.</p>
-<p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>, and do maths to them. <code>c</code> means “combine”. Actually in R numbers are just vectors of length one. R is obsesssed with vectors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>)
+<p>A <em>vector</em><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> of numbers is a collection of numbers. We call the individual numbers <em>elements</em> of the vector.</p>
+<p>We can make vectors with <code>c( )</code>, for example <code>c(1,2,3)</code>. <code>c</code> means “combine”. R is obsesssed with vectors. In R, numbers are just vectors of length one. Many things that can be done with a single number can also be done with a vector. For example arithmetic can be done on vectors just like on single numbers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>)
 myvec +<span class="st"> </span><span class="dv">1</span></code></pre></div>
-<pre><code>## [1] 11 21 31</code></pre>
+<pre><code>## [1] 11 21 31 41 51</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec +<span class="st"> </span>myvec</code></pre></div>
-<pre><code>## [1] 20 40 60</code></pre>
+<pre><code>## [1]  20  40  60  80 100</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myvec)</code></pre></div>
-<pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">40</span>, myvec)</code></pre></div>
-<pre><code>## [1] 40 10 20 30</code></pre>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">60</span>, myvec)</code></pre></div>
+<pre><code>## [1] 60 10 20 30 40 50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(myvec, myvec)</code></pre></div>
+<pre><code>##  [1] 10 20 30 40 50 10 20 30 40 50</code></pre>
 <p>When we talk about the length of a vector, we are talking about the number of numbers in the vector.</p>
-<p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code> to get the first element.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">1</span>]</code></pre></div>
-<pre><code>## [1] 10</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">2</span>]</code></pre></div>
-<pre><code>## [1] 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">5</span>
-myvec</code></pre></div>
-<pre><code>## [1] 10  5 30</code></pre>
+<h4 id="types-of-vector">Types of vector</h4>
 <p>We will also encounter vectors of character strings, for example <code>&quot;hello&quot;</code> or <code>c(&quot;hello&quot;,&quot;world&quot;)</code>. Also we will encounter “logical” vectors, which contain <code>TRUE</code> and <code>FALSE</code> values. R also has “factors”, which are categorical vectors, and behave very much like character vectors (think the factors in an experiment).</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -121,12 +116,62 @@ myvec</code></pre></div>
 </div>
 </section>
 <p>Because vectors can only contain one type of thing, R chooses a lowest common denominator type of vector, a type that can contain everything we are trying to put in it. A different language might stop with an error, but R tries to soldier on as best it can. A number can be represented as a character string, but a character string can not be represented as a number, so when we try to put both in the same vector R converts everything to a character string.</p>
+<h4 id="indexing-vectors">Indexing vectors</h4>
+<p>Access elements of a vector with <code>[ ]</code>, for example <code>myvec[1]</code> to get the first element. You can also assign to a specific element of a vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">2</span>]</code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">5</span>
+myvec</code></pre></div>
+<pre><code>## [1] 10  5 30 40 50</code></pre>
+<p>Can we use a vector to index another vector? Yes!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myind &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>)
+myvec[myind]</code></pre></div>
+<pre><code>## [1] 40 30  5</code></pre>
+<p>We could equivalently have written</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>)]</code></pre></div>
+<pre><code>## [1] 40 30  5</code></pre>
+<p>Sometimes we want a contiguous <em>slice</em> from a vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myvec[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] 30 40 50</code></pre>
+<p><code>:</code> here actually creates a vector, which is then used to index <code>myvec</code>. <code>:</code> is pretty useful on its own too.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">3</span>:<span class="dv">5</span></code></pre></div>
+<pre><code>## [1] 3 4 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">50</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+## [24] 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46
+## [47] 47 48 49 50</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numbers &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">10</span>
+numbers*numbers</code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
+<p>Now we can see why R always puts a <code>[1]</code> in its output: it is indicating that the first element of the vector can be accessed with <code>[1]</code>. Subsequent lines show the appropriate index to access the first number in the line.</p>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---indexing-and-slicing-data"><span class="glyphicon glyphicon-pencil"></span>Challenge - Indexing and slicing data</h3>
+</div>
+<div class="panel-body">
+<p>We can take slices of character vectors as well:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">phrase &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;I&quot;</span>, <span class="st">&quot;don&#39;t&quot;</span>, <span class="st">&quot;know&quot;</span>, <span class="st">&quot;I&quot;</span>, <span class="st">&quot;know&quot;</span>)
+<span class="co"># first three words</span>
+phrase[<span class="dv">1</span>:<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] &quot;I&quot;     &quot;don&#39;t&quot; &quot;know&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># last three words</span>
+phrase[<span class="dv">3</span>:<span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] &quot;know&quot; &quot;I&quot;    &quot;know&quot;</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>If the first four words are selected using the slice <code>phrase[1:4]</code>, how can we obtain the first four words in reverse order?</p></li>
+<li><p>What is <code>phrase[-2]</code>? What is <code>phrase[-5]</code>? Given those answers, explain what <code>phrase[-1:-3]</code> does.</p></li>
+<li><p>Use indexing of <code>phrase</code> to create a new character vector that forms the phrase “I know I don’t”, i.e. <code>c(&quot;I&quot;, &quot;know&quot;, &quot;I&quot;, &quot;don't&quot;)</code>.</p></li>
+</ol>
+</div>
+</section>
 <h2 id="functions">Functions</h2>
-<p>R has various functions, such as <code>sum( )</code>. We can get help on a function with, eg <code>?sum</code>.</p>
+<p>R has various <em>functions</em>, such as <code>sum( )</code>. We can get help on a function with, eg <code>?sum</code>.</p>
 <pre><code>?sum</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(myvec)</code></pre></div>
-<pre><code>## [1] 45</code></pre>
-<p>Here we have called the function <code>sum</code> with the argument <code>myvec</code>.</p>
+<pre><code>## [1] 135</code></pre>
+<p>Here we have <em>called</em> the function <code>sum</code> with the <em>argument</em> <code>myvec</code>.</p>
 <p>Because R is a language for statistics, it has many built in statistics-related functions. We will also be loading more specialized functions from “libraries” (also known as “packages”).</p>
 <p>Some functions take more than one argument. Let’s look at the function <code>rep</code>, which means “repeat”, and which can take a variety of different arguments. In the simplest case, it takes a value and the number of times to repeat that value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="dv">42</span>, <span class="dv">10</span>)</code></pre></div>
@@ -147,8 +192,20 @@ myvec</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">each=</span><span class="dv">3</span>, <span class="dt">times=</span><span class="dv">5</span>)</code></pre></div>
 <pre><code>##  [1] 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3
 ## [36] 3 1 1 1 2 2 2 3 3 3</code></pre>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h3 id="challenge---using-functions"><span class="glyphicon glyphicon-pencil"></span>Challenge - Using functions</h3>
+</div>
+<div class="panel-body">
+<ol style="list-style-type: decimal">
+<li><p>Use <code>sum</code> to sum from 1 to 5 (ie 1+2+3+4+5).</p></li>
+<li><p>Use <code>sum</code> to sum from 1 to 1,000,000.</p></li>
+<li><p>You are reading some R code and see that it uses a function called <code>seq</code>. What does <code>seq</code> do?</p></li>
+</ol>
+</div>
+</section>
 <h2 id="lists">Lists</h2>
-<p>Vectors contain all the same kind of thing. Lists can contain different kinds of thing. Lists can even contain vectors or other lists as elements.</p>
+<p>Vectors contain all the same kind of thing. <em>Lists</em> can contain different kinds of thing. Lists can even contain vectors or other lists as elements.</p>
 <p>We generally give the things in a list names. Try <code>list(num=42, greeting=&quot;hello&quot;)</code>. To access named elements we use <code>$</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mylist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">num=</span><span class="dv">42</span>, <span class="dt">greeting=</span><span class="st">&quot;Hello, world&quot;</span>)
 mylist$greeting</code></pre></div>
@@ -163,7 +220,10 @@ mylist$greeting</code></pre></div>
 <h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
-<p>If you’re not sure what type of value you are dealing with you can use <code>class</code>, or for more detailed information <code>str</code> (structure).</p>
+<p>If you’re not sure what type of value you are dealing with you can use <code>class</code>, or for more detailed information <code>str</code> (structure). Try the following:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(myvec)
+<span class="kw">class</span>(mylist)
+<span class="kw">str</span>(mylist)</code></pre></div>
 </div>
 </aside>
 <h3 id="vector">vector</h3>
