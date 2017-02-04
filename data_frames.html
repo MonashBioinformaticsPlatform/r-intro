@@ -69,7 +69,7 @@
 <p>Internally, a data frame is a list of column vectors. We can use the <code>$</code> syntax we saw with lists to access columns by name.</p>
 <h2 id="logical-indexing">Logical indexing</h2>
 <p>A method of indexing that we haven’t discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we can give a logical vector which is <code>TRUE</code> for the rows we want and <code>FALSE</code> otherwise. This can also be used with vectors and matrices.</p>
-<p>Suppose we want to look at all the subjects over 80 years of age. We first make a logical vector:</p>
+<p>Suppose we want to look at all the subjects 80 years of age or over. We first make a logical vector:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80 &lt;-<span class="st"> </span>diabetes$age &gt;=<span class="st"> </span><span class="dv">80</span>
 
 <span class="kw">head</span>(is_over_80)</code></pre></div>
@@ -123,8 +123,8 @@ which_over_80</code></pre></div>
 is_not_from_buckingham &lt;-<span class="st"> </span>!(diabetes$location ==<span class="st"> &quot;Buckingham&quot;</span>)
 <span class="co"># or</span>
 is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span class="st"> &quot;Buckingham&quot;</span></code></pre></div>
-<p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of percent glycosylated haemoglobin, which gives information about long term glucose levels in blood. Values greater than 7% are usually taken as a positive diagnosis of diabetes. Let’s add this as a column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$diabetic &lt;-<span class="st"> </span>diabetes$glyhb &gt;<span class="st"> </span><span class="fl">7.0</span>
+<p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of percent glycated haemoglobin, which gives information about long term glucose levels in blood. Values of 7% or greater are usually taken as a positive diagnosis of diabetes. Let’s add this as a column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes$diabetic &lt;-<span class="st"> </span>diabetes$glyhb &gt;=<span class="st"> </span><span class="fl">7.0</span>
 
 <span class="kw">head</span>(diabetes)</code></pre></div>
 <pre><code>##   subject glyhb   location age gender height weight  frame diabetic
@@ -134,6 +134,14 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 ## 4   S1008  4.81 Buckingham  34   male     71    190  large    FALSE
 ## 5   S1011  4.84 Buckingham  30   male     69    191 medium    FALSE
 ## 6   S1015  3.94 Buckingham  37   male     59    170 medium    FALSE</code></pre>
+<h2 id="different-ways-to-do-the-same-thing">Different ways to do the same thing</h2>
+<p>Above where we retrieved people 80 or over we could just as well have written:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weedle&lt;-<span class="st"> </span>diabetes $age&gt;=<span class="st">   </span><span class="dv">80</span>
+diabetes[    weedle ,]</code></pre></div>
+<p>R does not understand or care about the names we give to variables, and it doesn’t care about spaces between things.</p>
+<p>We could also have written it as a single line:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[diabetes$age &gt;=<span class="st"> </span><span class="dv">80</span>,]</code></pre></div>
+<p>We can almost always unpack complex expressions into a series of simpler variable assignments. The naming of variables and how far to unpack complex expressions is a matter of good taste. Will you understand it when you come back to it in a year? Will someone else understand your code?</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h3 id="challenge"><span class="glyphicon glyphicon-pencil"></span>Challenge</h3>
@@ -142,6 +150,7 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 <p>Which female subjects from Buckingham are under the age of 25?</p>
 <p>What is their average glyhb?</p>
 <p>Are any of them diabetic?</p>
+<p>Test your understanding by writing your solutions several different ways.</p>
 </div>
 </section>
 <h2 id="missing-data">Missing data</h2>
@@ -208,15 +217,15 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes$location !=<span c
 <p>Some functions in R do different things if you give them different types of argument. <code>summary</code> and <code>plot</code> are examples of such functions.</p>
 <p>If we <code>plot</code> factors, R shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
 <p>When we give R two factors to plot it produces a “mosaic plot” that helps us see if there is any relationship between the two factors.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$gender, diabetes$frame )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" /></p>
 <p><code>diabetes$diabetic</code> is logical, but we can tell R to turn it into a factor to produce this type of plot for this column as well.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes$diabetic) )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes$frame, <span class="kw">factor</span>(diabetes$diabetic) )</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-18-2.png" alt="plot of chunk unnamed-chunk-18" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-20-2.png" alt="plot of chunk unnamed-chunk-20" /></p>
 <h2 id="summarizing-factors">Summarizing factors</h2>
 <p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted (a “contingency table”).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes$frame)</code></pre></div>
@@ -349,7 +358,7 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 ## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
 ## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2$chol, diabetes2$glyhb)</code></pre></div>
-<p><img src="fig/dataframes-unnamed-chunk-28-1.png" alt="plot of chunk unnamed-chunk-28" /></p>
+<p><img src="fig/dataframes-unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" /></p>
 <p>Note that the result is in a different order to the input. However it contains the correct rows.</p>
 <h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
 <p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>

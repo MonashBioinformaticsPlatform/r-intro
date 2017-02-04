@@ -50,7 +50,7 @@ Internally, a data frame is a list of column vectors. We can use the `$` syntax 
 
 A method of indexing that we haven't discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we can give a logical vector which is `TRUE` for the rows we want and `FALSE` otherwise. This can also be used with vectors and matrices.
 
-Suppose we want to look at all the subjects over 80 years of age. We first make a logical vector:
+Suppose we want to look at all the subjects 80 years of age or over. We first make a logical vector:
 
 ```{r}
 is_over_80 <- diabetes$age >= 80
@@ -97,13 +97,33 @@ is_not_from_buckingham <- !(diabetes$location == "Buckingham")
 is_not_from_buckingham <- diabetes$location != "Buckingham"
 ```
 
-The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of percent glycosylated haemoglobin, which gives information about long term glucose levels in blood. Values greater than 7% are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
+The data we are working with is derived from a dataset called `diabetes` in the `faraway` package. The rows are people interviewed as part of a study of diabetes prevalence. The column `glyhb` is a measurement of percent glycated haemoglobin, which gives information about long term glucose levels in blood. Values of 7% or greater are usually taken as a positive diagnosis of diabetes. Let's add this as a column.
 
 ```{r}
-diabetes$diabetic <- diabetes$glyhb > 7.0
+diabetes$diabetic <- diabetes$glyhb >= 7.0
 
 head(diabetes)
 ```
+
+## Different ways to do the same thing
+
+Above where we retrieved people 80 or over we could just as well have written:
+
+```{r eval=FALSE}
+weedle<- diabetes $age>=   80
+diabetes[    weedle ,]
+```
+
+R does not understand or care about the names we give to variables, and it doesn't care about spaces between things.
+
+We could also have written it as a single line:
+
+```{r eval=FALSE}
+diabetes[diabetes$age >= 80,]
+```
+
+We can almost always unpack complex expressions into a series of simpler variable assignments. The naming of variables and how far to unpack complex expressions is a matter of good taste. Will you understand it when you come back to it in a year? Will someone else understand your code?
+
 
 > ### Challenge {.challenge}
 >
@@ -112,6 +132,8 @@ head(diabetes)
 > What is their average glyhb?
 >
 > Are any of them diabetic?
+>
+> Test your understanding by writing your solutions several different ways.
 >
 
 
