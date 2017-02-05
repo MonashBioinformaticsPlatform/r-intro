@@ -218,7 +218,7 @@ Now we can see why R always puts a `[1]` in its output: it is indicating that th
 
 ## Functions
 
-R has various *functions*, such as `sum( )`. We can get help on a function with, eg `?sum`.
+R has various *functions*, such as `sum( )`. We can get help on a `sum` with `?sum`.
 
 ```
 ?sum
@@ -283,7 +283,7 @@ mylist$greeting
 Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.
 
 
-## Overview of data types
+## Appendix: Overview of data types
 
 We've seen several data types in this chapter, and will be seeing two more in the following chapters. This section serves as an overview of data types in R and their typical usage.
 

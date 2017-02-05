@@ -388,6 +388,76 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 </ul>
 </div>
 </aside>
+<h2 id="appendix-fitting-models">Appendix: Fitting models</h2>
+<p>A <em>linear model</em> tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention it because it is one of the major uses of R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glyhb ~<span class="st"> </span>age +<span class="st"> </span>frame +<span class="st"> </span>chol, <span class="dt">data=</span>diabetes2)
+mod1</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = glyhb ~ age + frame + chol, data = diabetes2)
+## 
+## Coefficients:
+## (Intercept)          age  framemedium   framelarge         chol  
+##     1.83635      0.04106      0.46343      0.55637      0.00716</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = glyhb ~ age + frame + chol, data = diabetes2)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.9964 -1.1943 -0.4479  0.2735  9.5144 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.836350   0.651191   2.820  0.00513 ** 
+## age         0.041064   0.008041   5.107  5.9e-07 ***
+## framemedium 0.463426   0.296694   1.562  0.11937    
+## framelarge  0.556373   0.348871   1.595  0.11184    
+## chol        0.007160   0.002983   2.400  0.01700 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.138 on 294 degrees of freedom
+##   (21 observations deleted due to missingness)
+## Multiple R-squared:  0.1459, Adjusted R-squared:  0.1342 
+## F-statistic: 12.55 on 4 and 294 DF,  p-value: 1.93e-09</code></pre>
+<p>We have obtained a model that, approximately</p>
+<pre><code>glyhb = 1.84 + 0.0411*age + 0.463*(frame==&quot;medium&quot;) + 
+        0.556*(frame==&quot;large&quot;) + 0.00716*chol</code></pre>
+<p>There is considerable flexibility in the choice of variables which might be combined to predict the outcome. Perhaps <code>frame</code> is not informative if we already know <code>age</code> and <code>chol</code>, or perhaps other variables have predictive value. There are ways to test these questions statistically.</p>
+<p>One problem here is that <code>glyhb</code> is skewed, and <code>lm</code> assumes errors in the model are normally distributed. A possible solution would be try to fit a model to <code>log(glyhb)</code>. Another possible solution is to try to model the binary outcome column <code>diabetic</code> instead, using <em>logistic regression</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetic ~<span class="st"> </span>age +<span class="st"> </span>frame +<span class="st"> </span>chol, <span class="dt">data=</span>diabetes2, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)
+<span class="kw">summary</span>(mod2)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = diabetic ~ age + frame + chol, family = &quot;binomial&quot;, 
+##     data = diabetes2)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3242  -0.5763  -0.4013  -0.2351   2.6816  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -6.558692   1.113146  -5.892 3.81e-09 ***
+## age          0.051632   0.011759   4.391 1.13e-05 ***
+## framemedium  0.628803   0.483076   1.302   0.1930    
+## framelarge   0.642442   0.518629   1.239   0.2154    
+## chol         0.007699   0.003902   1.973   0.0485 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 249.81  on 298  degrees of freedom
+## Residual deviance: 215.68  on 294  degrees of freedom
+##   (21 observations deleted due to missingness)
+## AIC: 225.68
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>This model predicts the <em>log odds</em> of a patient having diabetes.</p>
+<p>Again, this is well beyond the scope of this course. Just know that it is possible to construct of a predictor of a continuous or binary outcome using R. Such predictors also tell you about the relative imporance of various explanatory variables. Consult a statistician if this is what you need.</p>
         </div>
       </div>
       </article>
