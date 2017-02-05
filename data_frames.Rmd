@@ -382,7 +382,7 @@ The data missing from the second data frame is indicated by NAs.
 
 ## Appendix: Fitting models
 
-A *linear model* tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention it because it is one of the major uses of R.
+A *linear model* tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention them because this is one of the major uses of R.
 
 ```{r}
 mod1 <- lm(glyhb ~ age + frame + chol, data=diabetes2)
@@ -399,7 +399,7 @@ glyhb = 1.84 + 0.0411*age + 0.463*(frame=="medium") +
 
 There is considerable flexibility in the choice of variables which might be combined to predict the outcome. Perhaps `frame` is not informative if we already know `age` and `chol`, or perhaps other variables have predictive value. There are ways to test these questions statistically.
 
-One problem here is that `glyhb` is skewed, and `lm` assumes errors in the model are normally distributed. A possible solution would be try to fit a model to `log(glyhb)`. Another possible solution is to try to model the binary outcome column `diabetic` instead, using *logistic regression*:
+One problem here is that `glyhb` is skewed, and `lm` assumes errors in the model are normally distributed. A possible solution would be to try to fit a model to `log(glyhb)`. Another possible solution is to try to model the binary outcome column `diabetic` instead, using *logistic regression*:
 
 ```{r}
 mod2 <- glm(diabetic ~ age + frame + chol, data=diabetes2, family="binomial")
@@ -408,6 +408,6 @@ summary(mod2)
 
 This model predicts the *log odds* of a patient having diabetes.
 
-Again, this is well beyond the scope of this course. Just know that it is possible to construct of a predictor of a continuous or binary outcome using R. Such predictors also tell you about the relative imporance of various explanatory variables. Consult a statistician if this is what you need.
+Again, this is well beyond the scope of this course. Just know that it is possible to construct a predictor of a continuous or binary outcome using R. Such predictors also tell you about the relative imporance of various explanatory variables. Consult a statistician if this approach is what you need.
 
 

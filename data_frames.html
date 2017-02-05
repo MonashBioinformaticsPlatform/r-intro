@@ -389,7 +389,7 @@ diabetes2$chol &lt;-<span class="st"> </span>cholesterol$chol</code></pre></div>
 </div>
 </aside>
 <h2 id="appendix-fitting-models">Appendix: Fitting models</h2>
-<p>A <em>linear model</em> tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention it because it is one of the major uses of R.</p>
+<p>A <em>linear model</em> tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention them because this is one of the major uses of R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glyhb ~<span class="st"> </span>age +<span class="st"> </span>frame +<span class="st"> </span>chol, <span class="dt">data=</span>diabetes2)
 mod1</code></pre></div>
 <pre><code>## 
@@ -426,7 +426,7 @@ mod1</code></pre></div>
 <pre><code>glyhb = 1.84 + 0.0411*age + 0.463*(frame==&quot;medium&quot;) + 
         0.556*(frame==&quot;large&quot;) + 0.00716*chol</code></pre>
 <p>There is considerable flexibility in the choice of variables which might be combined to predict the outcome. Perhaps <code>frame</code> is not informative if we already know <code>age</code> and <code>chol</code>, or perhaps other variables have predictive value. There are ways to test these questions statistically.</p>
-<p>One problem here is that <code>glyhb</code> is skewed, and <code>lm</code> assumes errors in the model are normally distributed. A possible solution would be try to fit a model to <code>log(glyhb)</code>. Another possible solution is to try to model the binary outcome column <code>diabetic</code> instead, using <em>logistic regression</em>:</p>
+<p>One problem here is that <code>glyhb</code> is skewed, and <code>lm</code> assumes errors in the model are normally distributed. A possible solution would be to try to fit a model to <code>log(glyhb)</code>. Another possible solution is to try to model the binary outcome column <code>diabetic</code> instead, using <em>logistic regression</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetic ~<span class="st"> </span>age +<span class="st"> </span>frame +<span class="st"> </span>chol, <span class="dt">data=</span>diabetes2, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)
 <span class="kw">summary</span>(mod2)</code></pre></div>
 <pre><code>## 
@@ -457,7 +457,7 @@ mod1</code></pre></div>
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>This model predicts the <em>log odds</em> of a patient having diabetes.</p>
-<p>Again, this is well beyond the scope of this course. Just know that it is possible to construct of a predictor of a continuous or binary outcome using R. Such predictors also tell you about the relative imporance of various explanatory variables. Consult a statistician if this is what you need.</p>
+<p>Again, this is well beyond the scope of this course. Just know that it is possible to construct a predictor of a continuous or binary outcome using R. Such predictors also tell you about the relative imporance of various explanatory variables. Consult a statistician if this approach is what you need.</p>
         </div>
       </div>
       </article>
