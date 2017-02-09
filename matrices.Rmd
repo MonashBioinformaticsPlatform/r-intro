@@ -177,10 +177,10 @@ sd(mat[, 3])
 > To do this you would extract the relevant slice from the matrix and calculate the maximum value.
 > Which of the following lines of R code gives the correct answer?
 >
-> (a) `max(dat[5, ])`
-> (b) `max(dat[2:3, 5])`
-> (c) `max(dat[5, 2:3])`
-> (d) `max(dat[5, 2, 3])`
+> (a) `max(mat[5, ])`
+> (b) `max(mat[2:3, 5])`
+> (c) `max(mat[5, 2:3])`
+> (d) `max(mat[5, 2, 3])`
 
 
 ## Summarizing matrices

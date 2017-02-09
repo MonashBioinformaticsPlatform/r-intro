@@ -64,7 +64,8 @@ All of these do the same as above:
 ```{r eval=FALSE}
 for(w in sentence) print(w)
 
-for(word in c("Let","the","computer","do","the","work")) {
+for(word in c("Let","the","computer","do","the","work")) 
+{
     print(word)
 }
 
@@ -84,7 +85,7 @@ for(blastoise in magikarp) {
 
 ## Accumulating a result
 
-Here's another loop that repeatedly updates a variable:
+Here's a loop that repeatedly updates a variable:
 
 ```{r}
 len <- 0
