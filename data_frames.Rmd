@@ -232,7 +232,7 @@ table(diabetes$frame)
 table(diabetes$diabetic, diabetes$frame)
 ```
 
-Fisher's Exact Test (`fisher.test`) or a chi-squared test (`chiseq.test`) can be used to show that two factors are not independent.
+Fisher's Exact Test (`fisher.test`) or a chi-squared test (`chisq.test`) can be used to show that two factors are not independent.
 
 ```{r}
 fisher.test( table(diabetes$diabetic, diabetes$frame) )

@@ -237,7 +237,7 @@ diabetes[    weedle ,]</code></pre></div>
 ##         small medium large
 ##   FALSE    87    126    69
 ##   TRUE      7     24    19</code></pre>
-<p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chiseq.test</code>) can be used to show that two factors are not independent.</p>
+<p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chisq.test</code>) can be used to show that two factors are not independent.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fisher.test</span>( <span class="kw">table</span>(diabetes$diabetic, diabetes$frame) )</code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
