@@ -4,3 +4,5 @@
 .*
 
 .Rproj.user
+
+!slides/**/*.md
