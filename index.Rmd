@@ -23,6 +23,10 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 [r-intro-files.zip](r-intro-files.zip) - Zip file containing data we are working with.
 
+## Slides
+
+[Introducing R](Introducing_R_slides.pdf)
+
 ## Topics
 
 [Starting out in R](start.html) ([.Rmd](start.Rmd))
