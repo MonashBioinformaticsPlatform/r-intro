@@ -16,8 +16,10 @@
     <![endif]-->
   </head>
   <body class="lesson">
+    <div style="width: 100%; background: #000;">
+    <a href="https://platforms.monash.edu/bioinformatics/"><img src="fig/MBP-banner.png" height="100"></a>
+    </div>
     <div class="container card">
-      
       <article>
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -48,7 +50,7 @@
 <h2 id="for-loops-1">For loops</h2>
 <p>What we did above was quite repetitive. It’s always better when the computer does repetitive work for us.</p>
 <p>Here’s a better approach, using a for loop:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(word in sentence) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(word <span class="cf">in</span> sentence) {
     <span class="kw">print</span>(word)
 }</code></pre></div>
 <pre><code>## [1] &quot;Let&quot;
@@ -58,26 +60,26 @@
 ## [1] &quot;the&quot;
 ## [1] &quot;work&quot;</code></pre>
 <p>The general form of a loop is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(variable in vector) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(variable <span class="cf">in</span> vector) {
   do things with variable
 }</code></pre></div>
 <p>We can name the loop variable anything we like (with a few restrictions, e.g. the name of the variable cannot start with a digit). <code>in</code> is part of the <code>for</code> syntax. Note that the body of the loop is enclosed in curly braces <code>{ }</code>. For a single-line loop body, as here, the braces aren’t needed, but it is good practice to include them as we did.</p>
 <h3 id="variations">Variations</h3>
 <p>All of these do the same as above:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for(w in sentence) <span class="kw">print</span>(w)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(w <span class="cf">in</span> sentence) <span class="kw">print</span>(w)
 
-for(word in <span class="kw">c</span>(<span class="st">&quot;Let&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;computer&quot;</span>,<span class="st">&quot;do&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;work&quot;</span>)) 
+<span class="cf">for</span>(word <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;Let&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;computer&quot;</span>,<span class="st">&quot;do&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;work&quot;</span>)) 
 {
     <span class="kw">print</span>(word)
 }
 
 magikarp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Let&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;computer&quot;</span>,<span class="st">&quot;do&quot;</span>,<span class="st">&quot;the&quot;</span>,<span class="st">&quot;work&quot;</span>)
-for(blastoise in magikarp) {
+<span class="cf">for</span>(blastoise <span class="cf">in</span> magikarp) {
     <span class="kw">print</span>(blastoise)
 }
 
-    for(word 
-   in sentence
+    <span class="cf">for</span>(word 
+   <span class="cf">in</span> sentence
        ){
      <span class="kw">print</span>(
       word
@@ -86,8 +88,8 @@ for(blastoise in magikarp) {
 <p>Here’s a loop that repeatedly updates a variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len &lt;-<span class="st"> </span><span class="dv">0</span>
 vowels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)
-for(v in vowels) {
-  len &lt;-<span class="st"> </span>len +<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span>(v <span class="cf">in</span> vowels) {
+  len &lt;-<span class="st"> </span>len <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
 }
 <span class="co"># Number of vowels</span>
 len</code></pre></div>
@@ -96,8 +98,8 @@ len</code></pre></div>
 <p>By inserting calls to <code>print</code> or <code>cat</code> in the code, we can see that this is exactly what has happened:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">len &lt;-<span class="st"> </span><span class="dv">0</span>
 vowels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>, <span class="st">&quot;u&quot;</span>)
-for(v in vowels) {
-  len &lt;-<span class="st"> </span>len +<span class="st"> </span><span class="dv">1</span>
+<span class="cf">for</span>(v <span class="cf">in</span> vowels) {
+  len &lt;-<span class="st"> </span>len <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
   <span class="kw">cat</span>(<span class="st">&quot;v is&quot;</span>, v ,<span class="st">&quot;and len is now&quot;</span>, len, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
 }</code></pre></div>
 <pre><code>## v is a and len is now 1 
@@ -107,7 +109,7 @@ for(v in vowels) {
 ## v is u and len is now 5</code></pre>
 <p>Note that a loop variable is just a variable that’s being used to record progress in a loop. It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">letter &lt;-<span class="st"> &quot;z&quot;</span>
-for(letter in <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)) {
+<span class="cf">for</span>(letter <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)) {
   <span class="kw">print</span>(letter)
 }</code></pre></div>
 <pre><code>## [1] &quot;a&quot;
@@ -124,7 +126,7 @@ letter</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Recall that we can use <code>:</code> to create a sequence of numbers.</li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span>:<span class="dv">5</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>Suppose the variable <code>n</code> has been set with some value, and we want to print out the numbers up to that value, one per line.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="dv">7</span></code></pre></div>
@@ -160,14 +162,14 @@ years</code></pre></div>
 <pre><code>## [1] &quot;r-intro-files/gapminder-1952.csv&quot;</code></pre>
 <p>We will loop over all of the years, and build up a data frame. We start with <code>NULL</code>, which is a special value in R meaning nothing at all. We add to this with <code>rbind</code>, which concatenates the rows of data frames.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="ot">NULL</span>
-for(year in years) {
+<span class="cf">for</span>(year <span class="cf">in</span> years) {
     filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r-intro-files/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
     gap_year &lt;-<span class="st"> </span><span class="kw">read.csv</span>(filename)
     gap &lt;-<span class="st"> </span><span class="kw">rbind</span>(gap, gap_year)
 }</code></pre></div>
 <p>Again, <code>print</code> or <code>cat</code> can be used to check everything is working correctly.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="ot">NULL</span>
-for(year in years) {
+<span class="cf">for</span>(year <span class="cf">in</span> years) {
     filename &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;r-intro-files/gapminder-&quot;</span>, year, <span class="st">&quot;.csv&quot;</span>)
 
     <span class="kw">cat</span>(<span class="st">&quot;Loading&quot;</span>, filename, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
