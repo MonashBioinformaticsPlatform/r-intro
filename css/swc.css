@@ -1,7 +1,6 @@
 /* Card is used only at lessons */
 div.container.card {
 	background-color: white;
-	border-radius: 5px;
 }
 
 /* Headings */
@@ -184,7 +183,6 @@ body {
 
 body.workshop, body.lesson {
 	background-color: #BBDDEE;
-	margin: 20px 0;
 }
 
 /* Styling for editorial stylesheet */
