@@ -307,6 +307,6 @@ plot(avg_resin)
 dev.off()
 ```
 
-`dev.off()` is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
+**`dev.off()` is very important.** It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
 
 The file you created should appear in the file manager pane of RStudio, you can view it by clicking on it.

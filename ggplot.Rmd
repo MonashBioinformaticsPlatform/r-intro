@@ -54,18 +54,19 @@ ggplot(gap, aes(x=year, y=lifeExp, color=continent, size=pop)) +
     geom_point()
 ```
 
-A wide variety of geoms are available.
-
-```{r}
-ggplot(gap, aes(x=factor(year), y=lifeExp)) +
-    geom_boxplot()
-```
 
 To draw lines, we need to use a "group" aesthetic.
 
 ```{r}
 ggplot(gap, aes(x=year, y=lifeExp, group=country, color=continent)) +
     geom_line()
+```
+
+A wide variety of geoms are available. Here we show Tukey box-plots. Note again the use of the "group" aesthetic, without this ggplot will just show one big box-plot.
+
+```{r}
+ggplot(gap, aes(x=year, y=lifeExp, group=year)) +
+    geom_boxplot()
 ```
 
 `geom_smooth` can be used to show trends.
@@ -97,7 +98,7 @@ ggplot(gap, aes(x=year, y=lifeExp, group=country)) +
     geom_line(data=australia, color="red", size=2)
 ```
 
-Notice also that the second `geom_line` has some further arguments controlling its appearance. These *aren't* aesthetics, they're not a mapping of data to appearance, they are direct specification of the appearance. There isn't an associated scale as when color was an aesthetic.
+Notice also that the second `geom_line` has some further arguments controlling its appearance. These are **not** aesthetics, they are not a mapping of data to appearance, rather they are direct specification of the appearance. There isn't an associated scale as when color was an aesthetic.
 
 
 > ### Challenge - Diabetes data {.challenge}
