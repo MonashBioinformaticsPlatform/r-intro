@@ -8,7 +8,7 @@ knitr::opts_chunk$set(fig.width=6, fig.height=4, fig.path = "fig/ggplot-")
 
 # Plotting with ggplot2
 
-We already saw some of R's built in plotting facilities with the function `plot`. A more recent and much more powerful plotting library is `ggplot2`. This implements ideas from a book called "The Grammar of Graphics". The syntax is a little strange, but there are plenty of examples in the [online documentation](http://docs.ggplot2.org/current/).
+We already saw some of R's built in plotting facilities with the function `plot`. A more recent and much more powerful plotting library is `ggplot2`. This implements ideas from a book called "The Grammar of Graphics". The syntax is a little strange, but there are plenty of examples in the [online documentation](http://ggplot2.tidyverse.org/reference/).
 
 If `ggplot2` isn't already installed, we need to install it.
 
@@ -77,7 +77,7 @@ ggplot(gap, aes(x=year, y=lifeExp)) +
     geom_smooth()
 ```
 
-Aesthetics can be specified globally in `ggplot`, or within individual geoms. Here, the group is applied only to draw the lines, and color is used to produce multiple trend lines:
+Aesthetics can be specified globally in `ggplot`, or as the first argument to individual geoms. Here, the "group" is applied only to draw the lines, and "color" is used to produce multiple trend lines:
 
 ```{r}
 ggplot(gap, aes(x=year, y=lifeExp)) +
@@ -139,6 +139,8 @@ ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
 
 Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.
 
+We have shown the entire data set as an "interaction plot". We can directly see the whole story this data has to tell. When it is possible to plot an entire data set, this should be the first step before any summarizing and statistical testing. Even if there is too much data to plot in its entirety, it is always possible to plot a random subset.
+
 
 ## Faceting
 
@@ -151,9 +153,11 @@ ggplot(long, aes(x=operator, y=value)) +
 ```
 
 ```{r}
+diabetes <- read.csv("r-intro-files/diabetes.csv")
+
 ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
     geom_point() +
-    facet_grid(gender ~ frame)
+    facet_grid(frame ~ gender)
 ```
 
 
@@ -181,7 +185,3 @@ dev.off()
 ```
 
 
-> ### Challenge - Gapminder data {.challenge}
->
-> Think of a way to summarise the Gapminder data with `tapply` and visualize the summarised data.
->
