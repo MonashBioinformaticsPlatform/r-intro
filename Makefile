@@ -18,7 +18,8 @@ PNGS=$(patsubst %.svg,%.png,$(SVGS))
 all : index.html r-intro-files.zip $(addsuffix .html,$(SECTIONS)) r-intro.pdf $(PNGS)
 
 clean :
-	rm index.html index.md intro.md r-intro-files.zip $(addsuffix .md,$(SECTIONS)) $(addsuffix .html,$(SECTIONS)) r-intro.pdf ; true
+	rm -f index.html index.md intro.md r-intro-files.zip $(addsuffix .md,$(SECTIONS)) $(addsuffix .html,$(SECTIONS)) r-intro.pdf
+	rm -f fig/*-chunk-*.png
 
 r-intro.tex : intro.md $(addsuffix .md,$(SECTIONS))
 	pandoc -s -t latex -fmarkdown-implicit_figures --toc --toc-depth 2 --no-highlight \
