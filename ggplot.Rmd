@@ -31,12 +31,15 @@ Producing a plot with ggplot2, we must give three things:
 
 ## Using ggplot2 with a data frame
 
-Let's use the Gapminder data we loaded in the section on for-loops. If you haven't done this section, you can load it all with:
+We will be using data from [Gapminder](https://www.gapminder.org/) on life expectancy over time in different countries. Load it with:
 
 ```{r}
-gap <- read.csv("r-intro-files/all-gapminder.csv")
+gap <- read.csv("r-intro-files/gapminder.csv")
+
+head(gap)
 ```
 
+Let's make our first ggplot.
 
 ```{r}
 ggplot(gap, aes(x=year, y=lifeExp)) +
@@ -54,6 +57,19 @@ ggplot(gap, aes(x=year, y=lifeExp, color=continent, size=pop)) +
     geom_point()
 ```
 
+> ### Challenge {.challenge}
+>
+> This R code will get the data from the year 2007:
+>
+> ```{r}
+> gap2007 <- gap[ gap$year == 2007 ,]
+> ```
+>
+> Create a ggplot of this with `gdpPercap` on the x-axis and `lifeExp` on the y-axis.
+>
+
+
+### Further geoms
 
 To draw lines, we need to use a "group" aesthetic.
 
@@ -91,7 +107,7 @@ ggplot(gap, aes(x=year, y=lifeExp)) +
 Geoms can be added that use a different data frame, using the `data=` argument.
 
 ```{r}
-australia <- gap[gap$country == "Australia",]
+australia <- gap[ gap$country == "Australia" ,]
 
 ggplot(gap, aes(x=year, y=lifeExp, group=country)) +
     geom_line() +
@@ -101,16 +117,9 @@ ggplot(gap, aes(x=year, y=lifeExp, group=country)) +
 Notice also that the second `geom_line` has some further arguments controlling its appearance. These are **not** aesthetics, they are not a mapping of data to appearance, rather they are direct specification of the appearance. There isn't an associated scale as when color was an aesthetic.
 
 
-> ### Challenge - Diabetes data {.challenge}
->
-> Let's load our diabetes data frame again.
-> 
-> ```{r}
-> diabetes <- read.csv("r-intro-files/diabetes.csv")
-> ```
->
-> Experiment with different ways of plotting this data frame. 
->
+### Adjusting scales
+
+
 
 
 ## Using ggplot2 with a matrix
@@ -159,6 +168,16 @@ ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
     geom_point() +
     facet_grid(frame ~ gender)
 ```
+
+
+> ### Challenge {.challenge}
+>
+> Let's return to your scatter-plot of the 2007 data.
+>
+> Adjust your plot to now show data from all years, with each year shown in a separate facet, using `facet_wrap(~ year)`.
+>
+> Advanced: Highlight Australia in your plot.
+>
 
 
 ## Saving ggplots

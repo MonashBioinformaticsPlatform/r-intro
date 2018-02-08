@@ -33,8 +33,6 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 [Working with data in a data frame](data_frames.html) ([.Rmd](data_frames.Rmd))
 
-[For loops](for_loops.html) ([.Rmd](for_loops.Rmd))
-
 [Plotting with ggplot2](ggplot.html) ([.Rmd](ggplot.Rmd))
 
 

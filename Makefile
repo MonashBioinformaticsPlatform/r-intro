@@ -9,7 +9,7 @@
 # PDF introduction is from intro.Rmd
 #
 
-SECTIONS=start matrices data_frames for_loops ggplot next
+SECTIONS=start matrices data_frames ggplot next
 
 # SVG->PNG conversion
 SVGS=$(wildcard fig/*.svg)
