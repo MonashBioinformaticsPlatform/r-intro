@@ -23,7 +23,7 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 ## Slides
 
-[Introducing R](Introducing_R_slides.pdf)
+[Introducing R](IntroToIntroToR.pdf)
 
 ## Topics
 

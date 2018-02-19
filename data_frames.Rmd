@@ -297,7 +297,7 @@ Modern R usage emphasizes use of data frames over matrices, as data frames are t
 
 `tapply` took us from a data frame to a matrix. We can go the other way, from a matrix to a data frame, with the `melt` function in the package `reshape2`.
 
-```{r}
+```{r warning=F}
 library(reshape2)
 
 averages <- tapply(diabetes$glyhb, list(diabetes$frame, diabetes$gender), mean, na.rm=TRUE)

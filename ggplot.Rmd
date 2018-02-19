@@ -48,7 +48,7 @@ ggplot(gap, aes(x=year, y=lifeExp)) +
 
 The call to `ggplot` and `aes` sets up the basics of how we are going to represent the various columns of the data frame. `aes` defines the "aesthetics", which is how columns of the data frame map to graphical attributes such as x and y position, color, size, etc. We then literally add layers of graphics to this.
 
-Seasoned programmers may notice with some alarm that `aes` does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. To those programmers we comment briefly that R uses lazy evaluation of function parameters to allow any function to potentially behave like a macro, and that this is exactly as dangerous and powerful as it sounds. It's used tastefully, for the most part.
+You may notice that `aes` does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. R functions sometimes perform [magic tricks](http://adv-r.had.co.nz/Functions.html#lazy-evaluation) like this for the sake of allowing concise expressive code.
 
 Further aesthetics can be used. Any aesthetic can be either numeric or categorical, an appropriate scale will be used.
 
@@ -139,7 +139,7 @@ ggplot(gap, aes(x=year, y=lifeExp)) +
 
 The `lims` function can also be used to set limits.
 
-Very fine grained control is possible over the appearance of ggplot, see the ggplot2 documentation for details and further examples.
+Very fine grained control is possible over the appearance of ggplots, see the ggplot2 documentation for details and further examples.
 
 
 
@@ -154,7 +154,7 @@ mat <- as.matrix(dat)
 
 ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this "long" form with the `melt` function in the library `reshape2`.
 
-```{r}
+```{r warning=F}
 library(reshape2)
 long <- melt(mat)
 head(long)
@@ -182,10 +182,10 @@ ggplot(long, aes(x=operator, y=value)) +
     facet_wrap(~ resin) 
 ```
 
-```{r}
+```{r warning=F}
 diabetes <- read.csv("r-intro-files/diabetes.csv")
 
-ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
+ggplot(diabetes, aes(x=age, y=glyhb, color=location)) +
     geom_point() +
     facet_grid(frame ~ gender)
 ```
@@ -197,9 +197,9 @@ ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
 >
 > Adjust your plot to now show data from all years, with each year shown in a separate facet, using `facet_wrap(~ year)`.
 >
-> Advanced 1: Highlight Australia in your plot.
+> Advanced: Highlight Australia in your plot.
 >
-> Advanced 2: Give your plot nicer axis labels, and give your x axis a log scale.
+> Advanced: Give your plot nicer axis labels, and give your x axis a log scale.
 >
 
 
