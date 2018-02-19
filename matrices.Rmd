@@ -303,8 +303,6 @@ plot(avg_resin,
 >
 > Create a plot showing the standard deviation for each resin.
 >
-> Advanced: How would you calculate the average plus two standard deviations, or the average minus two standard deviations?
->
 
 
 ## Saving plots
