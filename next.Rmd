@@ -4,11 +4,13 @@ title: "Next steps"
 
 # Next steps
 
-We have barely touched the surface of what R has to offer. If you want to take your skills to the next level, here are some topics to investigate:
+We have barely touched the surface of what R has to offer. If you want to take your skills to the next level, here are some topics to investigate. However let us make this simple: you need to read ["R for Data Science"](http://r4ds.had.co.nz/).
 
 ### Books
 
-["R for Data Science"](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham is a good modern introduction to R, and can be read online. [Hadley Wickham](http://hadley.nz/) also has several excellent books covering specific topics online.
+["R for Data Science"](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham is a good modern introduction to R, and can be read online. This covers use of a collecition of packages called the [Tidyverse](https://www.tidyverse.org/). The [`dplyr`](http://dplyr.tidyverse.org/) package is of particular importance.
+
+[Hadley Wickham](http://hadley.nz/) also has several excellent books covering specific topics online.
 
 "Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples. Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically. Many statistical techniques take linear models as their starting point, including `limma` for differential gene expression, `glm` for logistic regression (etc), survival analysis with `coxph`, and mixed models to characterize variation within populations.
 

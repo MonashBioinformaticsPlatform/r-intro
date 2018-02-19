@@ -278,9 +278,10 @@ We generally give the things in a list names. Try `list(num=42, greeting="hello"
 ```{r}
 mylist <- list(num=42, greeting="Hello, world")
 mylist$greeting
+mylist[[2]]
 ```
 
-Functions that need to return multiple outputs often do so as a list. We will be seeing examples of this today, and in the RNA-Seq class.
+Functions that need to return multiple outputs often do so as a list.
 
 
 ## Appendix: Overview of data types
