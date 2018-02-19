@@ -117,8 +117,29 @@ ggplot(gap, aes(x=year, y=lifeExp, group=country)) +
 Notice also that the second `geom_line` has some further arguments controlling its appearance. These are **not** aesthetics, they are not a mapping of data to appearance, rather they are direct specification of the appearance. There isn't an associated scale as when color was an aesthetic.
 
 
-### Adjusting scales
+### Fine-tuning a plot
 
+Adding `labs` to a ggplot adjusts the labels given to the axes and legends. A plot title can also be specified.
+
+```{r}
+ggplot(gap, aes(x=year, y=lifeExp)) +
+    geom_point() +
+    labs(x="Year", y="Life expectancy", title="Gapminder")
+```
+
+Type `scale_` and press the tab key. You will see functions giving fine-grained controls over various scales (x, y, color, etc). Limits on the scale can be set, as well as transformations (eg log10), and breaks (labelled values).
+
+Suppose we want our y-axis to start at zero.
+
+```{r}
+ggplot(gap, aes(x=year, y=lifeExp)) +
+    geom_point() +
+    scale_y_continuous(limits=c(0,100))
+```
+
+The `lims` function can also be used to set limits.
+
+Very fine grained control is possible over the appearance of ggplot, see the ggplot2 documentation for details and further examples.
 
 
 
@@ -176,7 +197,9 @@ ggplot(na.omit(diabetes), aes(x=age, y=glyhb, color=location)) +
 >
 > Adjust your plot to now show data from all years, with each year shown in a separate facet, using `facet_wrap(~ year)`.
 >
-> Advanced: Highlight Australia in your plot.
+> Advanced 1: Highlight Australia in your plot.
+>
+> Advanced 2: Give your plot nicer axis labels, and give your x axis a log scale.
 >
 
 
