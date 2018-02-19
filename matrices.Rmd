@@ -55,9 +55,7 @@ Actually this data is better thought of as a matrix[^matrixnote]. In a data fram
 
 [^matrixnote]: We use matrix here in the mathematical sense, not the biological sense.
 
-R often but not always lets these be used interchangably. It's also helpful when thinking about data to distinguish between a data frame and a matrix. Different operations make sense for data frames and matrices.
-
-Data frames are very central to R, and mastering R is very much about thinking in data frames. However anything statistical will often involve using matrices. For example when we work with RNA-Seq data we use matrices of read counts. So it will be worth our time to learn to use matrices as well.
+R often but not always lets these be used interchangably. It's also helpful when thinking about data to distinguish between a data frame and a matrix. Different operations make sense for data frames and matrices. Data frames are very central to R, and mastering R is very much about thinking in data frames. However anything statistical will often involve using matrices. For example when we work with RNA-Seq data we use a matrix of read counts. So it will be worth our time to learn to use matrices as well.
 
 Let us insist to R that what we have is a matrix. `as.matrix` "casts" our data to have matrix type.
 
