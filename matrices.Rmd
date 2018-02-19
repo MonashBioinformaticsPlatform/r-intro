@@ -57,7 +57,7 @@ Actually this data is better thought of as a matrix[^matrixnote]. In a data fram
 
 R often but not always lets these be used interchangably. It's also helpful when thinking about data to distinguish between a data frame and a matrix. Different operations make sense for data frames and matrices.
 
-Data frames are very central to R, and mastering R is very much about thinking in data frames. However when we get to RNA-Seq we will be using matrices of read counts, so it will be worth our time to learn to use matrices as well.
+Data frames are very central to R, and mastering R is very much about thinking in data frames. However anything statistical will often involve using matrices. For example when we work with RNA-Seq data we use matrices of read counts. So it will be worth our time to learn to use matrices as well.
 
 Let us insist to R that what we have is a matrix. `as.matrix` "casts" our data to have matrix type.
 
@@ -260,6 +260,20 @@ result$p.value
 This means we can write software that uses the various results from `t.test`, for example performing a whole series of t tests and reporting the significant results.
 
 
+> ### Tip - Types in R under the hood {.callout}
+>
+> How could we have known that `t.test` gave us a result that behaved like a list?
+>
+> We used `class` earlier to see what type various values were. Here this tells us it is an `"htest"`, but this is actually just the "public face" of the value. Sometimes we need to Scooby Doo a value and see how R is thinking of it under the hood. `mode` reveals how R is thinking of a value internally. If we uncover that the `mode` of an object is `"list"`, we then know we can use `$` or `[[ ]]` to access its elements.
+>
+> ```{r}
+> class(result)
+> mode(result)
+> ```
+> 
+> Try this with `dat` and `mat` as well.
+
+
 ## Plotting
 
 The mathematician Richard Hamming once said, "The purpose of computing is insight, not numbers," and the best way to develop insight is often to visualize data.
@@ -310,3 +324,8 @@ dev.off()
 **`dev.off()` is very important.** It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
 
 The file you created should appear in the file manager pane of RStudio, you can view it by clicking on it.
+
+
+
+
+

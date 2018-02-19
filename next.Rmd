@@ -12,11 +12,11 @@ We have barely touched the surface of what R has to offer. If you want to take y
 
 [Hadley Wickham](http://hadley.nz/) also has several excellent books covering specific topics online.
 
-"Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples. Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically. Many statistical techniques take linear models as their starting point, including `limma` for differential gene expression, `glm` for logistic regression (etc), survival analysis with `coxph`, and mixed models to characterize variation within populations.
+See "The R Book" by Michael J. Crawley for general reference.
 
 "Modern Applied Statistics with S" by W.N. Venable and B.D. Ripley is a well respected reference covering R and its predecessor S.
 
-See "The R Book" by Michael J. Crawley for general reference.
+"Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples. Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically. Many statistical techniques take linear models as their starting point, including `limma` for differential gene expression, `glm` for logistic regression (etc), survival analysis with `coxph`, and mixed models to characterize variation within populations.
 
 ### Cheat sheets
 

@@ -142,6 +142,13 @@ The `lims` function can also be used to set limits.
 Very fine grained control is possible over the appearance of ggplots, see the ggplot2 documentation for details and further examples.
 
 
+> ### Challenge {.challenge}
+>
+> Continuing with your scatter-plot of the 2007 data, add axis labels to your plot.
+>
+> Advanced: Give your x axis a log scale (see the documentation on `scale_x_continuous`, specifically the `trans` argument).
+>
+
 
 ## Using ggplot2 with a matrix
 
@@ -152,7 +159,7 @@ dat <- read.csv(file="r-intro-files/pvc.csv", row.names=1)
 mat <- as.matrix(dat)
 ```
 
-ggplot only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this "long" form with the `melt` function in the library `reshape2`.
+`ggplot` only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this "long" form with the `melt` function in the library `reshape2`.
 
 ```{r warning=F}
 library(reshape2)
@@ -167,7 +174,7 @@ ggplot(long, aes(x=operator, y=value, group=resin, color=resin)) +
     geom_line()
 ```
 
-Notice how ggplot2 is able to use either numerical or categorical (factor) data as x and y coordinates.
+Notice how `ggplot` is able to use either numerical or categorical (factor) data as x and y coordinates.
 
 We have shown the entire data set as an "interaction plot". We can directly see the whole story this data has to tell. When it is possible to plot an entire data set, this should be the first step before any summarizing and statistical testing. Even if there is too much data to plot in its entirety, it is always possible to plot a random subset.
 
@@ -193,13 +200,11 @@ ggplot(diabetes, aes(x=age, y=glyhb, color=location)) +
 
 > ### Challenge {.challenge}
 >
-> Let's return to your scatter-plot of the 2007 data.
+> Let's return again to your scatter-plot of the 2007 data.
 >
 > Adjust your plot to now show data from all years, with each year shown in a separate facet, using `facet_wrap(~ year)`.
 >
 > Advanced: Highlight Australia in your plot.
->
-> Advanced: Give your plot nicer axis labels, and give your x axis a log scale.
 >
 
 
