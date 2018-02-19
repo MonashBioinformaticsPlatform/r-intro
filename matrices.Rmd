@@ -286,25 +286,12 @@ plot(avg_resin,
     type="b")
 ```
 
-Let's have a look at two other statistics: the maximum and minimum particle size per resin. Additional points or lines can be added to a plot with `points` or `lines`.
-
-```{r}
-max_resin <- apply(mat, 1, max)
-min_resin <- apply(mat, 1, min)
-
-plot(avg_resin, type="b", ylim=c(25,40))
-lines(max_resin)
-lines(min_resin)
-```
-
-R doesn't know to adjust the y limits if we add new data outside the original limits, so we needed to specify `ylim` manually. This is R's base graphics system. If there is time today, we will look at a more advanced graphics package called "ggplot2" that handles this kind of issue more intelligently.
-
 
 > ### Challenge - plotting data {.challenge}
 >
 > Create a plot showing the standard deviation for each resin.
 >
-> Advanced: Create a plot showing +/- two standard deviations about the mean.
+> Advanced: How would you calculate the average plus two standard deviations, or the average minus two standard deviations?
 >
 
 
@@ -320,6 +307,6 @@ plot(avg_resin)
 dev.off()
 ```
 
-`dev.off()` is very important. It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
+**`dev.off()` is very important.** It tells R to stop outputting to the pdf device and return to using the default device. If you forget, your interactive plots will stop appearing as expected!
 
 The file you created should appear in the file manager pane of RStudio, you can view it by clicking on it.

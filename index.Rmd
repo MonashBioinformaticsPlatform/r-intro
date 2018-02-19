@@ -7,8 +7,6 @@ title: "Introduction to R"
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform.
 
-Some of this material is derived from work that is Copyright © [Software Carpentry](http://software-carpentry.org/) with a [CC BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).
-
 R is both a programming language and an interactive environment for statistics. Today we will be concentrating on R as an *interactive environment*.
 
 We will be using RStudio, a friendly front end to R. On the day, we will be using RStudio from the web, but you can also install R and RStudio on your laptop. Both R and RStudio are free.
@@ -35,8 +33,6 @@ We will be using RStudio, a friendly front end to R. On the day, we will be usin
 
 [Working with data in a data frame](data_frames.html) ([.Rmd](data_frames.Rmd))
 
-[For loops](for_loops.html) ([.Rmd](for_loops.Rmd))
-
 [Plotting with ggplot2](ggplot.html) ([.Rmd](ggplot.Rmd))
 
 
@@ -50,6 +46,15 @@ In this series:
 Other resources:
 
 * [Next steps](next.html)
+
+
+## Authors
+
+This course is developed by the Monash Bioinformatics Platform, with contributions by Paul Harrison, Haroon Naeem, and Nick Wong.
+
+<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="fig/CC-BY.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+Some of this material is derived from work that is [Copyright (c) Software Carpentry](http://software-carpentry.org/). Any errors and failures of pedagogy are our own.
 
 
 <br><br>

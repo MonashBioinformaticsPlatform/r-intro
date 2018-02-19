@@ -6,6 +6,16 @@ title: "Next steps"
 
 We have barely touched the surface of what R has to offer. If you want to take your skills to the next level, here are some topics to investigate:
 
+### Books
+
+["R for Data Science"](http://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham is a good modern introduction to R, and can be read online. [Hadley Wickham](http://hadley.nz/) also has several excellent books covering specific topics online.
+
+"Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples. Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically. Many statistical techniques take linear models as their starting point, including `limma` for differential gene expression, `glm` for logistic regression (etc), survival analysis with `coxph`, and mixed models to characterize variation within populations.
+
+"Modern Applied Statistics with S" by W.N. Venable and B.D. Ripley is a well respected reference covering R and its predecessor S.
+
+See "The R Book" by Michael J. Crawley for general reference.
+
 ### Cheat sheets
 
 * [RStudio's collection of cheat sheets](https://www.rstudio.com/resources/cheatsheets/) cover newer packages in R.
@@ -16,19 +26,6 @@ We have barely touched the surface of what R has to offer. If you want to take y
 
 * [CRAN](https://cran.rstudio.com/) has hundreds of contributed packages which can be installed with `install.packages`.
 * [Bioconductor](http://bioconductor.org/) is another huge collection of packages with a biological focus.
-
-### Statistics
-
-* Many statistical tests are built in to R.
-
-* Linear models, and the linear model formula syntax `~`, are core to much of what R has to offer statistically.
-    * Many statistical techniques take linear models as their starting point, including `limma` which we will be using to test for differential gene expression, `glm` for logistic regression (etc), survival analysis, mixed models to characterize variation within populations.
-    * Many R function repurpose the `~` formula syntax for other ways of relating response and explanatory variables.
-
-
-See "The R Book" by Michael J. Crawley for general reference.
-
-The books "Linear Models with R" and "Extending the Linear Model with R" by Julian J. Faraway cover linear models, with many practical examples.
 
 ### Life outside R
 
