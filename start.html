@@ -224,14 +224,17 @@ mylist<span class="op">$</span>greeting</code></pre></div>
 <h3 id="tip-1"><span class="glyphicon glyphicon-pushpin"></span>Tip</h3>
 </div>
 <div class="panel-body">
-<p>If you’re not sure what type of value you are dealing with you can use <code>class</code>, or for more detailed information <code>str</code> (structure). Try the following:</p>
+<p>If you’re not sure what type of value you are dealing with you can use <code>class</code>. Class is the “public face” of a value. To see how R thinks of a value internally use <code>typeof</code>. For example numeric vectors may be either “double” (real numbers, stored to around 15 digits precision) or “integer” (whole numbers, stored exactly). For more detailed information use <code>str</code> (structure). Try the following:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(myvec)
+<span class="kw">typeof</span>(myvec)
+
 <span class="kw">class</span>(mylist)
+<span class="kw">typeof</span>(mylist)
 <span class="kw">str</span>(mylist)</code></pre></div>
 </div>
 </aside>
 <h3 id="vector">vector</h3>
-<p>Vectors contain zero or more elements, <em>all of the same basic type</em> (“mode”).</p>
+<p>Vectors contain zero or more elements, <em>all of the same basic type</em>.</p>
 <p>Elements can be named (<code>names</code>), but often aren’t.</p>
 <p>Access single elements: <code>vec[5]</code></p>
 <p>Take a subset of a vector: <code>vec[c(1,3,5)]</code> <code>vec[c(TRUE,FALSE,TRUE,FALSE,TRUE)]</code></p>

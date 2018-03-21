@@ -16,7 +16,7 @@ As we saw earlier, `read.csv` loads tabular data from a CSV file into a data fra
 diabetes <- read.csv("r-intro-files/diabetes.csv")
 
 class(diabetes)
-mode(diabetes)
+typeof(diabetes)
 head(diabetes)
 colnames(diabetes)
 ncol(diabetes)
