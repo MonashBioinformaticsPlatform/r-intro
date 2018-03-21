@@ -262,11 +262,11 @@ This means we can write software that uses the various results from `t.test`, fo
 >
 > How could we have known that `t.test` gave us a result that behaved like a list?
 >
-> We used `class` earlier to see what type various values were. Here this tells us it is an `"htest"`, but this is actually just the "public face" of the value. Sometimes we need to Scooby Doo a value and see how R is thinking of it under the hood. `mode` reveals how R is thinking of a value internally. If we uncover that the `mode` of an object is `"list"`, we then know we can use `$` or `[[ ]]` to access its elements.
+> We used `class` earlier to see what type various values were. Here this tells us it is an `"htest"`, but this is actually just the "public face" of the value. Sometimes we need to Scooby Doo a value and see how R is thinking of it under the hood. `typeof` reveals how R is thinking of a value internally. If we uncover that the `typeof` of an object is `"list"`, we then know we can use `$` or `[[ ]]` to access its elements.
 >
 > ```{r}
 > class(result)
-> mode(result)
+> typeof(result)
 > ```
 > 
 > Try this with `dat` and `mat` as well.

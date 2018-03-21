@@ -265,10 +265,10 @@ resin_<span class="dv">1</span> &lt;-<span class="st"> </span>mat[<span class="d
 </div>
 <div class="panel-body">
 <p>How could we have known that <code>t.test</code> gave us a result that behaved like a list?</p>
-<p>We used <code>class</code> earlier to see what type various values were. Here this tells us it is an <code>&quot;htest&quot;</code>, but this is actually just the “public face” of the value. Sometimes we need to Scooby Doo a value and see how R is thinking of it under the hood. <code>mode</code> reveals how R is thinking of a value internally. If we uncover that the <code>mode</code> of an object is <code>&quot;list&quot;</code>, we then know we can use <code>$</code> or <code>[[ ]]</code> to access its elements.</p>
+<p>We used <code>class</code> earlier to see what type various values were. Here this tells us it is an <code>&quot;htest&quot;</code>, but this is actually just the “public face” of the value. Sometimes we need to Scooby Doo a value and see how R is thinking of it under the hood. <code>typeof</code> reveals how R is thinking of a value internally. If we uncover that the <code>typeof</code> of an object is <code>&quot;list&quot;</code>, we then know we can use <code>$</code> or <code>[[ ]]</code> to access its elements.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(result)</code></pre></div>
 <pre><code>## [1] &quot;htest&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mode</span>(result)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(result)</code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <p>Try this with <code>dat</code> and <code>mat</code> as well.</p>
 </div>
