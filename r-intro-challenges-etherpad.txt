@@ -1,0 +1,160 @@
+Intro to R Workshop - Wednesday May 16, 2018. The Alfred Centre, Central Clinical School, Alfred Hospital. 
+
+Trainers - Adele Barugahare
+              - Paul Harrison
+              - Nick Wong (nick.wong@monash.edu). @methylnick
+              
+Helpers - Alex Yang (ACBD)
+             - Alison Anderson (Department of Neuroscience)
+             - Alexander Smith (Baker IDI). alexander.smith@baker.edu.au 
+             
+Workshop participants (insert your name and contact details, if you want, here)
+
+
+
+
+
+
+
+
+
+
+Challenges: 
+
+Chapter 1 - Starting out in R. 
+
+a) What happens when you try to make a vector containing different types, using c( )? Make a vector with some numbers, and some words (eg. character strings like “test”, or “hello”). 
+
+
+
+b) Why does the output show the numbers surrounded by quotes " " like character strings are? 
+
+
+Chapter 1 - Vectors
+
+a) If the first four words are selected using the slice phrase[1:4], how can we obtain the first four words in reverse order?
+
+
+
+b)  What is phrase[-2]? What is phrase[-5]? Given those answers, explain what phrase[-1:-3] does.
+
+
+
+c) Use indexing of phrase to create a new character vector that forms the phrase “I know I don’t”, i.e. c("I", "know", "I", "don't"). 
+
+
+
+Chapter 1 - Functions
+
+a)  Use sum to sum from 1 to 5 (ie 1+2+3+4+5).
+
+
+
+b)  Use sum to sum from 1 to 10,000.
+
+
+
+c) You are reading some R code and see that it uses a function called seq. What does seq do? 
+
+
+
+Chapter 2 - working with data in a matrix 
+Suppose you want to determine the maximum particle size for resin 5 across operators 2 and 3. To do this you would extract the relevant slice from the matrix and calculate the maximum value. Which of the following lines of R code gives the correct answer? 
+
+(a) max(mat[5, ])
+
+(b) max(mat[2:3, 5]) 
+ 
+(c) max(mat[5, 2:3]) 
+                                        
+(d) max(mat[5, 2, 3]) 
+                                
+                        
+                
+Chapter 2 - summarizing the matrix
+                                                                                      
+
+a) How would you calculate the standard deviation for each resin? 
+    
+    
+                                        
+b) Advanced: How would you calculate the values two standard deviations above and below the mean for each resin? 
+                                
+                        
+                
+Chapter 2 - using t.test
+
+a) Can you find a significant difference between any two resins? 
+                                
+                        
+                
+Chapter 2 - plotting data
+
+a) create a plot showing the standard deviation for each resin.
+
+
+
+Chapter 3 - Working with a data frame
+
+a) Which female subjects from Buckingham are under the age of 25?
+
+
+
+b) What is their average glyhb?
+
+
+
+c) Are any of them diabetic?
+
+
+
+d) Test your understanding by writing your solutions several different ways. 
+                                
+                        
+                
+Chapter 3 - summarizing data frames
+
+a)  Find the age of the youngest and oldest subject, for each gender and in each location in the study. 
+        
+        
+                                
+b) Extension: How could we clean up the data frame so we never needed to use na.rm=TRUE when summarizing glyhb values? 
+                                
+                        
+                
+Chapter 4 - Plotting with ggplot2 
+
+This R code will get the data from the year 2007: 
+                                        
+gap2007 <- gap[ gap$year == 2007 ,]
+
+Create a ggplot of this with gdpPercap on the x-axis and lifeExp on the y-axis. 
+
+
+
+
+Chapter 4 - Fine tuning a ggplot
+
+Continuing with your scatter-plot of the 2007 data, add axis labels to your plot.
+
+
+Advanced: Give your x axis a log scale (see the documentation on scale_x_continuous, specifically the trans argument).
+                                
+                        
+                
+Chapter 4 - faceting
+
+Let’s return again to your scatter-plot of the 2007 data.
+
+Adjust your plot to now show data from all years, with each year shown in a separate facet, using 
+                                        
+facet_wrap(~ year).
+
+Advanced: Highlight Australia in your plot. 
+                                
+                        
+                
+         
+
+
+
