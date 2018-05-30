@@ -6,6 +6,8 @@ header-includes:
   - \setkeys{Gin}{width=0.6666\maxwidth,height=0.6666\maxheight,keepaspectratio}
 ---
 
+\newpage
+
 ### Preface
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform.

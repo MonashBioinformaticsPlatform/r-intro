@@ -25,13 +25,13 @@
         <div class="col-md-10 col-md-offset-1">
 <h1 id="working-with-data-in-a-data-frame">Working with data in a data frame</h1>
 <p>As we saw earlier, <code>read.csv</code> loads tabular data from a CSV file into a data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)
-
-<span class="kw">class</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">class</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">typeof</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">head</span>(diabetes)</a></code></pre></div>
 <pre><code>##   subject glyhb   location age gender height weight  frame
 ## 1   S1002  4.64 Buckingham  58 female     61    256  large
 ## 2   S1003  4.63 Buckingham  67   male     67    119  large
@@ -39,12 +39,12 @@
 ## 4   S1008  4.81 Buckingham  34   male     71    190  large
 ## 5   S1011  4.84 Buckingham  30   male     69    191 medium
 ## 6   S1015  3.94 Buckingham  37   male     59    170 medium</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">colnames</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] &quot;subject&quot;  &quot;glyhb&quot;    &quot;location&quot; &quot;age&quot;      &quot;gender&quot;   &quot;height&quot;  
 ## [7] &quot;weight&quot;   &quot;frame&quot;</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ncol</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ncol</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] 8</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">nrow</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] 354</code></pre>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
@@ -52,7 +52,7 @@
 </div>
 <div class="panel-body">
 <p>A data frame can also be created from vectors, with the <code>data.frame</code> function. For example</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data.frame</span>(<span class="dt">foo=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>), <span class="dt">bar=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">data.frame</span>(<span class="dt">foo=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>), <span class="dt">bar=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>))</a></code></pre></div>
 <pre><code>##   foo bar
 ## 1  10   a
 ## 2  20   b
@@ -74,14 +74,14 @@
 <h2 id="logical-indexing">Logical indexing</h2>
 <p>A method of indexing that we haven’t discussed yet is logical indexing. Instead of specifying the row number or numbers that we want, we can give a logical vector which is <code>TRUE</code> for the rows we want and <code>FALSE</code> otherwise. This can also be used with vectors and matrices.</p>
 <p>Suppose we want to look at all the subjects 80 years of age or over. We first make a logical vector:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_<span class="dv">80</span> &lt;-<span class="st"> </span>diabetes<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span>
-
-<span class="kw">head</span>(is_over_<span class="dv">80</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">is_over_<span class="dv">80</span> &lt;-<span class="st"> </span>diabetes<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="kw">head</span>(is_over_<span class="dv">80</span>)</a></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(is_over_<span class="dv">80</span>)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">sum</span>(is_over_<span class="dv">80</span>)</a></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p><code>&gt;=</code> is a comparison operator meaning greater than or equal to. We can then grab just these rows of the data frame where <code>is_over_80</code> is <code>TRUE</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[is_over_<span class="dv">80</span>,]</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">diabetes[is_over_<span class="dv">80</span>,]</a></code></pre></div>
 <pre><code>##     subject glyhb   location age gender height weight  frame
 ## 45    S2770  4.98 Buckingham  92 female     62    217  large
 ## 56    S2794  8.40 Buckingham  91 female     61    127   &lt;NA&gt;
@@ -93,10 +93,10 @@
 ## 323  S40786  6.48     Louisa  80   male     71    212 medium
 ## 324  S40789 11.18     Louisa  80 female     62    162  small</code></pre>
 <p>We might also want to know <em>which</em> rows our logical vector is <code>TRUE</code> for. This is achieved with the <code>which</code> function. The result of this can also be used to index the data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">which_over_<span class="dv">80</span> &lt;-<span class="st"> </span><span class="kw">which</span>(is_over_<span class="dv">80</span>)
-which_over_<span class="dv">80</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">which_over_<span class="dv">80</span> &lt;-<span class="st"> </span><span class="kw">which</span>(is_over_<span class="dv">80</span>)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2">which_over_<span class="dv">80</span></a></code></pre></div>
 <pre><code>## [1]  45  56  90 130 139 193 321 323 324</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[which_over_<span class="dv">80</span>,]</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">diabetes[which_over_<span class="dv">80</span>,]</a></code></pre></div>
 <pre><code>##     subject glyhb   location age gender height weight  frame
 ## 45    S2770  4.98 Buckingham  92 female     62    217  large
 ## 56    S2794  8.40 Buckingham  91 female     61    127   &lt;NA&gt;
@@ -122,15 +122,15 @@ which_over_<span class="dv">80</span></code></pre></div>
 <li><code>a | b</code> – “or”, true if either <code>a</code> or <code>b</code> or both are true.</li>
 <li><code>! a</code> – “not” , true if <code>a</code> is false, and false if <code>a</code> is true.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">is_over_80_and_female &lt;-<span class="st"> </span>is_over_<span class="dv">80</span> <span class="op">&amp;</span><span class="st"> </span>diabetes<span class="op">$</span>gender <span class="op">==</span><span class="st"> &quot;female&quot;</span>
-
-is_not_from_buckingham &lt;-<span class="st"> </span><span class="op">!</span>(diabetes<span class="op">$</span>location <span class="op">==</span><span class="st"> &quot;Buckingham&quot;</span>)
-<span class="co"># or</span>
-is_not_from_buckingham &lt;-<span class="st"> </span>diabetes<span class="op">$</span>location <span class="op">!=</span><span class="st"> &quot;Buckingham&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">is_over_<span class="dv">80</span>_and_female &lt;-<span class="st"> </span>is_over_<span class="dv">80</span> <span class="op">&amp;</span><span class="st"> </span>diabetes<span class="op">$</span>gender <span class="op">==</span><span class="st"> &quot;female&quot;</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">is_not_from_buckingham &lt;-<span class="st"> </span><span class="op">!</span>(diabetes<span class="op">$</span>location <span class="op">==</span><span class="st"> &quot;Buckingham&quot;</span>)</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">is_not_from_buckingham &lt;-<span class="st"> </span>diabetes<span class="op">$</span>location <span class="op">!=</span><span class="st"> &quot;Buckingham&quot;</span></a></code></pre></div>
 <p>The data we are working with is derived from a dataset called <code>diabetes</code> in the <code>faraway</code> package. The rows are people interviewed as part of a study of diabetes prevalence. The column <code>glyhb</code> is a measurement of percent glycated haemoglobin, which gives information about long term glucose levels in blood. Values of 7% or greater are usually taken as a positive diagnosis of diabetes. Let’s add this as a column.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes<span class="op">$</span>diabetic &lt;-<span class="st"> </span>diabetes<span class="op">$</span>glyhb <span class="op">&gt;=</span><span class="st"> </span><span class="fl">7.0</span>
-
-<span class="kw">head</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">diabetes<span class="op">$</span>diabetic &lt;-<span class="st"> </span>diabetes<span class="op">$</span>glyhb <span class="op">&gt;=</span><span class="st"> </span><span class="fl">7.0</span></a>
+<a class="sourceLine" id="cb26-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3"><span class="kw">head</span>(diabetes)</a></code></pre></div>
 <pre><code>##   subject glyhb   location age gender height weight  frame diabetic
 ## 1   S1002  4.64 Buckingham  58 female     61    256  large    FALSE
 ## 2   S1003  4.63 Buckingham  67   male     67    119  large    FALSE
@@ -140,11 +140,11 @@ is_not_from_buckingham &lt;-<span class="st"> </span>diabetes<span class="op">$<
 ## 6   S1015  3.94 Buckingham  37   male     59    170 medium    FALSE</code></pre>
 <h2 id="different-ways-to-do-the-same-thing">Different ways to do the same thing</h2>
 <p>Above where we retrieved people 80 or over we could just as well have written:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weedle&lt;-<span class="st"> </span>diabetes <span class="op">$</span>age<span class="op">&gt;=</span><span class="st">   </span><span class="dv">80</span>
-diabetes[    weedle ,]</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">weedle&lt;-<span class="st"> </span>diabetes <span class="op">$</span>age<span class="op">&gt;=</span><span class="st">   </span><span class="dv">80</span></a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">diabetes[    weedle ,]</a></code></pre></div>
 <p>R does not understand or care about the names we give to variables, and it doesn’t care about spaces between things.</p>
 <p>We could also have written it as a single line:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes[diabetes<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span>,]</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">diabetes[diabetes<span class="op">$</span>age <span class="op">&gt;=</span><span class="st"> </span><span class="dv">80</span>,]</a></code></pre></div>
 <p>We can almost always unpack complex expressions into a series of simpler variable assignments. The naming of variables and how far to unpack complex expressions is a matter of good taste. Will you understand it when you come back to it in a year? Will someone else understand your code?</p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -159,7 +159,7 @@ diabetes[    weedle ,]</code></pre></div>
 </section>
 <h2 id="missing-data">Missing data</h2>
 <p><code>summary</code> gives an overview of a data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">summary</span>(diabetes)</a></code></pre></div>
 <pre><code>##     subject        glyhb              location        age       
 ##  S10000 :  1   Min.   : 2.680   Buckingham:178   Min.   :19.00  
 ##  S10001 :  1   1st Qu.: 4.385   Louisa    :176   1st Qu.:35.00  
@@ -177,23 +177,23 @@ diabetes[    weedle ,]</code></pre></div>
 ##               Max.   :76.00   Max.   :325.0                               
 ##               NA&#39;s   :5       NA&#39;s   :1</code></pre>
 <p>We see that some columns contain <code>NA</code>s. <code>NA</code> is R’s way of indicating missing data. Missing data is important in statistics, so R is careful with its treatment of this. If we try to calculate with an <code>NA</code> the result will be <code>NA</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="ot">NA</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes<span class="op">$</span>glyhb)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">mean</span>(diabetes<span class="op">$</span>glyhb)</a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Many summary functions, such as <code>mean</code>, have a flag to say ignore <code>NA</code> values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(diabetes<span class="op">$</span>glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">mean</span>(diabetes<span class="op">$</span>glyhb, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
 <p>There is also an <code>is.na</code> function, allowing us to find which values are NA, and <code>na.omit</code> which removes NAs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_missing &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(diabetes<span class="op">$</span>glyhb)
-<span class="kw">mean</span>( diabetes<span class="op">$</span>glyhb[not_missing] )</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">not_missing &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(diabetes<span class="op">$</span>glyhb)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">mean</span>( diabetes<span class="op">$</span>glyhb[not_missing] )</a></code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>( <span class="kw">na.omit</span>(diabetes<span class="op">$</span>glyhb) )</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">mean</span>( <span class="kw">na.omit</span>(diabetes<span class="op">$</span>glyhb) )</a></code></pre></div>
 <pre><code>## [1] 5.580292</code></pre>
 <p><code>na.omit</code> can also be used on a whole data frame, and removes rows with NA in any column.</p>
 <h2 id="factors">Factors</h2>
 <p>When R loads a CSV file, it tries to give appropriate types to the columns. Let’s examine what types R has given our data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">str</span>(diabetes)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    354 obs. of  9 variables:
 ##  $ subject : Factor w/ 354 levels &quot;S10000&quot;,&quot;S10001&quot;,..: 4 6 7 8 9 10 11 12 13 14 ...
 ##  $ glyhb   : num  4.64 4.63 7.72 4.81 4.84 ...
@@ -205,44 +205,44 @@ diabetes[    weedle ,]</code></pre></div>
 ##  $ frame   : Factor w/ 3 levels &quot;large&quot;,&quot;medium&quot;,..: 1 1 2 1 2 2 1 3 2 2 ...
 ##  $ diabetic: logi  FALSE FALSE TRUE FALSE FALSE FALSE ...</code></pre>
 <p>We might have expected the text columns to be the “character” data type, but they are instead “factor”s.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>( diabetes<span class="op">$</span>frame )</code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">head</span>( diabetes<span class="op">$</span>frame )</a></code></pre></div>
 <pre><code>## [1] large  large  medium large  medium medium
 ## Levels: large medium small</code></pre>
 <p>R uses the factor data type to store a vector of <em>categorical</em> data. The different possible categories are called “levels”.</p>
 <p>Factors can be created from character vectors with <code>factor</code>. We sometimes care what order the levels are in, since this can affect how data is plotted or tabulated by various functions. If there is some sort of baseline level, such as “wildtype strain” or “no treatment”, it is usually given first. <code>factor</code> has an argument <code>levels=</code> to specify the desired order of levels.</p>
 <p>Factors can be converted back to a character vector with <code>as.character</code>.</p>
 <p>When R loaded our data, it chose levels in alphabetical order. Let’s adjust that for the column <code>diabetes$frame</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes<span class="op">$</span>frame &lt;-<span class="st"> </span><span class="kw">factor</span>(diabetes<span class="op">$</span>frame, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;large&quot;</span>))
-
-<span class="kw">head</span>( diabetes<span class="op">$</span>frame )</code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1">diabetes<span class="op">$</span>frame &lt;-<span class="st"> </span><span class="kw">factor</span>(diabetes<span class="op">$</span>frame, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;medium&quot;</span>,<span class="st">&quot;large&quot;</span>))</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw">head</span>( diabetes<span class="op">$</span>frame )</a></code></pre></div>
 <pre><code>## [1] large  large  medium large  medium medium
 ## Levels: small medium large</code></pre>
 <h2 id="plotting-factors">Plotting factors</h2>
 <p>Some functions in R do different things if you give them different types of argument. <code>summary</code> and <code>plot</code> are examples of such functions.</p>
 <p>If we <code>plot</code> factors, R shows the proportions of each level in the factor. We can also see that R uses the order of levels we gave it in the plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes<span class="op">$</span>frame )</code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">plot</span>( diabetes<span class="op">$</span>frame )</a></code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
 <p>When we give R two factors to plot it produces a “mosaic plot” that helps us see if there is any relationship between the two factors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes<span class="op">$</span>gender, diabetes<span class="op">$</span>frame )</code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">plot</span>( diabetes<span class="op">$</span>gender, diabetes<span class="op">$</span>frame )</a></code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" /></p>
 <p><code>diabetes$diabetic</code> is logical, but we can tell R to turn it into a factor to produce this type of plot for this column as well.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes<span class="op">$</span>diabetic) )</code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">plot</span>( <span class="kw">factor</span>(diabetes<span class="op">$</span>diabetic) )</a></code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>( diabetes<span class="op">$</span>frame, <span class="kw">factor</span>(diabetes<span class="op">$</span>diabetic) )</code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">plot</span>( diabetes<span class="op">$</span>frame, <span class="kw">factor</span>(diabetes<span class="op">$</span>diabetic) )</a></code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-20-2.png" alt="plot of chunk unnamed-chunk-20" /></p>
 <h2 id="summarizing-factors">Summarizing factors</h2>
 <p>The <code>table</code> function gives us the actual numbers behind the graphical summaries we just plotted (a “contingency table”).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes<span class="op">$</span>frame)</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">table</span>(diabetes<span class="op">$</span>frame)</a></code></pre></div>
 <pre><code>## 
 ##  small medium  large 
 ##     96    155     91</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(diabetes<span class="op">$</span>diabetic, diabetes<span class="op">$</span>frame)</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">table</span>(diabetes<span class="op">$</span>diabetic, diabetes<span class="op">$</span>frame)</a></code></pre></div>
 <pre><code>##        
 ##         small medium large
 ##   FALSE    87    126    69
 ##   TRUE      7     24    19</code></pre>
 <p>Fisher’s Exact Test (<code>fisher.test</code>) or a chi-squared test (<code>chisq.test</code>) can be used to show that two factors are not independent.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">fisher.test</span>( <span class="kw">table</span>(diabetes<span class="op">$</span>diabetic, diabetes<span class="op">$</span>frame) )</code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">fisher.test</span>( <span class="kw">table</span>(diabetes<span class="op">$</span>diabetic, diabetes<span class="op">$</span>frame) )</a></code></pre></div>
 <pre><code>## 
 ##  Fisher&#39;s Exact Test for Count Data
 ## 
@@ -262,22 +262,22 @@ diabetes[    weedle ,]</code></pre></div>
 <p>We were able to summarize the dimensions (rows or columns) of a matrix with <code>apply</code>. In a data frame instead of summarizing along different dimensions, we can summarize with respect to different factor columns.</p>
 <p>We already saw how to count different levels in a factor with <code>table</code>.</p>
 <p>We can use summary functions such as <code>mean</code> with a function called <code>tapply</code>, which works similarly to <code>apply</code>. The three arguments we need are very similar to the three arguments we used with <code>apply</code>:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>The data to summarize.</li>
 <li>What we want <em>not</em> to be collapsed away in the output.</li>
 <li>The function to use to summarize the data.</li>
 </ol>
 <p>However rather than specifying a <em>dimension</em> for argument 2 we specify a <em>factor</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, diabetes<span class="op">$</span>frame, mean)</code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, diabetes<span class="op">$</span>frame, mean)</a></code></pre></div>
 <pre><code>##  small medium  large 
 ##     NA     NA     NA</code></pre>
 <p>We obtain NAs because our data contains NAs. We need to tell <code>mean</code> to ignore these. Additional arguments to <code>tapply</code> are passed to the function given, here <code>mean</code>, so we can tell <code>mean</code> to ignore NA with</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, diabetes<span class="op">$</span>frame, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, diabetes<span class="op">$</span>frame, mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>##    small   medium    large 
 ## 4.971064 5.721333 6.035795</code></pre>
 <p>The result is a vector, with names from the classifying factor. These means of a continuous measurement seem to be bearing out our earlier observation using a discrete form of the measurement, that this data show some link between body frame and diabetes prevalence.</p>
 <p>We can summarize over several factors, in which case they must be given as a list. Two factors produces a matrix. More factors would produce a higher dimensional <em>array</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, <span class="kw">list</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, <span class="kw">list</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>##          female     male
 ## small  5.042308 4.811379
 ## medium 5.490106 6.109464
@@ -296,10 +296,10 @@ diabetes[    weedle ,]</code></pre></div>
 <p>You may be starting to see that the idea of a matrix and the idea of a data frame with some factor columns are interchangeable. Depending on what we are doing, we may shift between these two representations of the same data.</p>
 <p>Modern R usage emphasizes use of data frames over matrices, as data frames are the more flexible representation. Everything we can represent with a matrix we can represent with a data frame, but not vice versa.</p>
 <p><code>tapply</code> took us from a data frame to a matrix. We can go the other way, from a matrix to a data frame, with the <code>melt</code> function in the package <code>reshape2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
-
-averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, <span class="kw">list</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)
-<span class="kw">melt</span>(averages)</code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3">averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes<span class="op">$</span>glyhb, <span class="kw">list</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender), mean, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="kw">melt</span>(averages)</a></code></pre></div>
 <pre><code>##     Var1   Var2    value
 ## 1  small female 5.042308
 ## 2 medium female 5.490106
@@ -307,8 +307,8 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes<s
 ## 4  small   male 4.811379
 ## 5 medium   male 6.109464
 ## 6  large   male 5.929811</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">counts &lt;-<span class="st"> </span><span class="kw">table</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender)
-<span class="kw">melt</span>(counts)</code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1">counts &lt;-<span class="st"> </span><span class="kw">table</span>(diabetes<span class="op">$</span>frame, diabetes<span class="op">$</span>gender)</a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="kw">melt</span>(counts)</a></code></pre></div>
 <pre><code>##     Var1   Var2 value
 ## 1  small female    66
 ## 2 medium female    96
@@ -327,8 +327,8 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes<s
 <h2 id="merging-two-data-frames">Merging two data frames</h2>
 <p>One often wishes to merge data from two different sources. We want a new data frame with columns from both of the input data frames. This is also called a <code>join</code> operation.</p>
 <p>Information about cholesterol levels for our diabetes study has been collected, and we have it in a second CSV file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/chol.csv&quot;</span>)
-<span class="kw">head</span>(cholesterol)</code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">cholesterol &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/chol.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="kw">head</span>(cholesterol)</a></code></pre></div>
 <pre><code>##   subject chol
 ## 1   S1000  203
 ## 2   S1001  165
@@ -337,23 +337,23 @@ averages &lt;-<span class="st"> </span><span class="kw">tapply</span>(diabetes<s
 ## 5   S1008  248
 ## 6   S1011  195</code></pre>
 <p>Great! We’ll just add this new column of data to our data frame.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span>diabetes
-diabetes2<span class="op">$</span>chol &lt;-<span class="st"> </span>cholesterol<span class="op">$</span>chol</code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" data-line-number="1">diabetes2 &lt;-<span class="st"> </span>diabetes</a>
+<a class="sourceLine" id="cb70-2" data-line-number="2">diabetes2<span class="op">$</span>chol &lt;-<span class="st"> </span>cholesterol<span class="op">$</span>chol</a></code></pre></div>
 <pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, chol, value = c(203L, 165L, 228L, 249L, : replacement has 362 rows, data has 354</code></pre>
 <p>Oh. The two data frames don’t have exactly the same set of subjects. We should also have checked if they were even in the same order before blithely combining them. R has shown an error this time, but there are ways to mess up like this that would not show an error. How embarassing.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(diabetes)</code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="kw">nrow</span>(diabetes)</a></code></pre></div>
 <pre><code>## [1] 354</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(cholesterol)</code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="kw">nrow</span>(cholesterol)</a></code></pre></div>
 <pre><code>## [1] 362</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>( <span class="kw">intersect</span>(diabetes<span class="op">$</span>subject, cholesterol<span class="op">$</span>subject) )</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">length</span>( <span class="kw">intersect</span>(diabetes<span class="op">$</span>subject, cholesterol<span class="op">$</span>subject) )</a></code></pre></div>
 <pre><code>## [1] 320</code></pre>
 <h3 id="inner-join-using-the-merge-function">Inner join using the <code>merge</code> function</h3>
 <p>We will have to do the best we can with the subjects that are present in both data frames (an “inner join”). The <code>merge</code> function lets us merge the data frames.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes2 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>)
-
-<span class="kw">nrow</span>(diabetes2)</code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">diabetes2 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>)</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb78-3" data-line-number="3"><span class="kw">nrow</span>(diabetes2)</a></code></pre></div>
 <pre><code>## [1] 320</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes2)</code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="kw">head</span>(diabetes2)</a></code></pre></div>
 <pre><code>##   subject glyhb   location age gender height weight  frame diabetic chol
 ## 1  S10001  4.01 Buckingham  21 female     65    169  large    FALSE  132
 ## 2  S10016  6.39 Buckingham  71 female     63    244  large    FALSE  228
@@ -361,16 +361,16 @@ diabetes2<span class="op">$</span>chol &lt;-<span class="st"> </span>cholesterol
 ## 4  S10020  7.53 Buckingham  64   male     71    225  large     TRUE  181
 ## 5   S1005  7.72 Buckingham  64   male     68    183 medium     TRUE  249
 ## 6   S1008  4.81 Buckingham  34   male     71    190  large    FALSE  248</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(diabetes2<span class="op">$</span>chol, diabetes2<span class="op">$</span>glyhb)</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">plot</span>(diabetes2<span class="op">$</span>chol, diabetes2<span class="op">$</span>glyhb)</a></code></pre></div>
 <p><img src="fig/dataframes-unnamed-chunk-30-1.png" alt="plot of chunk unnamed-chunk-30" /></p>
 <p>Note that the result is in a different order to the input. However it contains the correct rows.</p>
 <h3 id="left-join-using-the-merge-function">Left join using the <code>merge</code> function</h3>
 <p><code>merge</code> has various optional arguments that let us tweak how it operates. For example if we wanted to retain all rows from our first data frame we could specify <code>all.x=TRUE</code>. This is a “left join”.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes3 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>, <span class="dt">all.x=</span><span class="ot">TRUE</span>)
-
-<span class="kw">nrow</span>(diabetes3)</code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1">diabetes3 &lt;-<span class="st"> </span><span class="kw">merge</span>(diabetes, cholesterol, <span class="dt">by=</span><span class="st">&quot;subject&quot;</span>, <span class="dt">all.x=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb83-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb83-3" data-line-number="3"><span class="kw">nrow</span>(diabetes3)</a></code></pre></div>
 <pre><code>## [1] 354</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(diabetes3)</code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1"><span class="kw">head</span>(diabetes3)</a></code></pre></div>
 <pre><code>##   subject glyhb   location age gender height weight frame diabetic chol
 ## 1  S10000  4.83 Buckingham  23   male     76    164 small    FALSE   NA
 ## 2  S10001  4.01 Buckingham  21 female     65    169 large    FALSE  132
@@ -394,8 +394,8 @@ diabetes2<span class="op">$</span>chol &lt;-<span class="st"> </span>cholesterol
 </aside>
 <h2 id="appendix-fitting-models">Appendix: Fitting models</h2>
 <p>A <em>linear model</em> tells you how various variables can be weighted together to predict an outcome. Many statistical tests can be thought of as comparing different linear models. Fitting linear models is well beyond the scope of this course, but we briefly mention them because this is one of the major uses of R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glyhb <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>frame <span class="op">+</span><span class="st"> </span>chol, <span class="dt">data=</span>diabetes2)
-mod1</code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glyhb <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>frame <span class="op">+</span><span class="st"> </span>chol, <span class="dt">data=</span>diabetes2)</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2">mod1</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = glyhb ~ age + frame + chol, data = diabetes2)
@@ -403,7 +403,7 @@ mod1</code></pre></div>
 ## Coefficients:
 ## (Intercept)          age  framemedium   framelarge         chol  
 ##     1.83635      0.04106      0.46343      0.55637      0.00716</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod1)</code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">summary</span>(mod1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = glyhb ~ age + frame + chol, data = diabetes2)
@@ -431,8 +431,8 @@ mod1</code></pre></div>
         0.556*(frame==&quot;large&quot;) + 0.00716*chol</code></pre>
 <p>There is considerable flexibility in the choice of variables which might be combined to predict the outcome. Perhaps <code>frame</code> is not informative if we already know <code>age</code> and <code>chol</code>, or perhaps other variables have predictive value. There are ways to test these questions statistically.</p>
 <p>One problem here is that <code>glyhb</code> is skewed, and <code>lm</code> assumes errors in the model are normally distributed. A possible solution would be to try to fit a model to <code>log(glyhb)</code>. Another possible solution is to try to model the binary outcome column <code>diabetic</code> instead, using <em>logistic regression</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetic <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>frame <span class="op">+</span><span class="st"> </span>chol, <span class="dt">data=</span>diabetes2, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)
-<span class="kw">summary</span>(mod2)</code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1">mod2 &lt;-<span class="st"> </span><span class="kw">glm</span>(diabetic <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>frame <span class="op">+</span><span class="st"> </span>chol, <span class="dt">data=</span>diabetes2, <span class="dt">family=</span><span class="st">&quot;binomial&quot;</span>)</a>
+<a class="sourceLine" id="cb92-2" data-line-number="2"><span class="kw">summary</span>(mod2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = diabetic ~ age + frame + chol, family = &quot;binomial&quot;, 

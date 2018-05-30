@@ -278,6 +278,11 @@ We generally give the things in a list names. Try `list(num=42, greeting="hello"
 ```{r}
 mylist <- list(num=42, greeting="Hello, world")
 mylist$greeting
+```
+
+A final piece of special syntax for lists is `[[ ]]` to access individual elements by number. We won't be using this today, but include it for completeness.
+
+```{r}
 mylist[[2]]
 ```
 

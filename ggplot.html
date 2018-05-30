@@ -26,20 +26,20 @@
 <h1 id="plotting-with-ggplot2">Plotting with ggplot2</h1>
 <p>We already saw some of R’s built in plotting facilities with the function <code>plot</code>. A more recent and much more powerful plotting library is <code>ggplot2</code>. This implements ideas from a book called “The Grammar of Graphics”. The syntax is a little strange, but there are plenty of examples in the <a href="http://ggplot2.tidyverse.org/reference/">online documentation</a>.</p>
 <p>If <code>ggplot2</code> isn’t already installed, we need to install it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</a></code></pre></div>
 <p>We then need to load it.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
 <p>Producing a plot with ggplot2, we must give three things:</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>A data frame containing our data.</li>
 <li>How the columns of the data frame can be translated into positions, colors, sizes, and shapes of graphical elements (“aesthetics”).</li>
 <li>The actual graphical elements to display (“geometric objects”).</li>
 </ol>
 <h2 id="using-ggplot2-with-a-data-frame">Using ggplot2 with a data frame</h2>
 <p>We will be using data from <a href="https://www.gapminder.org/">Gapminder</a> on life expectancy over time in different countries. Load it with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/gapminder.csv&quot;</span>)
-
-<span class="kw">head</span>(gap)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">gap &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/gapminder.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">head</span>(gap)</a></code></pre></div>
 <pre><code>##       country continent year lifeExp      pop gdpPercap
 ## 1 Afghanistan      Asia 1952  28.801  8425333  779.4453
 ## 2 Afghanistan      Asia 1957  30.332  9240934  820.8530
@@ -48,14 +48,14 @@
 ## 5 Afghanistan      Asia 1972  36.088 13079460  739.9811
 ## 6 Afghanistan      Asia 1977  38.438 14880372  786.1134</code></pre>
 <p>Let’s make our first ggplot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
 <p>The call to <code>ggplot</code> and <code>aes</code> sets up the basics of how we are going to represent the various columns of the data frame. <code>aes</code> defines the “aesthetics”, which is how columns of the data frame map to graphical attributes such as x and y position, color, size, etc. We then literally add layers of graphics to this.</p>
 <p>You may notice that <code>aes</code> does something very odd, since its bare arguments refer to columns of the data frame as though they were variables. R functions sometimes perform <a href="http://adv-r.had.co.nz/Functions.html#lazy-evaluation">magic tricks</a> like this for the sake of allowing concise expressive code.</p>
 <p>Further aesthetics can be used. Any aesthetic can be either numeric or categorical, an appropriate scale will be used.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">color=</span>continent, <span class="dt">size=</span>pop)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">color=</span>continent, <span class="dt">size=</span>pop)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -63,51 +63,51 @@
 </div>
 <div class="panel-body">
 <p>This R code will get the data from the year 2007:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gap2007 &lt;-<span class="st"> </span>gap[ gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2007</span> ,]</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">gap2007 &lt;-<span class="st"> </span>gap[ gap<span class="op">$</span>year <span class="op">==</span><span class="st"> </span><span class="dv">2007</span> ,]</a></code></pre></div>
 <p>Create a ggplot of this with <code>gdpPercap</code> on the x-axis and <code>lifeExp</code> on the y-axis.</p>
 </div>
 </section>
 <h3 id="further-geoms">Further geoms</h3>
 <p>To draw lines, we need to use a “group” aesthetic.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country, <span class="dt">color=</span>continent)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country, <span class="dt">color=</span>continent)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
 <p>A wide variety of geoms are available. Here we show Tukey box-plots. Note again the use of the “group” aesthetic, without this ggplot will just show one big box-plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>year)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>year)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
 <p><code>geom_smooth</code> can be used to show trends.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_smooth</span>()</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_smooth</span>()</a></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;gam&#39;</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
 <p>Aesthetics can be specified globally in <code>ggplot</code>, or as the first argument to individual geoms. Here, the “group” is applied only to draw the lines, and “color” is used to produce multiple trend lines:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group=</span>country)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color=</span>continent))</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">group=</span>country)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">color=</span>continent))</a></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39;</code></pre>
 <p><img src="fig/ggplot-unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
 <h3 id="highlighting-subsets">Highlighting subsets</h3>
 <p>Geoms can be added that use a different data frame, using the <code>data=</code> argument.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">australia &lt;-<span class="st"> </span>gap[ gap<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Australia&quot;</span> ,]
-
-<span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>australia, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">australia &lt;-<span class="st"> </span>gap[ gap<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Australia&quot;</span> ,]</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp, <span class="dt">group=</span>country)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data=</span>australia, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
 <p>Notice also that the second <code>geom_line</code> has some further arguments controlling its appearance. These are <strong>not</strong> aesthetics, they are not a mapping of data to appearance, rather they are direct specification of the appearance. There isn’t an associated scale as when color was an aesthetic.</p>
 <h3 id="fine-tuning-a-plot">Fine-tuning a plot</h3>
 <p>Adding <code>labs</code> to a ggplot adjusts the labels given to the axes and legends. A plot title can also be specified.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Life expectancy&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Gapminder&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">&quot;Year&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Life expectancy&quot;</span>, <span class="dt">title=</span><span class="st">&quot;Gapminder&quot;</span>)</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
 <p>Type <code>scale_</code> and press the tab key. You will see functions giving fine-grained controls over various scales (x, y, color, etc). Limits on the scale can be set, as well as transformations (eg log10), and breaks (labelled values).</p>
 <p>Suppose we want our y-axis to start at zero.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">ggplot</span>(gap, <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>lifeExp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">    </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" /></p>
 <p>The <code>lims</code> function can also be used to set limits.</p>
 <p>Very fine grained control is possible over the appearance of ggplots, see the ggplot2 documentation for details and further examples.</p>
@@ -122,12 +122,12 @@
 </section>
 <h2 id="using-ggplot2-with-a-matrix">Using ggplot2 with a matrix</h2>
 <p>Let’s return to our first matrix example.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;r-intro-files/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)
-mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file=</span><span class="st">&quot;r-intro-files/pvc.csv&quot;</span>, <span class="dt">row.names=</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">mat &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(dat)</a></code></pre></div>
 <p><code>ggplot</code> only works with data frames, so we need to convert this matrix into data frame form, with one measurement in each row. We can convert to this “long” form with the <code>melt</code> function in the library <code>reshape2</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(reshape2)
-long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
-<span class="kw">head</span>(long)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw">head</span>(long)</a></code></pre></div>
 <pre><code>##     Var1  Var2 value
 ## 1 Resin1 Alice 36.25
 ## 2 Resin2 Alice 35.15
@@ -135,8 +135,8 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 ## 4 Resin4 Alice 29.70
 ## 5 Resin5 Alice 31.85
 ## 6 Resin6 Alice 30.20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">colnames</span>(long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;resin&quot;</span>,<span class="st">&quot;operator&quot;</span>,<span class="st">&quot;value&quot;</span>)
-<span class="kw">head</span>(long)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">colnames</span>(long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;resin&quot;</span>,<span class="st">&quot;operator&quot;</span>,<span class="st">&quot;value&quot;</span>)</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2"><span class="kw">head</span>(long)</a></code></pre></div>
 <pre><code>##    resin operator value
 ## 1 Resin1    Alice 36.25
 ## 2 Resin2    Alice 35.15
@@ -144,22 +144,22 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 ## 4 Resin4    Alice 29.70
 ## 5 Resin5    Alice 31.85
 ## 6 Resin6    Alice 30.20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_line</span>()</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value, <span class="dt">group=</span>resin, <span class="dt">color=</span>resin)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_line</span>()</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" /></p>
 <p>Notice how <code>ggplot</code> is able to use either numerical or categorical (factor) data as x and y coordinates.</p>
 <p>We have shown the entire data set as an “interaction plot”. We can directly see the whole story this data has to tell. When it is possible to plot an entire data set, this should be the first step before any summarizing and statistical testing. Even if there is too much data to plot in its entirety, it is always possible to plot a random subset.</p>
 <h2 id="faceting">Faceting</h2>
 <p>Faceting lets us quickly produce a collection of small plots. The plots all have the same scales and the eye can easily compare them.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>resin) </code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>resin) </a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)
-
-<span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>glyhb, <span class="dt">color=</span>location)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_grid</span>(frame <span class="op">~</span><span class="st"> </span>gender)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">diabetes &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;r-intro-files/diabetes.csv&quot;</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3"><span class="kw">ggplot</span>(diabetes, <span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>glyhb, <span class="dt">color=</span>location)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb24-5" data-line-number="5"><span class="st">    </span><span class="kw">facet_grid</span>(frame <span class="op">~</span><span class="st"> </span>gender)</a></code></pre></div>
 <p><img src="fig/ggplot-unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" /></p>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
@@ -173,22 +173,22 @@ long &lt;-<span class="st"> </span><span class="kw">melt</span>(mat)
 </section>
 <h2 id="saving-ggplots">Saving ggplots</h2>
 <p>Ggplots can be saved as we talked about earlier, but with one small twist to keep in mind. The act of plotting a ggplot is actually triggered when it is printed. In an interactive session we are automatically printing each value we calculate, but if you are using a for loop, or other R programming constructs, you might need to explcitly <code>print( )</code> the plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot created but not shown.</span>
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()
-
-<span class="co"># Only when we try to look at the value p is it shown</span>
-p
-
-<span class="co"># Alternatively, we can explicitly print it</span>
-<span class="kw">print</span>(p)
-
-<span class="co"># To save to a file</span>
-<span class="kw">ggsave</span>(<span class="st">&quot;test.png&quot;</span>, p)
-
-<span class="co"># or</span>
-<span class="kw">png</span>(<span class="st">&quot;test.png&quot;</span>)
-<span class="kw">print</span>(p)
-<span class="kw">dev.off</span>()</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="co"># Plot created but not shown.</span></a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(long, <span class="kw">aes</span>(<span class="dt">x=</span>operator, <span class="dt">y=</span>value)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="co"># Only when we try to look at the value p is it shown</span></a>
+<a class="sourceLine" id="cb25-5" data-line-number="5">p</a>
+<a class="sourceLine" id="cb25-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb25-7" data-line-number="7"><span class="co"># Alternatively, we can explicitly print it</span></a>
+<a class="sourceLine" id="cb25-8" data-line-number="8"><span class="kw">print</span>(p)</a>
+<a class="sourceLine" id="cb25-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb25-10" data-line-number="10"><span class="co"># To save to a file</span></a>
+<a class="sourceLine" id="cb25-11" data-line-number="11"><span class="kw">ggsave</span>(<span class="st">&quot;test.png&quot;</span>, p)</a>
+<a class="sourceLine" id="cb25-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb25-13" data-line-number="13"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb25-14" data-line-number="14"><span class="kw">png</span>(<span class="st">&quot;test.png&quot;</span>)</a>
+<a class="sourceLine" id="cb25-15" data-line-number="15"><span class="kw">print</span>(p)</a>
+<a class="sourceLine" id="cb25-16" data-line-number="16"><span class="kw">dev.off</span>()</a></code></pre></div>
         </div>
       </div>
       </article>

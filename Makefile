@@ -47,7 +47,6 @@ r-intro-files.zip : r-intro-files/*
 
 %.html : %.md _includes/*.html
 	pandoc -s -t html -fmarkdown-implicit_figures \
-	    --smart \
         --template=_layouts/page \
 		--filter=tools/filters/blockquote2div.py \
 		--filter=tools/filters/id4glossary.py \
