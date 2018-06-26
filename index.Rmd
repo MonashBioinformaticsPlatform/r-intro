@@ -2,8 +2,12 @@
 title: "Introduction to R"
 ---
 
-# Introduction to R 
+# Introduction to R, version 1 
 <img src="fig/R.jpg" width="25%" style="float: right; margin-left: 1em">
+
+<div style="font-size: 200%; margin: 2em;">
+[>>> Version 2 of this course is here >>>](https://monashdatafluency.github.io/r-intro-2/)
+</div>
 
 These are the course notes for the "Introduction to R" course given by the Monash Bioinformatics Platform.
 
